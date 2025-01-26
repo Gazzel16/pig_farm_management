@@ -1,0 +1,36 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="16dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/etCageName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Cage Name" />
+
+        <EditText
+            android:id="@+id/etCageStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Cage Status" />
+
+
+        <Button
+            android:id="@+id/btnAddCage"
+            android:layout_width="134dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:text="Add Cage" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

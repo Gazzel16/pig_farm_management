@@ -1,0 +1,46 @@
+<!-- dialog_add_pig.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Pig"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/etPigBreed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter pig breed"
+        android:inputType="text"
+        android:padding="8dp" />
+    <EditText
+        android:id="@+id/etPigWeight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter pig weight"
+        android:inputType="text"
+        android:padding="8dp" />
+    <Spinner
+        android:id="@+id/spinnerVaccinationStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:spinnerMode="dropdown"/>
+    <Button
+        android:id="@+id/btnAddPig"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Pig"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/purple_500"
+        android:textColor="@android:color/white" />
+</LinearLayout>

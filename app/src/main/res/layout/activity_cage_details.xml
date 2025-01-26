@@ -1,0 +1,47 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnAddPig"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:background="#EB0673"
+            android:text="Add Pig"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etSearchPig"
+            android:layout_width="224dp"
+            android:layout_height="37dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="179dp"
+            android:layout_toEndOf="@+id/btnAddPig"
+            android:background="@drawable/search_bar_background"
+            android:hint="Search Pig breed"
+            android:padding="7dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textColor="@android:color/black"
+            android:drawableLeft="@drawable/ic_search"
+        android:drawablePadding="7dp" />
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewPigs"
+        android:layout_width="match_parent"
+        android:layout_height="666dp" />
+</LinearLayout>

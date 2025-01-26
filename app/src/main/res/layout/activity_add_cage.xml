@@ -1,0 +1,51 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#F5F5F5">
+
+    <!-- Add Cage Button -->
+    <Button
+        android:id="@+id/btnAddCage"
+        android:layout_width="101dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="29dp"
+        android:background="#009688"
+        android:padding="7dp"
+        android:text="Add Cage"
+        android:textColor="#FFFFFF"
+        android:textSize="13sp" />
+
+    <!-- Search Cage EditText -->
+    <EditText
+        android:id="@+id/etSearchCage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/btnAddCage"
+        android:layout_marginStart="16dp"
+        android:layout_toEndOf="@id/btnAddCage"
+        android:background="@drawable/search_bar_background"
+        android:drawableLeft="@drawable/ic_search"
+        android:drawablePadding="7dp"
+        android:hint="Search Cage ID"
+        android:padding="12dp"
+        android:textColor="#333333"
+        android:textSize="16sp" />
+
+
+    <!-- RecyclerView for Cage List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewCages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etSearchCage"
+        android:layout_marginTop="16dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="64dp"
+        android:padding="8dp" />
+
+</RelativeLayout>
