@@ -16,12 +16,17 @@
             android:id="@+id/etCageName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/edt_bg"
+            android:padding="15dp"
+            android:layout_marginBottom="12dp"
             android:hint="Cage Name" />
 
         <EditText
             android:id="@+id/etCageStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/edt_bg"
+            android:padding="15dp"
             android:hint="Cage Status" />
 
 
@@ -29,7 +34,11 @@
             android:id="@+id/btnAddCage"
             android:layout_width="134dp"
             android:layout_gravity="center"
+            android:layout_marginTop="12dp"
             android:layout_height="wrap_content"
+            android:background="#009688"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             android:text="Add Cage" />
     </LinearLayout>
 

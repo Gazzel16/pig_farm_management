@@ -57,7 +57,7 @@ public class CageDetailsActivity extends AppCompatActivity {
         // Set up RecyclerView
         recyclerViewPigs = findViewById(R.id.recyclerViewPigs);
         recyclerViewPigs.setLayoutManager(new LinearLayoutManager(this));
-        pigAdapter = new PigAdapter(pigList);
+        pigAdapter = new PigAdapter(pigList, cageId);
         recyclerViewPigs.setAdapter(pigAdapter);
 
         // Load pigs from Firebase
@@ -141,10 +141,6 @@ public class CageDetailsActivity extends AppCompatActivity {
         statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerVaccinationStatus.setAdapter(statusAdapter);
 
-        // Debugging
-        Log.d("SpinnerDebug", "Adapter items: " + Arrays.toString(vaccinationStatus));
-        Log.d("SpinnerDebug", "Adapter count: " + spinnerVaccinationStatus.getAdapter().getCount());
-
         AlertDialog dialog = builder.create();
 
         btnAddPig.setOnClickListener(v -> {
@@ -153,8 +149,6 @@ public class CageDetailsActivity extends AppCompatActivity {
             String selectedStatus = spinnerVaccinationStatus.getSelectedItem() != null
                     ? spinnerVaccinationStatus.getSelectedItem().toString()
                     : "";
-
-            Log.d("SpinnerDebug", "Selected Status: " + selectedStatus);
 
             if (pigBreed.isEmpty() || pigWeightStr.isEmpty() || selectedStatus.equals("Select Status") || selectedStatus.isEmpty()) {
                 Toast.makeText(this, "Please fill in all fields and select a valid status.", Toast.LENGTH_SHORT).show();
@@ -165,10 +159,11 @@ public class CageDetailsActivity extends AppCompatActivity {
                 pigWeightStr = pigWeightStr.replace(",", ""); // Remove commas
                 double pigWeight = Double.parseDouble(pigWeightStr);
 
-                String pigId = String.format("%07d", (int)(Math.random() * 10000000));
+                // Generate a new pigId (using Firebase push() method for uniqueness)
+                String pigId = databasePigs.push().getKey(); // Automatically generates a unique ID
                 Pig newPig = new Pig(pigId, pigBreed, pigWeight, selectedStatus);
 
-
+                // Store the pig data under the pigs node with the unique pigId
                 databasePigs.child(pigId).setValue(newPig).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(this, "Pig added successfully.", Toast.LENGTH_SHORT).show();
@@ -185,6 +180,7 @@ public class CageDetailsActivity extends AppCompatActivity {
 
         dialog.show();
     }
+
 
 
 }

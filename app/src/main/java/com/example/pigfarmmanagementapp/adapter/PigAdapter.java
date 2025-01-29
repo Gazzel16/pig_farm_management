@@ -1,30 +1,53 @@
 package com.example.pigfarmmanagementapp.adapter;
 
+import android.content.ContentValues;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pigfarmmanagementapp.QRCodeGenerator;
 import com.example.pigfarmmanagementapp.R;
 import com.example.pigfarmmanagementapp.model.Pig;
+import com.google.zxing.WriterException;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import android.content.Context;  // Add this import for Context
+import android.app.AlertDialog;  // Add this import for AlertDialog
+import android.widget.Toast;
+
+import com.example.pigfarmmanagementapp.handler.EditPigHandler;
+import com.example.pigfarmmanagementapp.handler.DeletePigHandler;
 
 public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> implements Filterable {
 
     private List<Pig> pigList;
     private List<Pig> pigListFull;
+    private String cageId;
 
-    public PigAdapter(List<Pig> pigList) {
+    public PigAdapter(List<Pig> pigList, String cageId) {
         this.pigList = pigList;
         this.pigListFull = new ArrayList<>(pigList); // Make a copy for filtering
+        this.cageId = cageId; // Set the cageId
     }
 
     @NonNull
@@ -38,11 +61,126 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
     public void onBindViewHolder(@NonNull PigViewHolder holder, int position) {
         Pig pig = pigList.get(position);
 
-        // Bind the breed, weight, and status to the respective TextViews
         holder.tvPigBreed.setText("Breed: " + pig.getBreed());
         holder.tvPigWeight.setText("Weight: " + pig.getWeight() + " kg");
         holder.tvPigStatus.setText("Status: " + pig.vaccinationStatus());
+
+        holder.btnEdit.setOnClickListener(v -> {
+            // Make sure cageId is being passed correctly from the activity/fragment
+            if (cageId == null) {
+                Log.e("EditPigHandler", "cageId is null");
+                Toast.makeText(v.getContext(), "Error: cageId is missing!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            EditPigHandler.editPig(v.getContext(), pig, cageId, () -> {
+                // Code to refresh the data or notify the adapter
+                notifyDataSetChanged();
+            });
+        });
+
+
+        // Delete button functionality
+        // Delete button functionality
+        // Use holder.getAdapterPosition() when needed
+        holder.btnDelete.setOnClickListener(v -> {
+            int currentPosition = holder.getAdapterPosition();  // Get the current position dynamically
+
+            if (currentPosition != RecyclerView.NO_POSITION) {
+                // Call the delete handler with the current position
+                DeletePigHandler.deletePig(v.getContext(), pig, cageId, new Runnable() {
+                    @Override
+                    public void run() {
+                        pigList.remove(currentPosition);  // Remove the pig from the list
+                        notifyItemRemoved(currentPosition);  // Notify the adapter
+                    }
+                });
+            }
+        });
+
+        // Declare qrBitmap outside of the try block
+        Bitmap qrBitmap = null;
+
+        // Declare qrData outside of the try block
+        final String qrData = String.format("{\"id\":\"%s\", \"breed\":\"%s\", \"weight\":\"%s\", \"status\":\"%s\"}",
+                pig.getId(), pig.getBreed(), pig.getWeight(), pig.vaccinationStatus());
+
+        try {
+            // Generate QR Code
+            qrBitmap = QRCodeGenerator.generateQRCode(qrData);
+
+            // Set QR code to the ImageView
+            holder.qrCode.setImageBitmap(qrBitmap);
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
+
+        // Show modal when QR code is clicked
+        Bitmap finalQrBitmap = qrBitmap;
+        holder.qrCode.setOnClickListener(v -> {
+            if (finalQrBitmap != null) {
+                showQrCodeModal(v.getContext(), finalQrBitmap);
+            }
+        });
     }
+
+
+    private void showQrCodeModal(Context context, Bitmap qrBitmap) {
+        // Create an ImageView to hold the QR code
+        ImageView imageView = new ImageView(context);
+        imageView.setImageBitmap(qrBitmap); // Set the QR code bitmap to the ImageView
+
+        // Create the AlertDialog with the ImageView
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("QR Code")
+                .setView(imageView) // Set the ImageView as the dialog's content
+                .setPositiveButton("Close", (dialog, which) -> dialog.dismiss())
+                .setNegativeButton("Download", (dialog, which) -> {
+                    // Handle the download action when clicked
+                    downloadQRCode(context, qrBitmap);
+                })
+                .show();
+    }
+
+    private void downloadQRCode(Context context, Bitmap qrBitmap) {
+        // Define the file name for the QR code
+        String fileName = "qr_code.png";
+
+        // For Android 10 and above (Scoped storage), use MediaStore to save to the Downloads folder
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(MediaStore.Downloads.DISPLAY_NAME, fileName);  // File name
+            contentValues.put(MediaStore.Downloads.MIME_TYPE, "image/png");
+            contentValues.put(MediaStore.Downloads.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);  // Save in Downloads folder
+
+            Uri contentUri = context.getContentResolver().insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, contentValues);
+            if (contentUri != null) {
+                try (OutputStream outputStream = context.getContentResolver().openOutputStream(contentUri)) {
+                    qrBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                    outputStream.flush();
+                    Toast.makeText(context, "QR Code downloaded to Downloads folder", Toast.LENGTH_LONG).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(context, "Failed to download QR Code", Toast.LENGTH_SHORT).show();
+                }
+            }
+        } else {
+            // For Android versions below Android 10 (API 29)
+            File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+            File file = new File(directory, fileName);
+
+            // Save the QR code bitmap to the file
+            try (FileOutputStream fos = new FileOutputStream(file)) {
+                qrBitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                fos.flush();
+                Toast.makeText(context, "QR Code downloaded to " + file.getAbsolutePath(), Toast.LENGTH_LONG).show();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(context, "Failed to download QR Code", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 
     @Override
     public int getItemCount() {
@@ -51,12 +189,17 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
 
     static class PigViewHolder extends RecyclerView.ViewHolder {
         TextView tvPigBreed, tvPigWeight, tvPigStatus;
+        ImageView qrCode;
+        Button btnEdit, btnDelete;
 
         PigViewHolder(View itemView) {
             super(itemView);
             tvPigBreed = itemView.findViewById(R.id.tvPigBreed);
             tvPigWeight = itemView.findViewById(R.id.tvPigWeight);
             tvPigStatus = itemView.findViewById(R.id.tvPigStatus);
+            qrCode = itemView.findViewById(R.id.qrCode);
+            btnEdit = itemView.findViewById(R.id.btnEdit);
+            btnDelete = itemView.findViewById(R.id.btnDelete);
         }
     }
 

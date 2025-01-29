@@ -42,6 +42,8 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
+    implementation("com.google.zxing:core:3.5.2")
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0") // For Android integration
 
     // Firebase dependencies
     implementation(platform("com.google.firebase:firebase-bom:33.8.0"))

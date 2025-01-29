@@ -8,4 +8,9 @@
 
     <color name="green_blue">#009688</color>
     <color name="dark_pink">#EB0673</color>
+
+
+    <!-- Action Colors -->
+    <color name="delete">#C81F1F</color> <!-- Red for delete -->
+    <color name="edit_blue">#0664A6</color> <!-- Blue for edit -->
 </resources>

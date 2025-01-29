@@ -1,4 +1,4 @@
-<!-- dialog_add_pig.xml -->
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -31,12 +31,12 @@
         android:spinnerMode="dropdown"/>
 
     <Button
-        android:id="@+id/btnAddPig"
+        android:id="@+id/updatePig"
         android:layout_width="215dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:backgroundTint="@color/purple_500"
         android:layout_gravity="center"
-        android:text="Add Pig"
+        android:text="Update"
         android:textColor="@android:color/white" />
 </LinearLayout>

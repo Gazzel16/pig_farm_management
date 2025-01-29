@@ -34,7 +34,7 @@ public class CageAdapter extends RecyclerView.Adapter<CageAdapter.CageViewHolder
         Cage cage = cageList.get(position);
         holder.bind(cage, listener);
         holder.tvCageName.setText("Cage Name: " + cage.getName());
-        holder.tvCageStatus.setText("Cage Status:" + cage.getStatus());
+        holder.tvCageStatus.setText("Cage Status: " + cage.getStatus());
         holder.tvCageId.setText("Cage Id: " + cage.getId());
     }
 
