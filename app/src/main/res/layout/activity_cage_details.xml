@@ -43,5 +43,5 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewPigs"
         android:layout_width="match_parent"
-        android:layout_height="666dp" />
+        android:layout_height="wrap_content" />
 </LinearLayout>

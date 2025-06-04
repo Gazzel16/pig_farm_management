@@ -19,7 +19,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.pigfarmmanagementapp.QRCodeGenerator;
+import com.example.pigfarmmanagementapp.QrCode.QRCodeGenerator;
 import com.example.pigfarmmanagementapp.R;
 import com.example.pigfarmmanagementapp.model.Pig;
 import com.google.zxing.WriterException;

@@ -1,4 +1,4 @@
-package com.example.pigfarmmanagementapp;
+package com.example.pigfarmmanagementapp.QrCode;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
