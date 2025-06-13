@@ -13,4 +13,5 @@
     <!-- Action Colors -->
     <color name="delete">#C81F1F</color> <!-- Red for delete -->
     <color name="edit_blue">#0664A6</color> <!-- Blue for edit -->
+    <color name="blue_light">#82B6E2</color>
 </resources>

@@ -1,19 +1,14 @@
 package com.example.pigfarmmanagementapp.QrCode;
 
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.net.Uri;
+import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.example.pigfarmmanagementapp.R;
 import com.google.firebase.database.DataSnapshot;
@@ -24,11 +19,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class QrScannerActivity extends AppCompatActivity {
 
-    private TextView breed,weight,status;
+    private TextView breedTv, weightTv, statusTv;
     private DatabaseReference databaseReference;
-    private DataSnapshot pigSnapshot;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,106 +34,99 @@ public class QrScannerActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.qr_scanner);
 
-        breed = findViewById(R.id.breed);
-        weight = findViewById(R.id.weight);
-        status = findViewById(R.id.status);
+        breedTv = findViewById(R.id.breed);
+        weightTv = findViewById(R.id.weight);
+        statusTv = findViewById(R.id.status);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("pigs");
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Fetching pig details...");
 
         startQrScanner();
     }
 
-    private void startQrScanner(){
+    private void startQrScanner() {
         ScanOptions options = new ScanOptions();
-        options.setPrompt("Scan a Qr Code");
+        options.setPrompt("Scan a QR Code");
         options.setBeepEnabled(true);
-        Log.d("QrScanner", "Launching QR Scanner....");
+        Log.d("QrScanner", "Launching QR Scanner...");
         qrLauncher.launch(options);
     }
 
-    private final androidx.activity.result.ActivityResultLauncher<ScanOptions> qrLauncher =
-            registerForActivityResult(new ScanContract(), result ->{
-                if (result.getContents() !=null){
-                    Log.d("QrScanner", "Scanned Qr Code: " + result.getContents());
+    private final ActivityResultLauncher<ScanOptions> qrLauncher =
+            registerForActivityResult(new ScanContract(), result -> {
+                if (result.getContents() != null) {
+                    Log.d("QrScanner", "Scanned QR Code: " + result.getContents());
                     fetchPigDetails(result.getContents());
-
-                }else {
+                } else {
                     Log.d("QrScanner", "QR scan returned null");
                     Toast.makeText(this, "Scan canceled", Toast.LENGTH_SHORT).show();
-
                 }
             });
 
-    private String getFilePathFromUri(Uri uri) {
-        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-        if (cursor == null) {
-            return uri.getPath(); // Fallback to raw path if cursor is null
-        } else {
-            cursor.moveToFirst();
-            int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            String filePath = cursor.getString(index);
-            cursor.close();
-            return filePath;
-        }
-    }
+    private void fetchPigDetails(String qrContent) {
+        try {
+            Log.d("QrScanner", "QR Content Raw: " + qrContent);
 
-    private void fetchPigDetails(String qrContent){
-        Log.d("QrScanner", "Scanned Qr Content: " + qrContent);
+            JSONObject jsonObject = new JSONObject(qrContent);
 
-        String[] lines = qrContent.split("\n");
-        String pigId = null;
-
-        for (String line : lines){
-            if(line.startsWith("ID: ")){
-                pigId = line.replace("ID: ", "").trim();
-                break;
+            if (!jsonObject.has("id")) {
+                Toast.makeText(this, "Invalid QR Code: Missing 'id'", Toast.LENGTH_SHORT).show();
+                return;
             }
-        }
 
-        if (pigId == null || pigId.isEmpty()){
-            Toast.makeText(this, "Invalid Qr Code Format", Toast.LENGTH_SHORT).show();
-            return;
-        }
+            String pigId = jsonObject.optString("id", "").trim();
+            if (pigId.isEmpty()) {
+                Toast.makeText(this, "Invalid QR Code Format: Missing or empty 'id'", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-        Log.d("QrScanner", "Extracted Pig ID" + pigId);
+            progressDialog.show();
 
-        DatabaseReference pigRef = FirebaseDatabase.getInstance().getReference("pigs").child(pigId);
-        pigRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
+            // Search across all cages
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    boolean found = false;
 
-                    pigSnapshot = dataSnapshot;
-                    Log.d("QrScanner", "PigSnapshot successfully set: " + pigSnapshot);
+                    for (DataSnapshot cageSnapshot : dataSnapshot.getChildren()) {
+                        DataSnapshot pigSnapshot = cageSnapshot.child(pigId);
 
-                    String pigBreed = dataSnapshot.child("breed").getValue(String.class);
-                    String pigStatus = dataSnapshot.child("vaccinationStatus").getValue(String.class);
-                    String pigWeight = dataSnapshot.child("weight").getValue(String.class);
+                        if (pigSnapshot.exists()) {
+                            String breed = pigSnapshot.child("breed").getValue(String.class);
+                            String weight = String.valueOf(pigSnapshot.child("weight").getValue());
+                            String status = pigSnapshot.child("vaccinationStatus").getValue(String.class);
 
-                    breed.setText("Breed: " + pigBreed);
-                    status.setText("Status: " + pigStatus);
-                    weight.setText("Weight: " + pigWeight);
+                            breedTv.setText("Breed: " + breed);
+                            weightTv.setText("Weight: " + weight);
+                            statusTv.setText("Vaccination Status: " + status);
 
-                    if (ContextCompat.checkSelfPermission(QrScannerActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(QrScannerActivity.this,
-                                new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                            found = true;
+                            break; // Stop searching after finding the pig
+                        }
                     }
 
+                    progressDialog.dismiss();
+
+                    if (!found) {
+                        Toast.makeText(QrScannerActivity.this, "Pig not found", Toast.LENGTH_SHORT).show();
+                        breedTv.setText("Breed: -");
+                        weightTv.setText("Weight: -");
+                        statusTv.setText("Vaccination Status: -");
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    progressDialog.dismiss();
+                    Toast.makeText(QrScannerActivity.this, "Database error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
 
-            }
-        });
-    }
-
-    private String sanitizeKey(String key) {
-        Log.d("QrScanner", "Original Key: " + key);
-        String sanitized = key.trim().replaceAll("[.#$\\[\\]]", "").replaceAll("\\s+", "_");
-        Log.d("QrScanner", "Sanitized Key: " + sanitized);
-        return sanitized;
+        } catch (JSONException e) {
+            Toast.makeText(this, "Invalid QR Code JSON format", Toast.LENGTH_SHORT).show();
+            Log.e("QrScanner", "JSON Parsing Error: ", e);
+        }
     }
 }

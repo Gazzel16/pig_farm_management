@@ -17,7 +17,10 @@
         android:theme="@style/Theme.PigFarmManagementApp"
         tools:targetApi="31">
         <activity
-            android:name=".AddCageActivity"
+            android:name=".QrCode.QrScannerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PigTempActivity"
             android:exported="false" />
         <activity
             android:name=".CageDetailsActivity"
@@ -38,7 +41,7 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".QrCode.QrScannerActivity"
+            android:name=".AddCageActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

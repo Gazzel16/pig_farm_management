@@ -190,7 +190,7 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
     static class PigViewHolder extends RecyclerView.ViewHolder {
         TextView tvPigBreed, tvPigWeight, tvPigStatus;
         ImageView qrCode;
-        Button btnEdit, btnDelete;
+        ImageView btnEdit, btnDelete;
 
         PigViewHolder(View itemView) {
             super(itemView);
