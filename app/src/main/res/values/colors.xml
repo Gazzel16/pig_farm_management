@@ -4,14 +4,18 @@
     <color name="white">#FFFFFFFF</color>
     <color name="purple_500">#6200EE</color> <!-- Example value -->
 
-    <color name="emerald_blue">#50C878</color>
+    <color name="emerald_blue">#BEE2C8</color>
 
-    <color name="green_blue">#009688</color>
+    <color name="green_blue">#77EBDF</color>
     <color name="dark_pink">#EB0673</color>
+    <color name="pink">#D56198</color>
 
 
     <!-- Action Colors -->
     <color name="delete">#C81F1F</color> <!-- Red for delete -->
     <color name="edit_blue">#0664A6</color> <!-- Blue for edit -->
-    <color name="blue_light">#82B6E2</color>
+    <color name="blue_light">#B2CAEF</color>
+
+    <color name="orange">#E74B1A</color>
+    <color name="blue">#0B0B28</color>
 </resources>
