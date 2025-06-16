@@ -1,77 +1,53 @@
 package com.example.pigfarmmanagementapp;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Toast;
-
-import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.pigfarmmanagementapp.QrCode.QrScannerActivity;
-import com.example.pigfarmmanagementapp.adapter.CategoriesAdapter;
-import com.example.pigfarmmanagementapp.model.Categories;
-
-import java.util.ArrayList;
-import java.util.List;
+import androidx.fragment.app.Fragment;
+import com.example.pigfarmmanagementapp.AboutFragment;
+import com.example.pigfarmmanagementapp.HomeFragment;
+import com.example.pigfarmmanagementapp.SettingsFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
-LinearLayout humidLayout, tempLayout;
-    ImageView swapTemp, swapHumid;
-    RecyclerView recyclerView;
+
+    BottomNavigationView bottomNavigation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        humidLayout = findViewById(R.id.humidLayout);
-        tempLayout = findViewById(R.id.tempLayout);
+        bottomNavigation = findViewById(R.id.bottom_navigation);
 
-        swapTemp = findViewById(R.id.swapTemp);
-        swapHumid = findViewById(R.id.swapHumid);
+        // Load the default fragment
+        loadFragment(new HomeFragment());
 
-        recyclerView = findViewById(R.id.recyclerView);
+        // Set item selected listener
+        bottomNavigation.setOnItemSelectedListener(item -> {
+            Fragment selectedFragment = null;
 
-        swapHumid.setOnClickListener(v -> {
-            tempLayout.setVisibility(View.VISIBLE);
-            humidLayout.setVisibility(View.GONE);
-        });
-
-        swapTemp.setOnClickListener(v -> {
-            tempLayout.setVisibility(View.GONE);
-            humidLayout.setVisibility(View.VISIBLE);
-        });
-
-        List<Categories> categoryList = new ArrayList<>();
-
-        categoryList.add(new Categories( R.drawable.logo,"Scanner", "Scan pig ID easily"));
-        categoryList.add(new Categories(R.drawable.logo,"PigCage", "Assign pigs to cages"));
-        categoryList.add(new Categories(R.drawable.logo,"PigStatus", "Assign pigs to cages"));
-        categoryList.add(new Categories(R.drawable.logo,"Analytics", "Assign pigs to cages"));
-
-
-        CategoriesAdapter adapter = new CategoriesAdapter(categoryList, category -> {
-            if (category.getTitle().equals("Scanner")) {
-                Intent intent = new Intent(MainActivity.this, QrScannerActivity.class);
-                startActivity(intent);
+            if (item.getItemId() == R.id.home) {
+                selectedFragment = new HomeFragment();
+            } else if (item.getItemId() == R.id.about) {
+                selectedFragment = new AboutFragment();
+            } else if (item.getItemId() == R.id.nav_settings) {
+                selectedFragment = new SettingsFragment();
             }
-            if (category.getTitle().equals("PigCage")) {
-                Intent intent = new Intent(MainActivity.this, AddCageActivity.class);
-                startActivity(intent);
-            }
+
+            return loadFragment(selectedFragment);
         });
+    }
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-
-
+    private boolean loadFragment(Fragment fragment) {
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .commit();
+            return true;
+        }
+        return false;
     }
 }
