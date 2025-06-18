@@ -51,5 +51,6 @@ dependencies {
     implementation("com.google.firebase:firebase-auth") // For authentication
     implementation("com.google.firebase:firebase-database") // For Realtime Database
 
+    implementation ("org.tensorflow:tensorflow-lite:2.12.0")
 
 }

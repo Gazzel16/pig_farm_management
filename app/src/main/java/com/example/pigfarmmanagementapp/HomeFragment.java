@@ -67,6 +67,10 @@ public class HomeFragment extends Fragment {
             if (category.getTitle().equals("PigCage")) {
                 startActivity(new Intent(requireContext(), AddCageActivity.class));
             }
+
+            if (category.getTitle().equals("PigStatus")) {
+                startActivity(new Intent(requireContext(), PigAdviceActivity.class));
+            }
         });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
