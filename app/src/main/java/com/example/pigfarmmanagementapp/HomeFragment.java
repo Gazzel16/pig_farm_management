@@ -69,7 +69,13 @@ public class HomeFragment extends Fragment {
             }
 
             if (category.getTitle().equals("PigStatus")) {
-                startActivity(new Intent(requireContext(), PigAdviceActivity.class));
+                Fragment pigAdviceFragment = new PigStatusAdviceFragment(); // Use your fragment class name
+                requireActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, pigAdviceFragment) // Replace with your container ID
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 

@@ -1,5 +1,6 @@
 package com.example.pigfarmmanagementapp;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,58 +8,96 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PigStatusAdviceFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class PigStatusAdviceFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    Button pigStatusAdviceBtn;
+    TextView tempResult, humidResult, advisory, stressLevel;
+    int tempStatusResult = 36;
+    int humidStatusResult = 40;
 
     public PigStatusAdviceFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PigStatusAdviceFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PigStatusAdviceFragment newInstance(String param1, String param2) {
-        PigStatusAdviceFragment fragment = new PigStatusAdviceFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.pig_status_advice, container, false);
+        View view = inflater.inflate(R.layout.pig_status_advice, container, false);
+
+        pigStatusAdviceBtn = view.findViewById(R.id.pigStatusAdviceBtn);
+        tempResult = view.findViewById(R.id.tempResult);
+        humidResult = view.findViewById(R.id.humidResult);
+        advisory = view.findViewById(R.id.advisory);
+        stressLevel = view.findViewById(R.id.stressLevel);
+
+        tempResult.setVisibility(View.GONE);
+        humidResult.setVisibility(View.GONE);
+        advisory.setVisibility(View.GONE);
+        stressLevel.setVisibility(View.GONE);
+
+        pigStatusAdviceBtn.setOnClickListener(v -> {
+            new GenerateAdvisoryTask().execute(tempStatusResult);
+        });
+
+        return view;
+    }
+    // AsyncTask to call your Flask API
+    private class GenerateAdvisoryTask extends AsyncTask<Integer, Void, String> {
+        @Override
+        protected String doInBackground(Integer... temps) {
+            try {
+                URL url = new URL("http://192.168.1.36:5000/generate-advisory"); // Replace with your local or public IP
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                conn.setDoOutput(true);
+
+                JSONObject jsonParam = new JSONObject();
+                jsonParam.put("temperature", temps[0]);
+
+                OutputStream os = conn.getOutputStream();
+                os.write(jsonParam.toString().getBytes("UTF-8"));
+                os.close();
+
+                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                String inputLine;
+
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+                conn.disconnect();
+
+                JSONObject jsonResponse = new JSONObject(response.toString());
+                return jsonResponse.getString("advisory");
+
+            } catch (Exception e) {
+                return "Error: " + e.getMessage();
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            tempResult.setVisibility(View.VISIBLE);
+            humidResult.setVisibility(View.VISIBLE);
+            advisory.setVisibility(View.VISIBLE);
+            stressLevel.setVisibility(View.VISIBLE);
+
+            tempResult.setText("Temperature: " + tempStatusResult);
+            humidResult.setText("Humidity: " + humidStatusResult + "%");
+            advisory.setText("Advisory: " + result);
+            stressLevel.setText("Stress Level: High");
+        }
     }
 }
