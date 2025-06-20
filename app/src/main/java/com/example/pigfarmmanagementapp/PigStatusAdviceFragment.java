@@ -22,8 +22,8 @@ import java.net.URL;
 public class PigStatusAdviceFragment extends Fragment {
     Button pigStatusAdviceBtn;
     TextView tempResult, humidResult, advisory, stressLevel;
-    int tempStatusResult = 36;
-    int humidStatusResult = 40;
+    int tempStatusResult = 40;
+    int humidStatusResult = 70;
 
     public PigStatusAdviceFragment() {
         // Required empty public constructor

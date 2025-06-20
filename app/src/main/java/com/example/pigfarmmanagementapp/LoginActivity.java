@@ -3,6 +3,7 @@ package com.example.pigfarmmanagementapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -83,9 +84,9 @@ public class LoginActivity extends AppCompatActivity {
             if (task.isSuccessful()) {
                 String role = task.getResult().child("role").getValue(String.class);
                 if ("Admin".equals(role)) {
-                    startActivity(new Intent(this, AdminDashboardActivity.class));
+                    Log.d("Admin", "You are a Admin");
                 } else if ("Farmer".equals(role)) {
-                    startActivity(new Intent(this, FarmerDashboardActivity.class));
+                    Log.d("Farmer", "You are a Farmer");
                 } else {
                     Toast.makeText(this, "Role not recognized. Please try again.", Toast.LENGTH_SHORT).show();
                 }

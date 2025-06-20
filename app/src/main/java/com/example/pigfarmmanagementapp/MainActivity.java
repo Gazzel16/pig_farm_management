@@ -1,14 +1,14 @@
 package com.example.pigfarmmanagementapp;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import com.example.pigfarmmanagementapp.AboutFragment;
-import com.example.pigfarmmanagementapp.HomeFragment;
-import com.example.pigfarmmanagementapp.SettingsFragment;
+
+import com.example.pigfarmmanagementapp.DashBoardFragments.AboutFragment;
+import com.example.pigfarmmanagementapp.DashBoardFragments.HomeFragment;
+import com.example.pigfarmmanagementapp.DashBoardFragments.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 

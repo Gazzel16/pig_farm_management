@@ -1,4 +1,4 @@
-package com.example.pigfarmmanagementapp;
+package com.example.pigfarmmanagementapp.DashBoardFragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.example.pigfarmmanagementapp.AddCageActivity;
+import com.example.pigfarmmanagementapp.PigStatusAdviceFragment;
 import com.example.pigfarmmanagementapp.QrCode.QrScannerActivity;
+import com.example.pigfarmmanagementapp.R;
 import com.example.pigfarmmanagementapp.adapter.CategoriesAdapter;
 import com.example.pigfarmmanagementapp.model.Categories;
 
