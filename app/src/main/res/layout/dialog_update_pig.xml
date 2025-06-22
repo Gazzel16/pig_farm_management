@@ -1,4 +1,4 @@
-
+<!-- dialog_add_pig.xml -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -15,6 +15,17 @@
         android:background="@drawable/edt_bg"
         android:inputType="text"
         android:padding="15dp" />
+
+    <EditText
+        android:id="@+id/etPigBirthDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter pig birthdate"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/edt_bg"
+        android:inputType="text"
+        android:padding="15dp" />
+
     <EditText
         android:id="@+id/etPigWeight"
         android:layout_width="match_parent"
@@ -37,6 +48,6 @@
         android:layout_marginTop="16dp"
         android:backgroundTint="@color/purple_500"
         android:layout_gravity="center"
-        android:text="Update"
+        android:text="Add Pig"
         android:textColor="@android:color/white" />
 </LinearLayout>

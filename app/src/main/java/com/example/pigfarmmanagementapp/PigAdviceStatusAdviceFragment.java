@@ -108,9 +108,13 @@ public class PigAdviceStatusAdviceFragment extends Fragment {
         }
 
         private String cleanGeneratedText(String rawText) {
-            // Remove #, *, and - from the beginning of lines
-            return rawText.replaceAll("(?m)^[-#*]+\\s*", "");
+            // Remove all asterisks (*) and Markdown-like formatting
+            rawText = rawText.replace("*", "");         // Removes all asterisks
+            rawText = rawText.replaceAll("#+", "");     // Removes hashtags
+            rawText = rawText.replaceAll("-\\s*", "");  // Removes list dashes at line start
+            return rawText.trim();
         }
+
 
     }
 }

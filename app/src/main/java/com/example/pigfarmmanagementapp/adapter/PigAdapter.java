@@ -62,6 +62,7 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
         Pig pig = pigList.get(position);
 
         holder.tvPigBreed.setText("Breed: " + pig.getBreed());
+        holder.tvPigBirthDate.setText("B-Date: " + pig.getBirthDate());
         holder.tvPigWeight.setText("Weight: " + pig.getWeight() + " kg");
         holder.tvPigStatus.setText("Status: " + pig.vaccinationStatus());
 
@@ -188,13 +189,14 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
     }
 
     static class PigViewHolder extends RecyclerView.ViewHolder {
-        TextView tvPigBreed, tvPigWeight, tvPigStatus;
+        TextView tvPigBreed,tvPigBirthDate, tvPigWeight, tvPigStatus;
         ImageView qrCode;
         ImageView btnEdit, btnDelete;
 
         PigViewHolder(View itemView) {
             super(itemView);
             tvPigBreed = itemView.findViewById(R.id.tvPigBreed);
+            tvPigBirthDate = itemView.findViewById(R.id.tvPigBirthDate);
             tvPigWeight = itemView.findViewById(R.id.tvPigWeight);
             tvPigStatus = itemView.findViewById(R.id.tvPigStatus);
             qrCode = itemView.findViewById(R.id.qrCode);

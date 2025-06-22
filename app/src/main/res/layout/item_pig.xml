@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
     app:cardCornerRadius="8dp"
-    android:padding="12dp"
+    android:padding="8dp"
     app:cardElevation="4dp">
 
 
@@ -19,26 +19,20 @@
             android:layout_height="wrap_content"
             android:padding="8dp">
 
-            <!-- QR Image in the top-right corner -->
-
-            <!-- Main image in the center -->
-
-            <!-- Text information below the main image -->
-
-            <!-- Buttons at the bottom -->
-
-
 
             <ImageView
                 android:id="@+id/qrCode"
-                android:layout_width="70dp"
-                android:layout_height="88dp"
+                android:layout_width="90dp"
+                android:layout_height="100dp"
                 android:layout_centerHorizontal="true"
+                android:layout_marginStart="8dp"
                 android:contentDescription="Pig Image"
                 android:scaleType="centerCrop"
                 android:src="@drawable/baseline_qr_code_24"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.466" />
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -46,9 +40,10 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
-                android:padding="15dp"
+                android:padding="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/qrCode"
-                tools:layout_editor_absoluteY="3dp">
+                app:layout_constraintTop_toTopOf="parent">
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -67,15 +62,28 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/tvPigBirthDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/darker_gray"
+                        android:text="B-Date"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvPigBreed" />
+
+                    <TextView
                         android:id="@+id/tvPigWeight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="56dp"
                         android:text="Weight"
                         android:textColor="@android:color/darker_gray"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvPigBreed" />
+                        app:layout_constraintTop_toBottomOf="@+id/tvPigBirthDate"
+                        app:layout_constraintVertical_bias="0.0" />
 
                     <TextView
                         android:id="@+id/tvPigStatus"
@@ -85,8 +93,10 @@
                         android:textColor="@android:color/darker_gray"
                         android:textSize="14sp"
                         android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvPigWeight" />
+                        app:layout_constraintTop_toBottomOf="@+id/tvPigWeight"
+                        app:layout_constraintVertical_bias="0.0" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
 

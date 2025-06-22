@@ -3,6 +3,7 @@ package com.example.pigfarmmanagementapp.model;
 public class Pig {
     private String id;
     private String breed; // New field
+    private String birthDate; // New field
     private double weight; // New field
     private String vaccinationStatus; // New field
 
@@ -11,9 +12,10 @@ public class Pig {
     }
 
     // Constructor with all fields (excluding name)
-    public Pig(String id, String breed, double weight, String vaccinationStatus) {
+    public Pig(String id, String breed,String birthDate, double weight, String vaccinationStatus) {
         this.id = id;
         this.breed = breed;
+        this.birthDate = birthDate;
         this.weight = weight;
         this.vaccinationStatus = vaccinationStatus;
     }
@@ -34,6 +36,14 @@ public class Pig {
 
     public void setBreed(String breed) {
         this.breed = breed;
+    }
+
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
     }
 
     // Getter and Setter for Weight
@@ -58,4 +68,5 @@ public class Pig {
     public String vaccinationStatus() {
         return vaccinationStatus;
     }
+
 }

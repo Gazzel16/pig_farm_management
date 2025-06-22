@@ -1,5 +1,9 @@
 package com.example.pigfarmmanagementapp.adapter;
 
+import android.graphics.Color;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +17,8 @@ import com.example.pigfarmmanagementapp.R;
 import com.example.pigfarmmanagementapp.model.PigStatusAdvice;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PigStatusAdviceAdapter extends RecyclerView.Adapter<PigStatusAdviceAdapter.ViewHolder> {
 
@@ -38,6 +44,7 @@ public class PigStatusAdviceAdapter extends RecyclerView.Adapter<PigStatusAdvice
         holder.humidResult.setText("Humidity: " + status.getHumidity());
         holder.stressLevel.setText("Stress Level: " + status.getStressLevel());
         holder.advisory.setText("Advisory: " + status.getAdvisory());
+
     }
 
     @Override

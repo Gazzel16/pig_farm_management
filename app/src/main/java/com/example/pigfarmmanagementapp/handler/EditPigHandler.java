@@ -1,7 +1,9 @@
 package com.example.pigfarmmanagementapp.handler;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +15,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
+import com.example.pigfarmmanagementapp.CageDetailsActivity;
 import com.example.pigfarmmanagementapp.R;
 import com.example.pigfarmmanagementapp.model.Pig;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,13 +40,39 @@ public class EditPigHandler {
         builder.setView(dialogView);
 
         EditText etPigBreed = dialogView.findViewById(R.id.etPigBreed);
+        EditText etPigBirthDate = dialogView.findViewById(R.id.etPigBirthDate);
         EditText etPigWeight = dialogView.findViewById(R.id.etPigWeight);
         Spinner spinnerVaccinationStatus = dialogView.findViewById(R.id.spinnerVaccinationStatus);
         Button updatePig = dialogView.findViewById(R.id.updatePig);
 
         // Populate input fields
         etPigBreed.setText(pig.getBreed());
+        etPigBirthDate.setText(pig.getBirthDate());
         etPigWeight.setText(String.valueOf(pig.getWeight()));
+
+        etPigBirthDate.setInputType(InputType.TYPE_NULL); // Prevent keyboard
+        etPigBirthDate.setFocusable(false);
+
+        etPigBirthDate.setOnClickListener(v -> {
+            final Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                    v.getContext(), // ✅ Use context from the clicked view
+                    (view, selectedYear, selectedMonth, selectedDay) -> {
+                        String formattedDate = selectedYear + "-"
+                                + String.format("%02d", (selectedMonth + 1)) + "-"
+                                + String.format("%02d", selectedDay);
+                        etPigBirthDate.setText(formattedDate);
+                    },
+                    year, month, day
+            );
+
+            datePickerDialog.show();
+        });
+
 
         // Setup spinner
         String[] vaccinationStatuses = {"Unvaccinated", "Vaccinated"};
@@ -60,6 +90,7 @@ public class EditPigHandler {
 
         updatePig.setOnClickListener(v -> {
             String breed = etPigBreed.getText().toString().trim();
+            String birthDate = etPigBirthDate.getText().toString().trim();
             String weightString = etPigWeight.getText().toString().trim();
             String vaccinationStatus = spinnerVaccinationStatus.getSelectedItem() != null
                     ? spinnerVaccinationStatus.getSelectedItem().toString()
@@ -119,6 +150,7 @@ public class EditPigHandler {
             // ✅ Ensure we only send necessary fields (no "id" or "key" duplication)
             Map<String, Object> updates = new HashMap<>();
             updates.put("breed", breed);
+            updates.put("birthDate", birthDate);
             updates.put("weight", weight);
             updates.put("vaccinationStatus", vaccinationStatus);
 

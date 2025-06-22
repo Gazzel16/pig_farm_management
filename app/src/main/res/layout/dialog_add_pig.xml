@@ -15,6 +15,17 @@
         android:background="@drawable/edt_bg"
         android:inputType="text"
         android:padding="15dp" />
+
+    <EditText
+        android:id="@+id/etPigBirthDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter pig birthdate"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/edt_bg"
+        android:inputType="text"
+        android:padding="15dp" />
+
     <EditText
         android:id="@+id/etPigWeight"
         android:layout_width="match_parent"

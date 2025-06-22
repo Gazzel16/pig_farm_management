@@ -1,7 +1,11 @@
 package com.example.pigfarmmanagementapp;
 
+import static androidx.core.content.ContentProviderCompat.requireContext;
+
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +35,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 public class CageDetailsActivity extends AppCompatActivity {
@@ -131,9 +136,33 @@ public class CageDetailsActivity extends AppCompatActivity {
 
         // Reference views from dialogView
         EditText etPigBreed = dialogView.findViewById(R.id.etPigBreed);
+        EditText etPigBirthDate = dialogView.findViewById(R.id.etPigBirthDate);
         EditText etPigWeight = dialogView.findViewById(R.id.etPigWeight);
         Spinner spinnerVaccinationStatus = dialogView.findViewById(R.id.spinnerVaccinationStatus);
         Button btnAddPig = dialogView.findViewById(R.id.btnAddPig);
+
+        etPigBirthDate.setInputType(InputType.TYPE_NULL); // Prevent keyboard
+        etPigBirthDate.setFocusable(false);
+
+        etPigBirthDate.setOnClickListener(v -> {
+            final Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                    CageDetailsActivity.this, // replace with 'this' if you're inside onCreate
+                    (view, selectedYear, selectedMonth, selectedDay) -> {
+                        String formattedDate = selectedYear + "-"
+                                + String.format("%02d", (selectedMonth + 1)) + "-"
+                                + String.format("%02d", selectedDay);
+                        etPigBirthDate.setText(formattedDate);
+                    },
+                    year, month, day
+            );
+
+            datePickerDialog.show();
+        });
 
         // Spinner data
         String[] vaccinationStatus = {"Select Status", "Unvaccinated", "Vaccinated"};
@@ -145,6 +174,7 @@ public class CageDetailsActivity extends AppCompatActivity {
 
         btnAddPig.setOnClickListener(v -> {
             String pigBreed = etPigBreed.getText().toString().trim();
+            String pigBirthDate = etPigBirthDate.getText().toString().trim();
             String pigWeightStr = etPigWeight.getText().toString().trim();
             String selectedStatus = spinnerVaccinationStatus.getSelectedItem() != null
                     ? spinnerVaccinationStatus.getSelectedItem().toString()
@@ -161,7 +191,7 @@ public class CageDetailsActivity extends AppCompatActivity {
 
                 // Generate a new pigId (using Firebase push() method for uniqueness)
                 String pigId = databasePigs.push().getKey(); // Automatically generates a unique ID
-                Pig newPig = new Pig(pigId, pigBreed, pigWeight, selectedStatus);
+                Pig newPig = new Pig(pigId, pigBreed, pigBirthDate, pigWeight, selectedStatus);
 
                 // Store the pig data under the pigs node with the unique pigId
                 databasePigs.child(pigId).setValue(newPig).addOnCompleteListener(task -> {
