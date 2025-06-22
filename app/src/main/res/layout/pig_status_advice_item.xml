@@ -11,9 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="32dp"
         android:orientation="horizontal"
-        android:padding="12dp"
+        android:padding="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -37,29 +36,27 @@
                 android:text="Humidity: 40–60%"
                 app:layout_constraintStart_toEndOf="@+id/tempResult"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/stressLevel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Stress Level: Mild Heat Stress Risk"
+                app:layout_constraintTop_toBottomOf="@+id/tempResult" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/stressLevel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Stress Level: Mild Heat Stress Risk"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
 
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:orientation="horizontal"
-        android:padding="12dp"
+        android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.012"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stressLevel">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"

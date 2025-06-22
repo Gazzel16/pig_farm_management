@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.pigfarmmanagementapp.AddCageActivity;
+import com.example.pigfarmmanagementapp.PigAdviceStatusAdviceFragment;
 import com.example.pigfarmmanagementapp.PigStatusAdviceFragment;
 import com.example.pigfarmmanagementapp.QrCode.QrScannerActivity;
 import com.example.pigfarmmanagementapp.R;
@@ -72,7 +73,7 @@ public class HomeFragment extends Fragment {
             }
 
             if (category.getTitle().equals("PigStatus")) {
-                Fragment pigAdviceFragment = new PigStatusAdviceFragment(); // Use your fragment class name
+                Fragment pigAdviceFragment = new PigAdviceStatusAdviceFragment(); // Use your fragment class name
                 requireActivity()
                         .getSupportFragmentManager()
                         .beginTransaction()
