@@ -139,7 +139,11 @@ public class EditPigHandler {
 
             boolean hasChanges = !breed.equals(pig.getBreed()) ||
                     weight != pig.getWeight() ||
-                    !vaccinationStatus.equals(pig.getVaccinationStatus());
+                    !vaccinationStatus.equals(pig.getVaccinationStatus()) ||
+                    !birthDate.equals(pig.getBirthDate()); // ✅ Include this line
+
+            Log.d("DEBUG", "Old birthDate: " + pig.getBirthDate() + ", New: " + birthDate);
+
 
             if (!hasChanges) {
                 Toast.makeText(context, "No changes detected.", Toast.LENGTH_SHORT).show();
@@ -166,6 +170,7 @@ public class EditPigHandler {
                         if (task.isSuccessful()) {
                             Toast.makeText(context, "Pig details updated successfully!", Toast.LENGTH_SHORT).show();
                             pig.setBreed(breed);
+                            pig.setBirthDate(birthDate);
                             pig.setWeight(weight);
                             pig.setVaccinationStatus(vaccinationStatus);
                             if (onPigUpdated != null) onPigUpdated.run();
