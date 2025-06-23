@@ -14,8 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.pigfarmmanagementapp.AddCageActivity;
-import com.example.pigfarmmanagementapp.PigAdviceStatusAdviceFragment;
-import com.example.pigfarmmanagementapp.PigStatusAdviceFragment;
+import com.example.pigfarmmanagementapp.PigAdvisoryStatusFragment.PigAdviceStatusAdviceFragment;
 import com.example.pigfarmmanagementapp.QrCode.QrScannerActivity;
 import com.example.pigfarmmanagementapp.R;
 import com.example.pigfarmmanagementapp.adapter.CategoriesAdapter;

@@ -24,7 +24,7 @@ import org.json.JSONObject;
 
 public class QrScannerActivity extends AppCompatActivity {
 
-    private TextView breedTv, weightTv, statusTv;
+    private TextView breedTv, weightTv, statusTv, birthDateTv;
     private DatabaseReference databaseReference;
     private ProgressDialog progressDialog;
 
@@ -37,6 +37,7 @@ public class QrScannerActivity extends AppCompatActivity {
         breedTv = findViewById(R.id.breed);
         weightTv = findViewById(R.id.weight);
         statusTv = findViewById(R.id.status);
+        birthDateTv = findViewById(R.id.birthDate);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("pigs");
 
@@ -50,6 +51,7 @@ public class QrScannerActivity extends AppCompatActivity {
         ScanOptions options = new ScanOptions();
         options.setPrompt("Scan a QR Code");
         options.setBeepEnabled(true);
+        options.setCaptureActivity(QrScannerCustomSizing.class);
         Log.d("QrScanner", "Launching QR Scanner...");
         qrLauncher.launch(options);
     }
@@ -96,11 +98,13 @@ public class QrScannerActivity extends AppCompatActivity {
                         if (pigSnapshot.exists()) {
                             String breed = pigSnapshot.child("breed").getValue(String.class);
                             String weight = String.valueOf(pigSnapshot.child("weight").getValue());
+                            String birthDate = pigSnapshot.child("birthDate").getValue(String.class);
                             String status = pigSnapshot.child("vaccinationStatus").getValue(String.class);
 
                             breedTv.setText("Breed: " + breed);
                             weightTv.setText("Weight: " + weight);
-                            statusTv.setText("Vaccination Status: " + status);
+                            birthDateTv.setText("B-Date: " + birthDate);
+                            statusTv.setText("V-Status: " + status);
 
                             found = true;
                             break; // Stop searching after finding the pig
@@ -113,7 +117,8 @@ public class QrScannerActivity extends AppCompatActivity {
                         Toast.makeText(QrScannerActivity.this, "Pig not found", Toast.LENGTH_SHORT).show();
                         breedTv.setText("Breed: -");
                         weightTv.setText("Weight: -");
-                        statusTv.setText("Vaccination Status: -");
+                        birthDateTv.setText("B-Date: -");
+                        statusTv.setText("V-Status: -");
                     }
                 }
 
