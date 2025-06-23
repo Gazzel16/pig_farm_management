@@ -1,5 +1,6 @@
 package com.example.pigfarmmanagementapp.PigAdvisoryStatusFragment;
 
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.pigfarmmanagementapp.R;
 import com.example.pigfarmmanagementapp.adapter.PigStatusAdviceAdapter;
@@ -28,9 +30,12 @@ import java.util.List;
 
 public class PigAdviceStatusAdviceFragment extends Fragment {
 
-    private int tempStatusResult =50;
-    private int humidStatusResult = 70;
+    private TextView tempCondition, humidCondition, tempStatus, humidStatus;
+    private int tempStatusResult = 31;
+    private int humidStatusResult = 50;
     private Button pigStatusAdviceBtn;
+
+    private String stressLevel = "";
 
     // Make these class-level so you can access them in AsyncTask
     private List<PigStatusAdvice> pigStatusAdviceList = new ArrayList<>();
@@ -47,25 +52,96 @@ public class PigAdviceStatusAdviceFragment extends Fragment {
 
         pigStatusAdviceBtn = view.findViewById(R.id.pigStatusAdviceBtn);
 
+        tempCondition = view.findViewById(R.id.tempCondition);
+        humidCondition = view.findViewById(R.id.humidCondition);
+
+        tempStatus = view.findViewById(R.id.tempStatus);
+        humidStatus = view.findViewById(R.id.humidStatus);
+
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        if (tempStatusResult >= 25 && tempStatusResult <= 30) {
+
+            stressLevel = "Good";
+            tempStatus.setText("Status: Good");
+            MediaPlayer mediaPlayer = MediaPlayer.create(requireContext(), R.raw.good_condition);
+            mediaPlayer.start();
+
+            mediaPlayer.setOnCompletionListener(mp -> {
+                mp.release(); // Clean up after playing
+            });
+        } else if (tempStatusResult >= 31 && tempStatusResult <= 37) {
+            stressLevel = "High";
+            tempStatus.setText("Status: High");
+            MediaPlayer mediaPlayer = MediaPlayer.create(requireContext(), R.raw.high_condition);
+            mediaPlayer.start();
+
+            mediaPlayer.setOnCompletionListener(mp -> {
+                mp.release(); // Clean up after playing
+            });
+        }else if (tempStatusResult >= 38) {
+
+            stressLevel = "Danger";
+            tempStatus.setText("Status: Danger");
+
+            MediaPlayer mediaPlayer = MediaPlayer.create(requireContext(), R.raw.danger_condition);
+            mediaPlayer.start();
+
+            mediaPlayer.setOnCompletionListener(mp -> {
+                mp.release(); // Clean up after playing
+            });
+        }
+
+        if (humidStatusResult >= 60 && humidStatusResult <= 70) {
+
+            stressLevel = "Good";
+            humidStatus.setText("Status: Good");
+
+        } else if (humidStatusResult >= 50 && humidStatusResult <= 60) {
+
+            stressLevel = "High";
+            humidStatus.setText("Status: High");
+
+        }else if (humidStatusResult < 50) {
+
+            stressLevel = "Danger";
+            humidStatus.setText("Status: Danger");
+
+        }
+
+
         // Initially empty or placeholder data
-        pigStatusAdviceList.add(new PigStatusAdvice(tempStatusResult, humidStatusResult, "High", ""));
+        pigStatusAdviceList.add(new PigStatusAdvice(tempStatusResult, humidStatusResult, stressLevel, ""));
         adapter = new PigStatusAdviceAdapter(pigStatusAdviceList);
         recyclerView.setAdapter(adapter);
 
+        tempCondition.setText(String.valueOf(tempStatusResult) + "°C");
+        humidCondition.setText(String.valueOf(humidStatusResult) + "%");
+
+
         pigStatusAdviceBtn.setOnClickListener(v -> {
-            new GenerateAdvisoryTask().execute(tempStatusResult);
+            new GenerateAdvisoryTask().execute(tempStatusResult, humidStatusResult);
         });
+
 
         return view;
     }
 
     private class GenerateAdvisoryTask extends AsyncTask<Integer, Void, String> {
         @Override
-        protected String doInBackground(Integer... temps) {
+        protected String doInBackground(Integer... params) {
+
+            if (params.length < 2) {
+                return "Error: Missing temperature or humidity value.";
+            }
+
+
             try {
+
+                int temperature = params[0];
+                int humidity = params[1];
+
                 URL url = new URL("http://192.168.1.36:5000/generate-advisory");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
@@ -73,7 +149,8 @@ public class PigAdviceStatusAdviceFragment extends Fragment {
                 conn.setDoOutput(true);
 
                 JSONObject jsonParam = new JSONObject();
-                jsonParam.put("temperature", temps[0]);
+                jsonParam.put("temperature", temperature);
+                jsonParam.put("humidity", humidity);
 
                 OutputStream os = conn.getOutputStream();
                 os.write(jsonParam.toString().getBytes("UTF-8"));

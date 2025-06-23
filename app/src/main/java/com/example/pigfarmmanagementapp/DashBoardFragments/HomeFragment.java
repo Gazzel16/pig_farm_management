@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.pigfarmmanagementapp.AddCageActivity;
+import com.example.pigfarmmanagementapp.Chart.AnalyticsActivity;
 import com.example.pigfarmmanagementapp.PigAdvisoryStatusFragment.PigAdviceStatusAdviceFragment;
 import com.example.pigfarmmanagementapp.QrCode.QrScannerActivity;
 import com.example.pigfarmmanagementapp.R;
@@ -69,6 +70,9 @@ public class HomeFragment extends Fragment {
             }
             if (category.getTitle().equals("PigCage")) {
                 startActivity(new Intent(requireContext(), AddCageActivity.class));
+            }
+            if (category.getTitle().equals("Analytics")) {
+                startActivity(new Intent(requireContext(), AnalyticsActivity.class));
             }
 
             if (category.getTitle().equals("PigStatus")) {

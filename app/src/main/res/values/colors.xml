@@ -9,7 +9,7 @@
     <color name="green_blue">#77EBDF</color>
     <color name="dark_pink">#EB0673</color>
     <color name="pink">#D56198</color>
-
+    <color name="green">#4CAF50</color>
 
     <!-- Action Colors -->
     <color name="delete">#C81F1F</color> <!-- Red for delete -->
