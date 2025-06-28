@@ -28,7 +28,6 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     LinearLayout humidLayout, tempLayout;
-    ImageView swapTemp, swapHumid;
     RecyclerView recyclerView;
 
     public HomeFragment() {
@@ -43,20 +42,8 @@ public class HomeFragment extends Fragment {
         humidLayout = view.findViewById(R.id.humidLayout);
         tempLayout = view.findViewById(R.id.tempLayout);
 
-        swapTemp = view.findViewById(R.id.swapTemp);
-        swapHumid = view.findViewById(R.id.swapHumid);
-
         recyclerView = view.findViewById(R.id.recyclerView);
 
-        swapHumid.setOnClickListener(v -> {
-            tempLayout.setVisibility(View.VISIBLE);
-            humidLayout.setVisibility(View.INVISIBLE);
-        });
-
-        swapTemp.setOnClickListener(v -> {
-            tempLayout.setVisibility(View.INVISIBLE);
-            humidLayout.setVisibility(View.VISIBLE);
-        });
 
         List<Categories> categoryList = new ArrayList<>();
         categoryList.add(new Categories(R.drawable.logo, "Scanner", "Scan pig ID easily"));

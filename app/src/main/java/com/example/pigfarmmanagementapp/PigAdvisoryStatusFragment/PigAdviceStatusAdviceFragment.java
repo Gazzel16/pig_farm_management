@@ -31,8 +31,8 @@ import java.util.List;
 public class PigAdviceStatusAdviceFragment extends Fragment {
 
     private TextView tempCondition, humidCondition, tempStatus, humidStatus;
-    private int tempStatusResult = 31;
-    private int humidStatusResult = 50;
+    private int tempStatusResult = 10;
+    private int humidStatusResult = 10;
     private Button pigStatusAdviceBtn;
 
     private String stressLevel = "";
@@ -93,23 +93,6 @@ public class PigAdviceStatusAdviceFragment extends Fragment {
             });
         }
 
-        if (humidStatusResult >= 60 && humidStatusResult <= 70) {
-
-            stressLevel = "Good";
-            humidStatus.setText("Status: Good");
-
-        } else if (humidStatusResult >= 50 && humidStatusResult <= 60) {
-
-            stressLevel = "High";
-            humidStatus.setText("Status: High");
-
-        }else if (humidStatusResult < 50) {
-
-            stressLevel = "Danger";
-            humidStatus.setText("Status: Danger");
-
-        }
-
 
         // Initially empty or placeholder data
         pigStatusAdviceList.add(new PigStatusAdvice(tempStatusResult, humidStatusResult, stressLevel, ""));
@@ -119,6 +102,19 @@ public class PigAdviceStatusAdviceFragment extends Fragment {
         tempCondition.setText(String.valueOf(tempStatusResult) + "°C");
         humidCondition.setText(String.valueOf(humidStatusResult) + "%");
 
+        if (humidStatusResult >= 60 && humidStatusResult <= 70) {
+
+            humidStatus.setText("Status: Good");
+
+        } else if (humidStatusResult >= 50 && humidStatusResult <= 60) {
+
+            humidStatus.setText("Status: High");
+
+        }else if (humidStatusResult < 50) {
+
+            humidStatus.setText("Status: Danger");
+
+        }
 
         pigStatusAdviceBtn.setOnClickListener(v -> {
             new GenerateAdvisoryTask().execute(tempStatusResult, humidStatusResult);
