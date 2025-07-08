@@ -75,7 +75,23 @@ public class EditPigHandler {
 
 
         // Setup spinner
-        String[] vaccinationStatuses = {"Unvaccinated", "Vaccinated"};
+        String[] vaccinationStatuses = {
+                "Select Vaccines",
+                "Mycoplasma hyopneumoniae (Enzootic Pneumonia)",
+                "Erysipelothrix rhusiopathiae (Swine Erysipelas)",
+                "Actinobacillus pleuropneumoniae (APP)",
+                "Lawsonia intracellularis (Ileitis)",
+                "Salmonella spp.",
+                "Porcine Circovirus Type 2 (PCV2)",
+                "Porcine Reproductive and Respiratory Syndrome (PRRS)",
+                "Classical Swine Fever (CSF)",
+                "Foot-and-Mouth Disease (FMD)",
+                "Pseudorabies (Aujeszky’s Disease)",
+                "Swine Influenza (SIV)",
+                "Clostridium perfringens Type C",
+                "Escherichia coli (Neonatal Scours)",
+                "Tetanus"
+        };
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, vaccinationStatuses);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerVaccinationStatus.setAdapter(adapter);

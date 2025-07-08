@@ -89,7 +89,7 @@
                         android:id="@+id/tvPigStatus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Status"
+                        android:text="Vaccine: "
                         android:textColor="@android:color/darker_gray"
                         android:textSize="14sp"
                         android:textStyle="bold"

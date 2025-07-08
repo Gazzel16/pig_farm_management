@@ -64,7 +64,7 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
         holder.tvPigBreed.setText("Breed: " + pig.getBreed());
         holder.tvPigBirthDate.setText("B-Date: " + pig.getBirthDate());
         holder.tvPigWeight.setText("Weight: " + pig.getWeight() + " kg");
-        holder.tvPigStatus.setText("Status: " + pig.vaccinationStatus());
+        holder.tvPigStatus.setText("Vax: " + pig.vaccinationStatus());
 
         holder.btnEdit.setOnClickListener(v -> {
             // Make sure cageId is being passed correctly from the activity/fragment
@@ -97,6 +97,23 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
                     }
                 });
             }
+        });
+
+        holder.itemView.setOnLongClickListener(v -> {
+            String pigDetails = "ID: " + pig.getId() + "\n"
+                    + "Breed: " + pig.getBreed() + "\n"
+                    + "Birth Date: " + pig.getBirthDate() + "\n"
+                    + "Weight: " + pig.getWeight() + " kg\n"
+                    + "Vaccination: " + pig.vaccinationStatus();
+
+
+            new AlertDialog.Builder(v.getContext())
+                    .setTitle("Pig Details")
+                    .setMessage(pigDetails)
+                    .setPositiveButton("Close", (dialog, which) -> dialog.dismiss())
+                    .show();
+
+            return true; // Important: indicates the long-click was handled
         });
 
         // Declare qrBitmap outside of the try block

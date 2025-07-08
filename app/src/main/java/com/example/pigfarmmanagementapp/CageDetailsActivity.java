@@ -165,7 +165,23 @@ public class CageDetailsActivity extends AppCompatActivity {
         });
 
         // Spinner data
-        String[] vaccinationStatus = {"Select Status", "Unvaccinated", "Vaccinated"};
+        String[] vaccinationStatus = {
+                "Select Vaccines",
+                "Mycoplasma hyopneumoniae (Enzootic Pneumonia)",
+                "Erysipelothrix rhusiopathiae (Swine Erysipelas)",
+                "Actinobacillus pleuropneumoniae (APP)",
+                "Lawsonia intracellularis (Ileitis)",
+                "Salmonella spp.",
+                "Porcine Circovirus Type 2 (PCV2)",
+                "Porcine Reproductive and Respiratory Syndrome (PRRS)",
+                "Classical Swine Fever (CSF)",
+                "Foot-and-Mouth Disease (FMD)",
+                "Pseudorabies (Aujeszky’s Disease)",
+                "Swine Influenza (SIV)",
+                "Clostridium perfringens Type C",
+                "Escherichia coli (Neonatal Scours)",
+                "Tetanus"
+        };
         ArrayAdapter<String> statusAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, vaccinationStatus);
         statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerVaccinationStatus.setAdapter(statusAdapter);

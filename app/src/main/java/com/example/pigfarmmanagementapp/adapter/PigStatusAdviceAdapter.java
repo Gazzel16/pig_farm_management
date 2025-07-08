@@ -40,8 +40,8 @@ public class PigStatusAdviceAdapter extends RecyclerView.Adapter<PigStatusAdvice
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         PigStatusAdvice status = statusList.get(position);
-        holder.tempResult.setText("Temperature: " + status.getTemperature());
-        holder.humidResult.setText("Humidity: " + status.getHumidity());
+        holder.tempResult.setText("Temperature: " + status.getTemperature() + "° C");
+        holder.humidResult.setText("Humidity: " + status.getHumidity() + "%");
         holder.stressLevel.setText("Stress Level: " + status.getStressLevel());
         holder.advisory.setText("Advisory: " + status.getAdvisory());
 
