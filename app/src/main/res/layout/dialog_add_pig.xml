@@ -1,53 +1,99 @@
 <!-- dialog_add_pig.xml -->
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
-
-    <EditText
-        android:id="@+id/etPigBreed"
+    android:fillViewport="true">
+    
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter pig breed"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/edt_bg"
-        android:inputType="text"
-        android:padding="15dp" />
+        android:orientation="vertical"
+        android:padding="12dp">
+        <EditText
+            android:id="@+id/etPigBreed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter pig breed"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/edt_bg"
+            android:inputType="text"
+            android:padding="15dp" />
 
-    <EditText
-        android:id="@+id/etPigBirthDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter pig birthdate"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/edt_bg"
-        android:inputType="text"
-        android:padding="15dp" />
+        <Spinner
+            android:id="@+id/spinnerPigGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edt_bg"
+            android:layout_marginTop="5dp"
+            android:padding="15dp"
+            android:paddingTop="8dp"
+            android:spinnerMode="dropdown"/>
 
-    <EditText
-        android:id="@+id/etPigWeight"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter pig weight"
-        android:background="@drawable/edt_bg"
-        android:inputType="text"
-        android:padding="15dp" />
-    <Spinner
-        android:id="@+id/spinnerVaccinationStatus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:spinnerMode="dropdown"/>
+        <EditText
+            android:id="@+id/etPigBirthDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter pig birthdate"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/edt_bg"
+            android:inputType="text"
+            android:padding="15dp" />
 
-    <Button
-        android:id="@+id/btnAddPig"
-        android:layout_width="215dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/purple_500"
-        android:layout_gravity="center"
-        android:text="Add Pig"
-        android:textColor="@android:color/white" />
-</LinearLayout>
+        <EditText
+            android:id="@+id/etPigWeight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter pig weight"
+            android:background="@drawable/edt_bg"
+            android:inputType="text"
+            android:padding="15dp" />
+
+        <Spinner
+            android:id="@+id/spinnerPigIllness"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edt_bg"
+            android:layout_marginTop="8dp"
+            android:padding="15dp"
+            android:paddingTop="8dp"
+            android:spinnerMode="dropdown"/>
+
+        <Spinner
+            android:id="@+id/spinnerVaccinationStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edt_bg"
+            android:layout_marginTop="8dp"
+            android:padding="15dp"
+            android:paddingTop="8dp"
+            android:spinnerMode="dropdown"/>
+
+        <EditText
+            android:id="@+id/etPigLastCheckUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Last Checkup "
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:focusable="false"
+            android:clickable="true"
+            android:background="@drawable/edt_bg"
+            android:inputType="text"
+            android:padding="15dp" />
+
+        <Button
+            android:id="@+id/btnAddPig"
+            android:layout_width="215dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/purple_500"
+            android:layout_gravity="center"
+            android:text="Add Pig"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+
+</ScrollView>

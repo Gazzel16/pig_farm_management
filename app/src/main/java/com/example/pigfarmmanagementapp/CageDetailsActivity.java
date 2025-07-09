@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pigfarmmanagementapp.adapter.PigAdapter;
+import com.example.pigfarmmanagementapp.model.Cage;
 import com.example.pigfarmmanagementapp.model.Pig;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,6 +34,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -43,9 +45,11 @@ public class CageDetailsActivity extends AppCompatActivity {
     private RecyclerView recyclerViewPigs;
     private PigAdapter pigAdapter;
     private List<Pig> pigList = new ArrayList<>();
+    private List<Cage> cageList = new ArrayList<>();
     private List<Pig> pigListFull = new ArrayList<>(); // Declare pigListFull
     private DatabaseReference databasePigs;
     private String cageId;
+    private String cageName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,7 @@ public class CageDetailsActivity extends AppCompatActivity {
 
         // Retrieve cage information
         cageId = getIntent().getStringExtra("cageId");
+        cageName = getIntent().getStringExtra("cageName");
 
         // Initialize Firebase reference for pigs in the specific cage
         databasePigs = FirebaseDatabase.getInstance().getReference("pigs").child(cageId);
@@ -62,7 +67,7 @@ public class CageDetailsActivity extends AppCompatActivity {
         // Set up RecyclerView
         recyclerViewPigs = findViewById(R.id.recyclerViewPigs);
         recyclerViewPigs.setLayoutManager(new LinearLayoutManager(this));
-        pigAdapter = new PigAdapter(pigList, cageId);
+        pigAdapter = new PigAdapter(pigList, cageName, cageId);
         recyclerViewPigs.setAdapter(pigAdapter);
 
         // Load pigs from Firebase
@@ -138,11 +143,36 @@ public class CageDetailsActivity extends AppCompatActivity {
         EditText etPigBreed = dialogView.findViewById(R.id.etPigBreed);
         EditText etPigBirthDate = dialogView.findViewById(R.id.etPigBirthDate);
         EditText etPigWeight = dialogView.findViewById(R.id.etPigWeight);
+        Spinner spinnerPigIllness = dialogView.findViewById(R.id.spinnerPigIllness);
         Spinner spinnerVaccinationStatus = dialogView.findViewById(R.id.spinnerVaccinationStatus);
         Button btnAddPig = dialogView.findViewById(R.id.btnAddPig);
 
+        Spinner spinnerPigGender = dialogView.findViewById(R.id.spinnerPigGender);
+        EditText etPigLastCheckUp = dialogView.findViewById(R.id.etPigLastCheckUp);
+
         etPigBirthDate.setInputType(InputType.TYPE_NULL); // Prevent keyboard
         etPigBirthDate.setFocusable(false);
+
+
+        etPigLastCheckUp.setOnClickListener(v -> {
+            final Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                    CageDetailsActivity.this, // replace with 'this' if you're inside onCreate
+                    (view, selectedYear, selectedMonth, selectedDay) -> {
+                        String formattedDate = selectedYear + "-"
+                                + String.format("%02d", (selectedMonth + 1)) + "-"
+                                + String.format("%02d", selectedDay);
+                        etPigLastCheckUp.setText(formattedDate);
+                    },
+                    year, month, day
+            );
+
+            datePickerDialog.show();
+        });
 
         etPigBirthDate.setOnClickListener(v -> {
             final Calendar calendar = Calendar.getInstance();
@@ -164,6 +194,12 @@ public class CageDetailsActivity extends AppCompatActivity {
             datePickerDialog.show();
         });
 
+        String[] pigGender = {
+                "Select Gender",
+          "Male",
+          "Female"
+        };
+
         // Spinner data
         String[] vaccinationStatus = {
                 "Select Vaccines",
@@ -182,9 +218,42 @@ public class CageDetailsActivity extends AppCompatActivity {
                 "Escherichia coli (Neonatal Scours)",
                 "Tetanus"
         };
-        ArrayAdapter<String> statusAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, vaccinationStatus);
+
+        // Spinner2 data
+        String[] pigIllness = {"Select Illness",
+                "Swine Dysentery",
+                "Swine Flu (Influenza)",
+                "Porcine Reproductive and Respiratory Syndrome (PRRS)",
+                "Mycoplasma Pneumonia",
+                "Actinobacillus Pleuropneumonia (APP)",
+                "Erysipelas",
+                "Salmonellosis",
+                "Clostridial Infections",
+                "Tetanus",
+                "Neonatal Diarrhea (Scours)",
+                "Porcine Circovirus Associated Disease (PCVAD)",
+                "Foot-and-Mouth Disease (FMD)",
+                "Classical Swine Fever (CSF)",
+                "Pseudorabies (Aujeszky's Disease)",
+                "Leptospirosis",
+                "Gastric Ulcers",
+                "Greasy Pig Disease",
+                "Mastitis Metritis Agalactia (MMA)",
+                "Internal Parasites (e.g., Ascaris suum)",
+                "None"
+        };
+
+        ArrayAdapter<String> statusAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, vaccinationStatus);
         statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerVaccinationStatus.setAdapter(statusAdapter);
+
+        ArrayAdapter<String> pigIllnessAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, pigIllness);
+        pigIllnessAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerPigIllness.setAdapter(pigIllnessAdapter);
+
+        ArrayAdapter<String>pigGenderAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, pigGender);
+        pigGenderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerPigGender.setAdapter((pigGenderAdapter));
 
         AlertDialog dialog = builder.create();
 
@@ -192,11 +261,27 @@ public class CageDetailsActivity extends AppCompatActivity {
             String pigBreed = etPigBreed.getText().toString().trim();
             String pigBirthDate = etPigBirthDate.getText().toString().trim();
             String pigWeightStr = etPigWeight.getText().toString().trim();
+
+            String pigLastCheckUp = etPigLastCheckUp.getText().toString().trim();
+
+            String selectedPigGender = spinnerPigGender.getSelectedItem()
+                    != null ? spinnerPigGender.getSelectedItem().toString() : "";
+
+            String selectedPigIllness = spinnerPigIllness.getSelectedItem()
+                    != null ? spinnerPigIllness.getSelectedItem().toString() : "";
+
             String selectedStatus = spinnerVaccinationStatus.getSelectedItem() != null
                     ? spinnerVaccinationStatus.getSelectedItem().toString()
                     : "";
 
-            if (pigBreed.isEmpty() || pigWeightStr.isEmpty() || selectedStatus.equals("Select Status") || selectedStatus.isEmpty()) {
+            if (pigBreed.isEmpty()
+                    || pigWeightStr.isEmpty()
+                    || selectedStatus.equals("Select Status")
+                    || selectedStatus.isEmpty()
+                    || selectedPigGender.equals("Select Gender")
+                    || selectedPigIllness.equals("Select Illness")
+            )
+            {
                 Toast.makeText(this, "Please fill in all fields and select a valid status.", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -207,7 +292,7 @@ public class CageDetailsActivity extends AppCompatActivity {
 
                 // Generate a new pigId (using Firebase push() method for uniqueness)
                 String pigId = databasePigs.push().getKey(); // Automatically generates a unique ID
-                Pig newPig = new Pig(pigId, pigBreed, pigBirthDate, pigWeight, selectedStatus);
+                Pig newPig = new Pig(pigId, pigBreed, selectedPigGender, pigBirthDate, pigWeight,selectedPigIllness, selectedStatus, pigLastCheckUp, cageId);
 
                 // Store the pig data under the pigs node with the unique pigId
                 databasePigs.child(pigId).setValue(newPig).addOnCompleteListener(task -> {

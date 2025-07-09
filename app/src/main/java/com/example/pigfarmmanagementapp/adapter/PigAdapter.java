@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pigfarmmanagementapp.QrCode.QRCodeGenerator;
 import com.example.pigfarmmanagementapp.R;
+import com.example.pigfarmmanagementapp.model.Cage;
 import com.example.pigfarmmanagementapp.model.Pig;
 import com.google.zxing.WriterException;
 
@@ -41,12 +42,14 @@ import com.example.pigfarmmanagementapp.handler.DeletePigHandler;
 public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> implements Filterable {
 
     private List<Pig> pigList;
+    private String cageName;
     private List<Pig> pigListFull;
     private String cageId;
 
-    public PigAdapter(List<Pig> pigList, String cageId) {
+    public PigAdapter(List<Pig> pigList, String cageName, String cageId) {
         this.pigList = pigList;
         this.pigListFull = new ArrayList<>(pigList); // Make a copy for filtering
+        this.cageName = cageName;
         this.cageId = cageId; // Set the cageId
     }
 
@@ -64,7 +67,12 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
         holder.tvPigBreed.setText("Breed: " + pig.getBreed());
         holder.tvPigBirthDate.setText("B-Date: " + pig.getBirthDate());
         holder.tvPigWeight.setText("Weight: " + pig.getWeight() + " kg");
-        holder.tvPigStatus.setText("Vax: " + pig.vaccinationStatus());
+        holder.tvPigStatus.setText("Vaccine: " + pig.vaccinationStatus());
+        holder.tvPigIllness.setText("Illness: " + pig.pigIllness());
+
+        holder.tvCageName.setText("Cage: " + cageName);
+        holder.tvGender.setText("Gender: " + pig.gender());
+        holder.tvPiglastCheckUpDate.setText("Illness: " + pig.lastCheckUp());
 
         holder.btnEdit.setOnClickListener(v -> {
             // Make sure cageId is being passed correctly from the activity/fragment
@@ -102,9 +110,13 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
         holder.itemView.setOnLongClickListener(v -> {
             String pigDetails = "ID: " + pig.getId() + "\n"
                     + "Breed: " + pig.getBreed() + "\n"
+                    + "Gender: " + pig.getGender() + "\n"
                     + "Birth Date: " + pig.getBirthDate() + "\n"
                     + "Weight: " + pig.getWeight() + " kg\n"
-                    + "Vaccination: " + pig.vaccinationStatus();
+                    + "Illness: " + pig.pigIllness() + "\n"
+                    + "Vaccination: " + pig.vaccinationStatus() + "\n"
+                    + "Last Checkup: " + pig.getLastCheckUp() + "\n"
+                    + "Cage: " + cageName;
 
 
             new AlertDialog.Builder(v.getContext())
@@ -206,7 +218,9 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
     }
 
     static class PigViewHolder extends RecyclerView.ViewHolder {
-        TextView tvPigBreed,tvPigBirthDate, tvPigWeight, tvPigStatus;
+        TextView tvPigBreed,tvPigBirthDate, tvPigWeight,
+                tvPigStatus, tvPigIllness, tvGender,
+                tvPiglastCheckUpDate, tvCageName;
         ImageView qrCode;
         ImageView btnEdit, btnDelete;
 
@@ -216,9 +230,14 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
             tvPigBirthDate = itemView.findViewById(R.id.tvPigBirthDate);
             tvPigWeight = itemView.findViewById(R.id.tvPigWeight);
             tvPigStatus = itemView.findViewById(R.id.tvPigStatus);
+            tvPigIllness = itemView.findViewById(R.id.tvPigIllness);
             qrCode = itemView.findViewById(R.id.qrCode);
             btnEdit = itemView.findViewById(R.id.btnEdit);
             btnDelete = itemView.findViewById(R.id.btnDelete);
+
+            tvCageName = itemView.findViewById(R.id.tvCageName);
+            tvGender = itemView.findViewById(R.id.tvGender);
+            tvPiglastCheckUpDate = itemView.findViewById(R.id.tvPiglastCheckUpDate);
         }
     }
 

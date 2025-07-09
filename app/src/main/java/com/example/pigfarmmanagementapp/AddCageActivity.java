@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,6 +18,7 @@ import android.text.TextWatcher;
 
 import com.example.pigfarmmanagementapp.adapter.CageAdapter;
 import com.example.pigfarmmanagementapp.model.Cage;
+import com.example.pigfarmmanagementapp.model.Pig;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -31,6 +34,7 @@ public class AddCageActivity extends AppCompatActivity {
     private RecyclerView recyclerViewCages;
     private CageAdapter cageAdapter;
     private List<Cage> cageList = new ArrayList<>();
+    private List<Pig> pigList = new ArrayList<>();
     private List<Cage> filteredCageList = new ArrayList<>();
     private DatabaseReference databaseCages;
     private EditText etSearchCage;
@@ -46,17 +50,6 @@ public class AddCageActivity extends AppCompatActivity {
         // Set up RecyclerView
         recyclerViewCages = findViewById(R.id.recyclerViewCages);
         recyclerViewCages.setLayoutManager(new LinearLayoutManager(this));
-
-        cageAdapter = new CageAdapter(filteredCageList, new CageAdapter.OnCageClickListener() {
-            @Override
-            public void onCageClick(Cage cage) {
-                Intent intent = new Intent(AddCageActivity.this, CageDetailsActivity.class);
-                intent.putExtra("cageId", cage.getId());
-                intent.putExtra("cageName", cage.getName());
-                intent.putExtra("cageStatus", cage.getStatus());
-                startActivity(intent);
-            }
-        });
 
         recyclerViewCages.setAdapter(cageAdapter);
 
@@ -75,13 +68,32 @@ public class AddCageActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {}
         });
 
-        // Load cages from Firebase
-        loadCagesFromFirebase();
-
+        loadPigsAndThenCages();
         // Set listener for the "Add Cage" button
         findViewById(R.id.btnAddCage).setOnClickListener(v -> showAddCageDialog());
     }
 
+    private void loadPigsAndThenCages() {
+        DatabaseReference pigRef = FirebaseDatabase.getInstance().getReference("pigs");
+        pigRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                pigList.clear();
+                for (DataSnapshot cageSnapshot : snapshot.getChildren()) {
+                    for (DataSnapshot pigSnapshot : cageSnapshot.getChildren()) {
+                        Pig pig = pigSnapshot.getValue(Pig.class);
+                        if (pig != null) pigList.add(pig);
+                    }
+                }
+                loadCagesFromFirebase(); // ✅ Load cages only after pigs
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(AddCageActivity.this, "Failed to load pigs.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     private void loadCagesFromFirebase() {
         // Attach a listener to Firebase to get the data in real-time
         databaseCages.addValueEventListener(new ValueEventListener() {
@@ -96,7 +108,16 @@ public class AddCageActivity extends AppCompatActivity {
                 }
                 filteredCageList.clear();
                 filteredCageList.addAll(cageList);
-                cageAdapter.notifyDataSetChanged();  // Notify the adapter to update the list
+
+// Only now create and set the adapter (after cages and pigs are both loaded)
+                cageAdapter = new CageAdapter(filteredCageList, pigList, cage -> {
+                    Intent intent = new Intent(AddCageActivity.this, CageDetailsActivity.class);
+                    intent.putExtra("cageId", cage.getId());
+                    intent.putExtra("cageName", cage.getName());
+                    intent.putExtra("cageStatus", cage.getStatus());
+                    startActivity(intent);
+                });
+                recyclerViewCages.setAdapter(cageAdapter);  // Notify the adapter to update the list
             }
 
             @Override

@@ -3,21 +3,36 @@ package com.example.pigfarmmanagementapp.model;
 public class Pig {
     private String id;
     private String breed; // New field
+
+    private String gender;
     private String birthDate; // New field
     private double weight; // New field
     private String vaccinationStatus; // New field
+
+    private String pigIllness;
+
+    private String lastCheckUp;
+
+    private String cageId;
 
     // Default constructor
     public Pig() {
     }
 
     // Constructor with all fields (excluding name)
-    public Pig(String id, String breed,String birthDate, double weight, String vaccinationStatus) {
+    public Pig(String id, String breed,String gender, String birthDate,
+               double weight, String pigIllness, String vaccinationStatus,
+               String lastCheckUp, String cageId) {
         this.id = id;
         this.breed = breed;
+        this.gender = gender;
         this.birthDate = birthDate;
         this.weight = weight;
+        this.pigIllness = pigIllness;
         this.vaccinationStatus = vaccinationStatus;
+        this.lastCheckUp = lastCheckUp;
+        this.cageId = cageId;
+
     }
 
     // Getter and Setter for ID
@@ -69,4 +84,52 @@ public class Pig {
         return vaccinationStatus;
     }
 
+    //Pig Illness
+    public void setPigIllness(String pigIllness) {
+        this.pigIllness = pigIllness;
+    }
+    public String getPigIllness(){
+        return pigIllness;
+    }
+    public  String pigIllness(){
+        return pigIllness;
+    }
+
+    //Pig Gender
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String gender(){
+        return gender;
+    }
+
+    //Last CheckUp
+
+    public void setLastCheckUp(String lastCheckUp) {
+        this.lastCheckUp = lastCheckUp;
+    }
+
+    public String getLastCheckUp() {
+        return lastCheckUp;
+    }
+
+    public String lastCheckUp(){
+        return lastCheckUp;
+    }
+
+    //Cage
+    public String getCageId() {
+        return cageId;
+    }
+
+    // Optional: Setter
+    public void setCageId(String cageId) {
+        this.cageId = cageId;
+    }
 }
