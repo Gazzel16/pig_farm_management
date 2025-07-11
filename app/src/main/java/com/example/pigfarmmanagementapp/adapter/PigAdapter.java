@@ -74,6 +74,13 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
         holder.tvGender.setText("Gender: " + pig.gender());
         holder.tvPiglastCheckUpDate.setText("Illness: " + pig.lastCheckUp());
 
+        if (pig.isPurchase()) {
+            holder.sold.setVisibility(View.VISIBLE);
+        } else {
+            holder.sold.setVisibility(View.GONE);
+        }
+
+
         holder.btnEdit.setOnClickListener(v -> {
             // Make sure cageId is being passed correctly from the activity/fragment
             if (cageId == null) {
@@ -225,7 +232,7 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
         TextView tvPigBreed,tvPigBirthDate, tvPigWeight,
                 tvPigStatus, tvPigIllness, tvGender,
                 tvPiglastCheckUpDate, tvCageName;
-        ImageView qrCode;
+        ImageView qrCode, sold;
         ImageView btnEdit, btnDelete;
 
         PigViewHolder(View itemView) {
@@ -242,6 +249,8 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
             tvCageName = itemView.findViewById(R.id.tvCageName);
             tvGender = itemView.findViewById(R.id.tvGender);
             tvPiglastCheckUpDate = itemView.findViewById(R.id.tvPiglastCheckUpDate);
+
+            sold = itemView.findViewById(R.id.sold);
         }
     }
 

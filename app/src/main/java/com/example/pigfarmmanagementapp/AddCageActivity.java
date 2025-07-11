@@ -81,10 +81,17 @@ public class AddCageActivity extends AppCompatActivity {
                 pigList.clear();
                 for (DataSnapshot cageSnapshot : snapshot.getChildren()) {
                     for (DataSnapshot pigSnapshot : cageSnapshot.getChildren()) {
+                        Object rawPig = pigSnapshot.getValue();
+                        if (rawPig instanceof Boolean) {
+                            // Skip if this child is just a "purchase" field (boolean)
+                            continue;
+                        }
+
                         Pig pig = pigSnapshot.getValue(Pig.class);
                         if (pig != null) pigList.add(pig);
                     }
                 }
+
                 loadCagesFromFirebase(); // ✅ Load cages only after pigs
             }
 

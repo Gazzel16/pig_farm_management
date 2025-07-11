@@ -124,10 +124,13 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/button3"
-                android:layout_width="match_parent"
+                android:id="@+id/purchase"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Purchase Pig"
+                android:gravity="center"
+                android:foregroundGravity="center"
+                android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

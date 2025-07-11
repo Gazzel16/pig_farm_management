@@ -15,6 +15,8 @@ public class Pig {
 
     private String cageId;
 
+    private boolean purchase = false;
+
     // Default constructor
     public Pig() {
     }
@@ -22,7 +24,7 @@ public class Pig {
     // Constructor with all fields (excluding name)
     public Pig(String id, String breed,String gender, String birthDate,
                double weight, String pigIllness, String vaccinationStatus,
-               String lastCheckUp, String cageId) {
+               String lastCheckUp, String cageId,  boolean purchase) {
         this.id = id;
         this.breed = breed;
         this.gender = gender;
@@ -32,6 +34,7 @@ public class Pig {
         this.vaccinationStatus = vaccinationStatus;
         this.lastCheckUp = lastCheckUp;
         this.cageId = cageId;
+        this.purchase = purchase;
 
     }
 
@@ -131,5 +134,13 @@ public class Pig {
     // Optional: Setter
     public void setCageId(String cageId) {
         this.cageId = cageId;
+    }
+
+    public boolean isPurchase() {
+        return purchase;
+    }
+
+    public void setPurchase(boolean purchase) {
+        this.purchase = purchase;
     }
 }

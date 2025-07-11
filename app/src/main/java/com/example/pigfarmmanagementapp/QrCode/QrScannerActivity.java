@@ -1,8 +1,13 @@
 package com.example.pigfarmmanagementapp.QrCode;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,8 +30,16 @@ import org.json.JSONObject;
 public class QrScannerActivity extends AppCompatActivity {
 
     private TextView breedTv, weightTv, statusTv, birthDateTv, genderTv, lastCheckUpTv, illnessTv;
+
+    private Button purchase;
+
+    private boolean isPurchase = true;
+    private String pigId;
+
+    private String cageId;
     private DatabaseReference databaseReference;
     private ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +52,67 @@ public class QrScannerActivity extends AppCompatActivity {
         statusTv = findViewById(R.id.status);
         birthDateTv = findViewById(R.id.birthDate);
 
+        purchase = findViewById(R.id.purchase);
+
         genderTv = findViewById(R.id.gender);
         lastCheckUpTv = findViewById(R.id.lastCheckUp);
         illnessTv = findViewById(R.id.illness);
+
+        pigId = getIntent().getStringExtra("id");
 
         databaseReference = FirebaseDatabase.getInstance().getReference("pigs");
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Fetching pig details...");
+
+
+        purchase.setOnClickListener(view -> {
+            if (pigId == null || pigId.isEmpty()) {
+                Toast.makeText(this, "Pig ID not available yet. Please scan a pig QR code first.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (cageId == null) {
+                Toast.makeText(this, "Cage ID not available.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+
+            View dialogView = LayoutInflater.from(this).inflate(R.layout.item_buyer, null);
+            AlertDialog buyerDialog = new AlertDialog.Builder(this)
+                    .setView(dialogView)
+                    .setCancelable(false)
+                    .create();
+
+// Find your views from the custom layout
+            EditText etBuyerName = dialogView.findViewById(R.id.etBuyerName);
+            EditText etBuyerContact = dialogView.findViewById(R.id.etBuyerContact);
+            Button btnConfirmPurchase = dialogView.findViewById(R.id.purchase); // This is your custom button
+
+            btnConfirmPurchase.setOnClickListener(v -> {
+                String buyerName = etBuyerName.getText().toString().trim();
+                String buyerContact = etBuyerContact.getText().toString().trim();
+
+                if (buyerName.isEmpty() || buyerContact.isEmpty()) {
+                    Toast.makeText(this, "Please fill in all buyer details", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                isPurchase = true;
+
+                DatabaseReference pigRef = databaseReference.child(cageId).child(pigId);
+                pigRef.child("purchase").setValue(true);
+                pigRef.child("buyerName").setValue(buyerName);
+                pigRef.child("buyerContact").setValue(buyerContact);
+
+
+                buyerDialog.dismiss(); // ✅ Close the dialog after saving
+            });
+
+            buyerDialog.show();
+
+        });
+
 
         startQrScanner();
     }
@@ -82,11 +148,12 @@ public class QrScannerActivity extends AppCompatActivity {
                 return;
             }
 
-            String pigId = jsonObject.optString("id", "").trim();
+            pigId = jsonObject.optString("id", "").trim();
             if (pigId.isEmpty()) {
                 Toast.makeText(this, "Invalid QR Code Format: Missing or empty 'id'", Toast.LENGTH_SHORT).show();
                 return;
             }
+
 
             progressDialog.show();
 
@@ -100,6 +167,8 @@ public class QrScannerActivity extends AppCompatActivity {
                         DataSnapshot pigSnapshot = cageSnapshot.child(pigId);
 
                         if (pigSnapshot.exists()) {
+                            cageId = cageSnapshot.getKey();
+
                             String breed = pigSnapshot.child("breed").getValue(String.class);
                             String weight = String.valueOf(pigSnapshot.child("weight").getValue());
                             String birthDate = pigSnapshot.child("birthDate").getValue(String.class);
@@ -109,6 +178,10 @@ public class QrScannerActivity extends AppCompatActivity {
                             String illness = pigSnapshot.child("pigIllness").getValue(String.class);
                             String lastCheckUp = pigSnapshot.child("lastCheckUp").getValue(String.class);
 
+                            // ✅ Get the purchase value (default to false if null)
+                            Boolean purchaseValue = pigSnapshot.child("purchase").getValue(Boolean.class);
+                            isPurchase = (purchaseValue != null) ? purchaseValue : false;
+
                             breedTv.setText("Breed: " + breed);
                             weightTv.setText("Weight: " + weight);
                             birthDateTv.setText("B-Date: " + birthDate);
@@ -117,6 +190,14 @@ public class QrScannerActivity extends AppCompatActivity {
                             genderTv.setText("Gender: " + gender);
                             illnessTv.setText("Illness: " + illness);
                             lastCheckUpTv.setText("Last CheckUp: " + lastCheckUp);
+
+                            if (isPurchase) {
+                                purchase.setEnabled(false);
+                                purchase.setText("You purchased this pig");
+                            } else {
+                                purchase.setEnabled(true);
+                                purchase.setText("Purchase");
+                            }
 
                             found = true;
                             break; // Stop searching after finding the pig
