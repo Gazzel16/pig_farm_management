@@ -74,6 +74,8 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
         holder.tvGender.setText("Gender: " + pig.gender());
         holder.tvPiglastCheckUpDate.setText("Illness: " + pig.lastCheckUp());
 
+        holder.tvBuyerName1.setText("Buyer: " + pig.getBuyerName());
+
         if (pig.isPurchase()) {
             holder.sold.setVisibility(View.VISIBLE);
         } else {
@@ -127,6 +129,9 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
             ((TextView) dialogView.findViewById(R.id.tvPigVaccine)).setText("Vaccination: " + pig.getVaccinationStatus());
             ((TextView) dialogView.findViewById(R.id.tvPigCheckup)).setText("Last Checkup: " + pig.getLastCheckUp());
             ((TextView) dialogView.findViewById(R.id.tvPigCage)).setText("Cage: " + cageName);
+
+            ((TextView) dialogView.findViewById(R.id.buyerName)).setText("Buyer Name: " + pig.getBuyerName());
+            ((TextView) dialogView.findViewById(R.id.buyerContact)).setText("Buyer Contact: " + pig.getBuyerContact());
 
             AlertDialog dialog = new AlertDialog.Builder(v.getContext())
                     .setView(dialogView)
@@ -231,7 +236,7 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
     static class PigViewHolder extends RecyclerView.ViewHolder {
         TextView tvPigBreed,tvPigBirthDate, tvPigWeight,
                 tvPigStatus, tvPigIllness, tvGender,
-                tvPiglastCheckUpDate, tvCageName;
+                tvPiglastCheckUpDate, tvCageName, tvBuyerName, tvBuyerContact, tvBuyerName1;
         ImageView qrCode, sold;
         ImageView btnEdit, btnDelete;
 
@@ -249,6 +254,13 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
             tvCageName = itemView.findViewById(R.id.tvCageName);
             tvGender = itemView.findViewById(R.id.tvGender);
             tvPiglastCheckUpDate = itemView.findViewById(R.id.tvPiglastCheckUpDate);
+
+            tvBuyerName = itemView.findViewById(R.id.buyerName);
+            tvBuyerContact = itemView.findViewById(R.id.buyerContact);
+
+            tvBuyerName1 = itemView.findViewById(R.id.tvBuyerName1);
+
+
 
             sold = itemView.findViewById(R.id.sold);
         }
