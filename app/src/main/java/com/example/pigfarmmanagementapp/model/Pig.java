@@ -17,6 +17,12 @@ public class Pig {
 
     private boolean purchase = false;
 
+    private String buyerName;
+    private String buyerContact;
+
+    private String purchaseDateTime;
+
+
     // Default constructor
     public Pig() {
     }
@@ -24,7 +30,8 @@ public class Pig {
     // Constructor with all fields (excluding name)
     public Pig(String id, String breed,String gender, String birthDate,
                double weight, String pigIllness, String vaccinationStatus,
-               String lastCheckUp, String cageId,  boolean purchase) {
+               String lastCheckUp, String cageId,  boolean purchase,
+               String buyerName, String buyerContact, String purchaseDateTime) {
         this.id = id;
         this.breed = breed;
         this.gender = gender;
@@ -35,6 +42,10 @@ public class Pig {
         this.lastCheckUp = lastCheckUp;
         this.cageId = cageId;
         this.purchase = purchase;
+
+        this.buyerName = buyerName;
+        this.buyerContact = buyerContact;
+        this.purchaseDateTime = purchaseDateTime;
 
     }
 
@@ -136,6 +147,7 @@ public class Pig {
         this.cageId = cageId;
     }
 
+    //Purchase Field
     public boolean isPurchase() {
         return purchase;
     }
@@ -143,4 +155,31 @@ public class Pig {
     public void setPurchase(boolean purchase) {
         this.purchase = purchase;
     }
+
+    //Buyer name Field
+    public String getBuyerName() {
+        return buyerName;
+    }
+
+    public void setBuyerName(String buyerName) {
+        this.buyerName = buyerName;
+    }
+
+    //Buyer Field
+    public String getBuyerContact() {
+        return buyerContact;
+    }
+
+    public void setBuyerContact(String buyerContact) {
+        this.buyerContact = buyerContact;
+    }
+
+    public String getPurchaseDateTime() {
+        return purchaseDateTime;
+    }
+
+    public void setPurchaseDateTime(String buyerContact) {
+        this.purchaseDateTime = purchaseDateTime;
+    }
+
 }

@@ -16,6 +16,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.pigfarmmanagementapp.R;
+import com.example.pigfarmmanagementapp.model.Pig;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +27,11 @@ import com.journeyapps.barcodescanner.ScanOptions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.logging.SimpleFormatter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class QrScannerActivity extends AppCompatActivity {
 
@@ -100,10 +106,16 @@ public class QrScannerActivity extends AppCompatActivity {
 
                 isPurchase = true;
 
+                String currentDateTime = new SimpleDateFormat("yyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
                 DatabaseReference pigRef = databaseReference.child(cageId).child(pigId);
+
                 pigRef.child("purchase").setValue(true);
                 pigRef.child("buyerName").setValue(buyerName);
                 pigRef.child("buyerContact").setValue(buyerContact);
+                pigRef.child("purchaseDateTime").setValue(currentDateTime);
+
+                purchase.setEnabled(false);
+                purchase.setText("Thank you for purchasing this pig");
 
 
                 buyerDialog.dismiss(); // ✅ Close the dialog after saving
@@ -166,8 +178,16 @@ public class QrScannerActivity extends AppCompatActivity {
                     for (DataSnapshot cageSnapshot : dataSnapshot.getChildren()) {
                         DataSnapshot pigSnapshot = cageSnapshot.child(pigId);
 
+
                         if (pigSnapshot.exists()) {
                             cageId = cageSnapshot.getKey();
+
+                            Pig pig = pigSnapshot.getValue(Pig.class);
+
+                            if (pig == null) {
+                                Toast.makeText(QrScannerActivity.this, "Failed to load pig data", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
 
                             String breed = pigSnapshot.child("breed").getValue(String.class);
                             String weight = String.valueOf(pigSnapshot.child("weight").getValue());
@@ -193,7 +213,7 @@ public class QrScannerActivity extends AppCompatActivity {
 
                             if (isPurchase) {
                                 purchase.setEnabled(false);
-                                purchase.setText("You purchased this pig");
+                                purchase.setText(pig.getBuyerName() + " purchased this pig");
                             } else {
                                 purchase.setEnabled(true);
                                 purchase.setText("Purchase");

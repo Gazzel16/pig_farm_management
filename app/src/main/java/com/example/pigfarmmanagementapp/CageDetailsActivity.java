@@ -50,7 +50,12 @@ public class CageDetailsActivity extends AppCompatActivity {
     private DatabaseReference databasePigs;
     private String cageId;
 
+    private String buyerName;
+    private String buyerContact;
     private boolean isPurchase;
+
+    private String purchaseDateTime;
+
     private String cageName;
 
     @Override
@@ -294,7 +299,7 @@ public class CageDetailsActivity extends AppCompatActivity {
 
                 // Generate a new pigId (using Firebase push() method for uniqueness)
                 String pigId = databasePigs.push().getKey(); // Automatically generates a unique ID
-                Pig newPig = new Pig(pigId, pigBreed, selectedPigGender, pigBirthDate, pigWeight,selectedPigIllness, selectedStatus, pigLastCheckUp, cageId, isPurchase);
+                Pig newPig = new Pig(pigId, pigBreed, selectedPigGender, pigBirthDate, pigWeight,selectedPigIllness, selectedStatus, pigLastCheckUp, cageId, isPurchase, buyerName, buyerContact, purchaseDateTime);
 
                 // Store the pig data under the pigs node with the unique pigId
                 databasePigs.child(pigId).setValue(newPig).addOnCompleteListener(task -> {
