@@ -275,9 +275,9 @@ public class CageDetailsActivity extends AppCompatActivity {
                     : "";
 
             if (pigBreed.isEmpty()
-                    || pigWeightStr.isEmpty()
                     || selectedStatus.equals("Select Status")
-                    || selectedStatus.isEmpty()
+                    || pigWeightStr.isEmpty()
+                  || selectedStatus.isEmpty()
                     || selectedPigGender.equals("Select Gender")
                     || selectedPigIllness.equals("Select Illness")
             )

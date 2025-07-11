@@ -24,7 +24,7 @@ import org.json.JSONObject;
 
 public class QrScannerActivity extends AppCompatActivity {
 
-    private TextView breedTv, weightTv, statusTv, birthDateTv;
+    private TextView breedTv, weightTv, statusTv, birthDateTv, genderTv, lastCheckUpTv, illnessTv;
     private DatabaseReference databaseReference;
     private ProgressDialog progressDialog;
 
@@ -38,6 +38,10 @@ public class QrScannerActivity extends AppCompatActivity {
         weightTv = findViewById(R.id.weight);
         statusTv = findViewById(R.id.status);
         birthDateTv = findViewById(R.id.birthDate);
+
+        genderTv = findViewById(R.id.gender);
+        lastCheckUpTv = findViewById(R.id.lastCheckUp);
+        illnessTv = findViewById(R.id.illness);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("pigs");
 
@@ -101,10 +105,18 @@ public class QrScannerActivity extends AppCompatActivity {
                             String birthDate = pigSnapshot.child("birthDate").getValue(String.class);
                             String status = pigSnapshot.child("vaccinationStatus").getValue(String.class);
 
+                            String gender = pigSnapshot.child("gender").getValue(String.class);
+                            String illness = pigSnapshot.child("pigIllness").getValue(String.class);
+                            String lastCheckUp = pigSnapshot.child("lastCheckUp").getValue(String.class);
+
                             breedTv.setText("Breed: " + breed);
                             weightTv.setText("Weight: " + weight);
                             birthDateTv.setText("B-Date: " + birthDate);
                             statusTv.setText("V-Status: " + status);
+
+                            genderTv.setText("Gender: " + gender);
+                            illnessTv.setText("Illness: " + illness);
+                            lastCheckUpTv.setText("Last CheckUp: " + lastCheckUp);
 
                             found = true;
                             break; // Stop searching after finding the pig
@@ -119,6 +131,10 @@ public class QrScannerActivity extends AppCompatActivity {
                         weightTv.setText("Weight: -");
                         birthDateTv.setText("B-Date: -");
                         statusTv.setText("V-Status: -");
+
+                        genderTv.setText("Gender: -" );
+                        illnessTv.setText("Illness: -");
+                        lastCheckUpTv.setText("Last CheckU: -");
                     }
                 }
 

@@ -108,25 +108,29 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
         });
 
         holder.itemView.setOnLongClickListener(v -> {
-            String pigDetails = "ID: " + pig.getId() + "\n"
-                    + "Breed: " + pig.getBreed() + "\n"
-                    + "Gender: " + pig.getGender() + "\n"
-                    + "Birth Date: " + pig.getBirthDate() + "\n"
-                    + "Weight: " + pig.getWeight() + " kg\n"
-                    + "Illness: " + pig.pigIllness() + "\n"
-                    + "Vaccination: " + pig.vaccinationStatus() + "\n"
-                    + "Last Checkup: " + pig.getLastCheckUp() + "\n"
-                    + "Cage: " + cageName;
+            View dialogView = LayoutInflater.from(v.getContext())
+                    .inflate(R.layout.dialog_pig_details, null);
+
+            ((TextView) dialogView.findViewById(R.id.tvPigId)).setText("ID: " + pig.getId());
+            ((TextView) dialogView.findViewById(R.id.tvPigBreed)).setText("Breed: " + pig.getBreed());
+            ((TextView) dialogView.findViewById(R.id.tvPigGender)).setText("Gender: " + pig.getGender());
+            ((TextView) dialogView.findViewById(R.id.tvPigBirthDate)).setText("Birth Date: " + pig.getBirthDate());
+            ((TextView) dialogView.findViewById(R.id.tvPigWeight)).setText("Weight: " + pig.getWeight() + " kg");
+            ((TextView) dialogView.findViewById(R.id.tvPigIllness)).setText("Illness: " + pig.getPigIllness());
+            ((TextView) dialogView.findViewById(R.id.tvPigVaccine)).setText("Vaccination: " + pig.getVaccinationStatus());
+            ((TextView) dialogView.findViewById(R.id.tvPigCheckup)).setText("Last Checkup: " + pig.getLastCheckUp());
+            ((TextView) dialogView.findViewById(R.id.tvPigCage)).setText("Cage: " + cageName);
+
+            AlertDialog dialog = new AlertDialog.Builder(v.getContext())
+                    .setView(dialogView)
+                    .create();
+
+            dialog.show();
 
 
-            new AlertDialog.Builder(v.getContext())
-                    .setTitle("Pig Details")
-                    .setMessage(pigDetails)
-                    .setPositiveButton("Close", (dialog, which) -> dialog.dismiss())
-                    .show();
-
-            return true; // Important: indicates the long-click was handled
+            return true;
         });
+
 
         // Declare qrBitmap outside of the try block
         Bitmap qrBitmap = null;

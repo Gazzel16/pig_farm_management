@@ -29,22 +29,22 @@
                 android:id="@+id/imageHandler"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.38"
+                app:layout_constraintVertical_bias="0.053"
                 app:srcCompat="@drawable/pig" />
 
             <LinearLayout
+                android:id="@+id/linearLayout11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="4dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.057"
-                app:layout_constraintStart_toEndOf="@+id/imageHandler"
-                app:layout_constraintTop_toTopOf="parent">
+                android:padding="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/imageHandler"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.634">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
@@ -67,19 +67,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
-                        android:textColor="@color/white"
                         android:text="Weight: "
+                        android:textColor="@color/white"
                         android:textSize="18sp"
                         app:layout_constraintStart_toEndOf="@+id/imageHandler"
-                        app:layout_constraintTop_toBottomOf="@+id/breed" />
+                        app:layout_constraintTop_toBottomOf="@+id/gender" />
 
                     <TextView
                         android:id="@+id/birthDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:textColor="@color/white"
                         android:text="B-date: "
+                        android:textColor="@color/white"
                         android:textSize="18sp"
                         app:layout_constraintStart_toEndOf="@+id/imageHandler"
                         app:layout_constraintTop_toBottomOf="@+id/weight" />
@@ -89,16 +89,51 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
+                        android:text="Vaccine: "
                         android:textColor="@color/white"
-                        android:text="Status: "
                         android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/imageHandler"
                         app:layout_constraintTop_toBottomOf="@+id/birthDate"
                         app:layout_constraintVertical_bias="0.0" />
 
+                    <TextView
+                        android:id="@+id/gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gender: "
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/breed" />
+
+                    <TextView
+                        android:id="@+id/illness"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Illness"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/lastCheckUp" />
+
+                    <TextView
+                        android:id="@+id/lastCheckUp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Last CheckUp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/status" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Purchase Pig"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout11" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
