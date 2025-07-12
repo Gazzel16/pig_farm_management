@@ -46,13 +46,14 @@ public class HomeFragment extends Fragment {
 
 
         List<Categories> categoryList = new ArrayList<>();
-        categoryList.add(new Categories(R.drawable.qr_scanner_icon, "Scanner", "Scan pig ID easily"));
+        categoryList.add(new Categories(R.drawable.qr_scanner_icon, "Pig Scanner", "Scan pig QR easily"));
+        categoryList.add(new Categories(R.drawable.cage_qr, "Cage Scanner", "Scan cage QR easily"));
         categoryList.add(new Categories(R.drawable.add_pig_icon, "PigCage", "Assign pigs to cages"));
         categoryList.add(new Categories(R.drawable.advice_icon, "PigStatus", "Lorem Ipsum"));
         categoryList.add(new Categories(R.drawable.analytics_icon, "Analytics", "Lorem Ipsum"));
 
         CategoriesAdapter adapter = new CategoriesAdapter(categoryList, category -> {
-            if (category.getTitle().equals("Scanner")) {
+            if (category.getTitle().equals("Pig Scanner")) {
                 startActivity(new Intent(requireContext(), QrScannerActivity.class));
             }
             if (category.getTitle().equals("PigCage")) {

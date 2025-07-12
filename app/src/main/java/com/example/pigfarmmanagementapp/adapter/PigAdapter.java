@@ -45,7 +45,6 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
     private String cageName;
     private List<Pig> pigListFull;
     private String cageId;
-
     public PigAdapter(List<Pig> pigList, String cageName, String cageId) {
         this.pigList = pigList;
         this.pigListFull = new ArrayList<>(pigList); // Make a copy for filtering
@@ -64,21 +63,21 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
     public void onBindViewHolder(@NonNull PigViewHolder holder, int position) {
         Pig pig = pigList.get(position);
 
-        holder.tvPigBreed.setText("Breed: " + pig.getBreed());
-        holder.tvPigBirthDate.setText("B-Date: " + pig.getBirthDate());
-        holder.tvPigWeight.setText("Weight: " + pig.getWeight() + " kg");
-        holder.tvPigStatus.setText("Vaccine: " + pig.vaccinationStatus());
-        holder.tvPigIllness.setText("Illness: " + pig.pigIllness());
+        holder.tvPigBreed.setText(pig.getBreed());
+        holder.tvPigBirthDate.setText( pig.getBirthDate());
+        holder.tvPigWeight.setText(pig.getWeight() + " kg");
+        holder.tvPigStatus.setText(pig.vaccinationStatus());
+        holder.tvPigIllness.setText(pig.pigIllness());
 
-        holder.tvCageName.setText("Cage: " + cageName);
-        holder.tvGender.setText("Gender: " + pig.gender());
+        holder.tvCageName.setText(cageName);
+        holder.tvGender.setText(pig.gender());
         holder.tvPiglastCheckUpDate.setText("Illness: " + pig.lastCheckUp());
 
-        holder.tvBuyerName1.setText("Buyer: " + pig.getBuyerName());
-
         if (pig.isPurchase()) {
+            holder.tvBuyerName1.setText(pig.getBuyerName());
             holder.sold.setVisibility(View.VISIBLE);
         } else {
+            holder.tvBuyerName1.setText("No Buyer Yet");
             holder.sold.setVisibility(View.GONE);
         }
 
