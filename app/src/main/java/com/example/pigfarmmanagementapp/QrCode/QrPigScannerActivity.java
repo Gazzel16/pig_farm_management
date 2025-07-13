@@ -28,12 +28,11 @@ import com.journeyapps.barcodescanner.ScanOptions;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.logging.SimpleFormatter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class QrScannerActivity extends AppCompatActivity {
+public class QrPigScannerActivity extends AppCompatActivity {
 
     private TextView breedTv, weightTv, statusTv, birthDateTv, genderTv, lastCheckUpTv, illnessTv;
 
@@ -51,7 +50,7 @@ public class QrScannerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.qr_scanner);
+        setContentView(R.layout.qr_pig_scanner);
 
         breedTv = findViewById(R.id.breed);
         weightTv = findViewById(R.id.weight);
@@ -185,7 +184,7 @@ public class QrScannerActivity extends AppCompatActivity {
                             Pig pig = pigSnapshot.getValue(Pig.class);
 
                             if (pig == null) {
-                                Toast.makeText(QrScannerActivity.this, "Failed to load pig data", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(QrPigScannerActivity.this, "Failed to load pig data", Toast.LENGTH_SHORT).show();
                                 return;
                             }
 
@@ -227,7 +226,7 @@ public class QrScannerActivity extends AppCompatActivity {
                     progressDialog.dismiss();
 
                     if (!found) {
-                        Toast.makeText(QrScannerActivity.this, "Pig not found", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(QrPigScannerActivity.this, "Pig not found", Toast.LENGTH_SHORT).show();
                         breedTv.setText("Breed: -");
                         weightTv.setText("Weight: -");
                         birthDateTv.setText("B-Date: -");
@@ -242,7 +241,7 @@ public class QrScannerActivity extends AppCompatActivity {
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                     progressDialog.dismiss();
-                    Toast.makeText(QrScannerActivity.this, "Database error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(QrPigScannerActivity.this, "Database error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
 

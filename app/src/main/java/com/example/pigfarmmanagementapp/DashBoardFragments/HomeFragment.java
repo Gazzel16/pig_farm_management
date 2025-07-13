@@ -10,13 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.pigfarmmanagementapp.AddCageActivity;
 import com.example.pigfarmmanagementapp.Chart.AnalyticsActivity;
 import com.example.pigfarmmanagementapp.PigAdvisoryStatusFragment.PigAdviceStatusAdviceFragment;
-import com.example.pigfarmmanagementapp.QrCode.QrScannerActivity;
+import com.example.pigfarmmanagementapp.QrCode.QrCageScannerActivity;
+import com.example.pigfarmmanagementapp.QrCode.QrPigScannerActivity;
 import com.example.pigfarmmanagementapp.R;
 import com.example.pigfarmmanagementapp.adapter.CategoriesAdapter;
 import com.example.pigfarmmanagementapp.model.Categories;
@@ -54,8 +54,13 @@ public class HomeFragment extends Fragment {
 
         CategoriesAdapter adapter = new CategoriesAdapter(categoryList, category -> {
             if (category.getTitle().equals("Pig Scanner")) {
-                startActivity(new Intent(requireContext(), QrScannerActivity.class));
+                startActivity(new Intent(requireContext(), QrPigScannerActivity.class));
             }
+
+            if (category.getTitle().equals("Cage Scanner")) {
+                startActivity(new Intent(requireContext(), QrCageScannerActivity.class));
+            }
+
             if (category.getTitle().equals("PigCage")) {
                 startActivity(new Intent(requireContext(), AddCageActivity.class));
             }
