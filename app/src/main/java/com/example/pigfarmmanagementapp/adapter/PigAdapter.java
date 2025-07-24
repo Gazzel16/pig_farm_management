@@ -29,8 +29,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import android.content.Context;  // Add this import for Context
 import android.app.AlertDialog;  // Add this import for AlertDialog
@@ -72,6 +75,24 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
         holder.tvCageName.setText(cageName);
         holder.tvGender.setText(pig.gender());
         holder.tvPiglastCheckUpDate.setText("Illness: " + pig.lastCheckUp());
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Match your format
+        Date today = new Date();
+
+
+            try {
+                Date checkUpDate = sdf.parse(pig.getLastCheckUp());
+                long diffInMillies = today.getTime() - checkUpDate.getTime();
+                long daysSinceCheckUp = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+                if (daysSinceCheckUp > 30) {
+                    holder.tvPiglastCheckUpDate.setText("Last Checkup: " + pig.lastCheckUp() + " (Overdue)");
+                    Log.d("Overdue", "Pig ID: " + pig.getId() + " is overdue by " + daysSinceCheckUp + " days");
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+
 
         if (pig.isPurchase()) {
             holder.tvBuyerName1.setText(pig.getBuyerName());
@@ -119,18 +140,34 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
             View dialogView = LayoutInflater.from(v.getContext())
                     .inflate(R.layout.dialog_pig_details, null);
 
-            ((TextView) dialogView.findViewById(R.id.tvPigId)).setText("ID: " + pig.getId());
-            ((TextView) dialogView.findViewById(R.id.tvPigBreed)).setText("Breed: " + pig.getBreed());
-            ((TextView) dialogView.findViewById(R.id.tvPigGender)).setText("Gender: " + pig.getGender());
-            ((TextView) dialogView.findViewById(R.id.tvPigBirthDate)).setText("Birth Date: " + pig.getBirthDate());
-            ((TextView) dialogView.findViewById(R.id.tvPigWeight)).setText("Weight: " + pig.getWeight() + " kg");
-            ((TextView) dialogView.findViewById(R.id.tvPigIllness)).setText("Illness: " + pig.getPigIllness());
-            ((TextView) dialogView.findViewById(R.id.tvPigVaccine)).setText("Vaccination: " + pig.getVaccinationStatus());
-            ((TextView) dialogView.findViewById(R.id.tvPigCheckup)).setText("Last Checkup: " + pig.getLastCheckUp());
-            ((TextView) dialogView.findViewById(R.id.tvPigCage)).setText("Cage: " + cageName);
+            ((TextView) dialogView.findViewById(R.id.tvPigId)).setText(pig.getId());
+            ((TextView) dialogView.findViewById(R.id.tvPigBreed)).setText(pig.getBreed());
+            ((TextView) dialogView.findViewById(R.id.tvPigGender)).setText(pig.getGender());
+            ((TextView) dialogView.findViewById(R.id.tvPigBirthDate)).setText(pig.getBirthDate());
+            ((TextView) dialogView.findViewById(R.id.tvPigWeight)).setText(pig.getWeight() + " kg");
+            ((TextView) dialogView.findViewById(R.id.tvPigIllness)).setText(pig.getPigIllness());
+            ((TextView) dialogView.findViewById(R.id.tvPigVaccine)).setText(pig.getVaccinationStatus());
+            ((TextView) dialogView.findViewById(R.id.tvPigCage)).setText(cageName);
 
-            ((TextView) dialogView.findViewById(R.id.buyerName)).setText("Buyer Name: " + pig.getBuyerName());
-            ((TextView) dialogView.findViewById(R.id.buyerContact)).setText("Buyer Contact: " + pig.getBuyerContact());
+            ((TextView) dialogView.findViewById(R.id.buyerName)).setText( pig.getBuyerName());
+            ((TextView) dialogView.findViewById(R.id.buyerContact)).setText(pig.getBuyerContact());
+
+
+            TextView checkupTextView = dialogView.findViewById(R.id.tvPigCheckup);
+                try {
+                    Date checkUpDate = sdf.parse(pig.getLastCheckUp());
+                    long diffInMillies = today.getTime() - checkUpDate.getTime();
+                    long daysSinceCheckUp = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+                    if (daysSinceCheckUp > 30) {
+                        checkupTextView.setText(pig.lastCheckUp() + " (Overdue)");
+                        Log.d("Overdue", "Pig ID: " + pig.getId() + " is overdue by " + daysSinceCheckUp + " days");
+                    }else {
+                        checkupTextView.setText(pig.lastCheckUp() + " (On Schedule)");
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
 
             AlertDialog dialog = new AlertDialog.Builder(v.getContext())
                     .setView(dialogView)
