@@ -27,21 +27,6 @@
             android:layout_height="wrap_content">
 
 
-            <Button
-                android:id="@+id/updatePigStatus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/edt_bg"
-                android:fontFamily="@font/fir_sans_italic"
-                android:text="Update Status"
-                android:textColor="#009688"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout16" />
-
 
             <LinearLayout
                 android:id="@+id/linearLayout16"
@@ -154,53 +139,6 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/linearLayout18"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="4dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/linearLayout17">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <TextView
-                                android:id="@+id/status"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="80dp"
-                                android:layout_marginTop="4dp"
-                                android:background="@drawable/edt_bg"
-                                android:fontFamily="@font/fir_sans_italic"
-                                android:padding="4dp"
-                                android:text="Status: Pregnant Pigs"
-                                android:textColor="@android:color/darker_gray"
-                                android:textSize="18sp"
-                                android:textStyle="bold"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toEndOf="@+id/statusHolder"
-                                app:layout_constraintTop_toBottomOf="@+id/linearLayout17" />
-
-                            <TextView
-                                android:id="@+id/statusHolder"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/fir_sans_italic"
-                                android:text="Status: "
-                                android:textColor="@android:color/white"
-                                android:textSize="18sp"
-                                android:textStyle="bold"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/linearLayout20"
@@ -211,8 +149,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/linearLayout18"
-                        app:layout_constraintVertical_bias="0.0">
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout17">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"

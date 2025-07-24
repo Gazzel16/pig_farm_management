@@ -21,15 +21,6 @@
             android:layout_marginBottom="12dp"
             android:hint="Cage Name" />
 
-        <EditText
-            android:id="@+id/etCageStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edt_bg"
-            android:padding="15dp"
-            android:hint="Cage Status" />
-
-
         <Button
             android:id="@+id/btnAddCage"
             android:layout_width="134dp"

@@ -53,7 +53,7 @@ public class CageAdapter extends RecyclerView.Adapter<CageAdapter.CageViewHolder
         Cage cage = cageList.get(position);
         holder.bind(cage, listener);
         holder.tvCageName.setText("Cage Name: " + cage.getName());
-        holder.tvCageStatus.setText("Cage Status: " + cage.getStatus());
+
         holder.tvCageId.setText("Cage Id: " + cage.getId());
 
         int pigCount = 0;
@@ -70,8 +70,8 @@ public class CageAdapter extends RecyclerView.Adapter<CageAdapter.CageViewHolder
         Bitmap qrBitmap = null;
 
         // Declare qrData outside of the try block
-        final String qrData = String.format("{\"id\":\"%s\", \"cage\":\"%s\", \"status\":\"%s\", \"pigs\":\"%s\"}",
-                cage.getId(), cage.getName(), cage.getStatus(), pigCount);
+        final String qrData = String.format("{\"id\":\"%s\", \"cage\":\"%s\", \"pigs\":\"%s\"}",
+                cage.getId(), cage.getName(), pigCount);
 
         try {
             // Generate QR Code
@@ -166,7 +166,7 @@ public class CageAdapter extends RecyclerView.Adapter<CageAdapter.CageViewHolder
         public CageViewHolder(@NonNull View itemView) {
             super(itemView);
             tvCageName = itemView.findViewById(R.id.tvCageName);
-            tvCageStatus = itemView.findViewById(R.id.tvCageStatus);
+
             tvCageId = itemView.findViewById(R.id.tvCageId);
             tvPigsCount = itemView.findViewById(R.id.tvPigsCount);
 

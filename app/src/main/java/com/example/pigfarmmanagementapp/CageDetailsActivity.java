@@ -298,7 +298,7 @@ public class CageDetailsActivity extends AppCompatActivity {
                 double pigWeight = Double.parseDouble(pigWeightStr);
 
                 // Generate a new pigId (using Firebase push() method for uniqueness)
-                String pigId = databasePigs.push().getKey(); // Automatically generates a unique ID
+                String pigId = String.format("%07d", (int)(Math.random() * 10000000));
                 Pig newPig = new Pig(pigId, pigBreed, selectedPigGender, pigBirthDate, pigWeight,selectedPigIllness, selectedStatus, pigLastCheckUp, cageId, isPurchase, buyerName, buyerContact, purchaseDateTime);
 
                 // Store the pig data under the pigs node with the unique pigId

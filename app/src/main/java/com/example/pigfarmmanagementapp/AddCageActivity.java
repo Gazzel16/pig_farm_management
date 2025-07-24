@@ -121,7 +121,7 @@ public class AddCageActivity extends AppCompatActivity {
                     Intent intent = new Intent(AddCageActivity.this, CageDetailsActivity.class);
                     intent.putExtra("cageId", cage.getId());
                     intent.putExtra("cageName", cage.getName());
-                    intent.putExtra("cageStatus", cage.getStatus());
+
                     startActivity(intent);
                 });
                 recyclerViewCages.setAdapter(cageAdapter);  // Notify the adapter to update the list
@@ -160,25 +160,22 @@ public class AddCageActivity extends AppCompatActivity {
         builder.setView(dialogView);
 
         EditText etCageName = dialogView.findViewById(R.id.etCageName);
-        EditText etCageStatus = dialogView.findViewById(R.id.etCageStatus);
         Button btnAddCage = dialogView.findViewById(R.id.btnAddCage);
 
         AlertDialog dialog = builder.create();
 
         btnAddCage.setOnClickListener(v -> {
             String cageName = etCageName.getText().toString();
-            String cageStatus = etCageStatus.getText().toString();
-
             // Generate a 7-digit random number as cageId
             String cageId = String.format("%07d", (int)(Math.random() * 10000000));
 
-            if (cageName.isEmpty() || cageStatus.isEmpty()) {
+            if (cageName.isEmpty()) {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             // Create the Cage object
-            Cage newCage = new Cage(cageName, cageStatus, cageId);
+            Cage newCage = new Cage(cageName, cageId);
 
             // Add the cage to Firebase
             databaseCages.child(cageId).setValue(newCage).addOnCompleteListener(task -> {

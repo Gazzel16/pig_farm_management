@@ -41,8 +41,6 @@ public class QrCageScannerActivity extends AppCompatActivity {
     //Database
     private DatabaseReference databaseReference;
 
-    //Button
-    private Button updatePigStatus;
 
 
 
@@ -54,25 +52,19 @@ public class QrCageScannerActivity extends AppCompatActivity {
 
         cageIdTv = findViewById(R.id.cageId);
         cageTv = findViewById(R.id.cage);
-        statusTv = findViewById(R.id.status);
         pigCountTv = findViewById(R.id.pigCount);
 
         soldCountTv = findViewById(R.id.soldCount);
 
-        updatePigStatus = findViewById(R.id.updatePigStatus);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("cages");
 
-        updatePigStatus.setOnClickListener(view -> {
-            updateStatusBtn();
-        });
+
 
         startQrScanner();
     }
 
-    private void updateStatusBtn(){
 
-    }
     private void startQrScanner() {
         ScanOptions options = new ScanOptions();
         options.setPrompt("Scan a QR Code");
@@ -123,7 +115,6 @@ public class QrCageScannerActivity extends AppCompatActivity {
                             found = true;
 
                             String name = cage.getName();
-                            String status = cage.getStatus();
 
                             DatabaseReference pigsRef = FirebaseDatabase.getInstance().getReference("pigs").child(cageId);
                             pigsRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -156,7 +147,6 @@ public class QrCageScannerActivity extends AppCompatActivity {
 
 
                             cageTv.setText(name);
-                            statusTv.setText(status);
                             cageIdTv.setText(cage.getId());
 
                             break;

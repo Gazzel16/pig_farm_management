@@ -47,16 +47,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tvCageStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/fir_sans_italic"
-                    android:text="Cage Status"
-                    android:textColor="#757575"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvCageName" />
 
                 <TextView
                     android:id="@+id/tvPigsCount"
@@ -79,7 +69,7 @@
                     android:textColor="#9e9e9e"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvCageStatus" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvCageName" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
