@@ -118,7 +118,6 @@ public class AddPigHandlerDialog {
         String[] pigIllness = {"Select Illness",
                 "Swine Dysentery",
                 "Swine Flu (Influenza)",
-                "Porcine Reproductive and Respiratory Syndrome (PRRS)",
                 "Mycoplasma Pneumonia",
                 "Actinobacillus Pleuropneumonia (APP)",
                 "Erysipelas",
