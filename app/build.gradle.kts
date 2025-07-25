@@ -52,5 +52,7 @@ dependencies {
     implementation("com.google.firebase:firebase-database") // For Realtime Database
 
     implementation ("org.tensorflow:tensorflow-lite:2.12.0")
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
 
 }
