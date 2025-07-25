@@ -121,7 +121,8 @@ public class EditPigHandler {
                 "Swine Influenza (SIV)",
                 "Clostridium perfringens Type C",
                 "Escherichia coli (Neonatal Scours)",
-                "Tetanus"
+                "Tetanus",
+                "None"
         };
 
         // Spinner2 data
