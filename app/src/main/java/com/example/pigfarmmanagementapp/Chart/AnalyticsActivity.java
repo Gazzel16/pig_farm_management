@@ -54,11 +54,15 @@ public class AnalyticsActivity extends AppCompatActivity {
                         if (pig != null) {
                             totalPigs++;
 
-                            if ("true".equalsIgnoreCase(pig.getVaccinationStatus())) {
+                            String status = pig.getVaccinationStatus();
+                            if (status != null && !status.equals("Select Vaccines") && !status.equalsIgnoreCase("none") && !status.trim().isEmpty()) {
                                 vaccinated++;
                             }
 
-                            if (pig.getPigIllness() != null && !pig.getPigIllness().trim().isEmpty()) {
+
+                            if (pig.getPigIllness() != null &&
+                                    !pig.getPigIllness().trim().isEmpty() &&
+                                    !"none".equalsIgnoreCase(pig.getPigIllness().trim())) {
                                 ill++;
                             }
 
