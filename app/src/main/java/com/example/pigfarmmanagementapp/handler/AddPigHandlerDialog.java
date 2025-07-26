@@ -117,7 +117,8 @@ public class AddPigHandlerDialog {
         };
 
         // Spinner2 data
-        String[] pigIllness = {"Select Illness",
+        String[] pigIllness = {
+                "Select Illness",
                 "Swine Dysentery",
                 "Swine Flu (Influenza)",
                 "Mycoplasma Pneumonia",

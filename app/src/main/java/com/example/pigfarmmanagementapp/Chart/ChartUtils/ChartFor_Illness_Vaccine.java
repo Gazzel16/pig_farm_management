@@ -2,7 +2,6 @@ package com.example.pigfarmmanagementapp.Chart.ChartUtils;
 
 import android.graphics.Color;
 
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
@@ -18,7 +17,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChartHelperForVaccinatedPigStatus {
+public class ChartFor_Illness_Vaccine {
 
     //Pigs Vaccinated Chart
     public static void donutChartSetUpForPigsVaccinated (PieChart pieChart, int maleVaccinated, int femaleVaccinated){
@@ -95,13 +94,18 @@ public class ChartHelperForVaccinatedPigStatus {
         pieChart.invalidate(); // refresh
     }
 
-    public static void showHorizontalBarChart(HorizontalBarChart chart, int maleCount, int femaleCount, String vaccineName) {
+    public static void chartForPigsVaccinatedData(HorizontalBarChart chart, int maleCount, int femaleCount) {
         ArrayList<BarEntry> entries = new ArrayList<>();
         entries.add(new BarEntry(0f, maleCount));   // Male
         entries.add(new BarEntry(1f, femaleCount)); // Female
 
         BarDataSet dataSet = new BarDataSet(entries, "Vaccinated Pigs");
-        dataSet.setColors(new int[]{Color.parseColor("#2196F3"), Color.parseColor("#E91E63")});
+
+        dataSet.setColors(new int[]{
+                Color.parseColor("#2196F3"),
+                Color.parseColor("#E91E63")
+        });
+
         dataSet.setValueTextSize(12f);
         dataSet.setValueTextColor(Color.BLACK);
 
@@ -137,7 +141,57 @@ public class ChartHelperForVaccinatedPigStatus {
         chart.invalidate();
     }
 
+public static void chartForPigIllnessData(HorizontalBarChart chart, int maleCount, int femaleCount){
 
+        ArrayList<BarEntry> entries = new ArrayList<>();
+        entries.add(new BarEntry(0f, maleCount));
+    entries.add(new BarEntry(1f, femaleCount));
+
+    BarDataSet barDataSet = new BarDataSet(entries, "Pig Illness");
+
+    barDataSet.setColors(new int[]{
+            Color.parseColor("#2196F3"), //Female color
+            Color.parseColor("#E91E63") //Male Color
+    });
+
+    barDataSet.setValueTextSize(12f);
+    barDataSet.setValueTextColor(Color.BLACK);
+
+    BarData barData = new BarData(barDataSet);
+    barData.setBarWidth(0.4f);
+
+    chart.setData(barData);
+
+    XAxis xAxis = chart.getXAxis();
+    xAxis.setGranularity(1f);
+    xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+    xAxis.setDrawGridLines(false);
+    xAxis.setTextSize(12f);
+    xAxis.setValueFormatter(new ValueFormatter() {
+        @Override
+        public String getFormattedValue(float value) {
+            if (value == 0f) {
+                return "Male";
+            }
+            else if (value == 1f){
+                return "Female";
+            }
+            else return "";
+        }
+    });
+
+    chart.getAxisLeft().setEnabled(false);
+    chart.getAxisRight().setAxisMinimum(0f);
+    chart.getAxisRight().setGranularity(1f);
+    chart.getAxisRight().setTextSize(12f);
+
+    chart.getLegend().setEnabled(false);
+    chart.getDescription().setEnabled(false); // 🔻 Disable the description
+
+    chart.setFitBars(true);
+    chart.animateY(1000);
+    chart.invalidate();
+}
 
 
 
