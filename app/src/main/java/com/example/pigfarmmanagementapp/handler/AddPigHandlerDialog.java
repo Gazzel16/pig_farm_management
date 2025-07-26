@@ -112,7 +112,8 @@ public class AddPigHandlerDialog {
                 "Clostridium perfringens Type C",
                 "Escherichia coli (Neonatal Scours)",
                 "Tetanus",
-                "None"
+                "None",
+                "Others"
         };
 
         // Spinner2 data
