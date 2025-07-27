@@ -1,5 +1,7 @@
 package com.example.pigfarmmanagementapp.DashBoardFragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -11,9 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.pigfarmmanagementapp.AddCageActivity;
 import com.example.pigfarmmanagementapp.Chart.AnalyticsActivity;
+import com.example.pigfarmmanagementapp.Chart.ChartIlnessActivity;
+import com.example.pigfarmmanagementapp.Chart.ChartVaccinatedActivity;
 import com.example.pigfarmmanagementapp.PigAdvisoryStatusFragment.PigAdviceStatusAdviceFragment;
 import com.example.pigfarmmanagementapp.QrCode.QrCageScannerActivity;
 import com.example.pigfarmmanagementapp.QrCode.QrPigScannerActivity;
@@ -84,4 +89,7 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
+
+
+
 }

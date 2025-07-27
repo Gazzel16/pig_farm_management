@@ -1,5 +1,6 @@
 package com.example.pigfarmmanagementapp.Chart;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,10 +12,14 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pigfarmmanagementapp.Chart.ChartUtils.BarChartHelper;
 import com.example.pigfarmmanagementapp.Chart.ChartUtils.ChartForIllnessPigsHelper;
 import com.example.pigfarmmanagementapp.R;
+import com.example.pigfarmmanagementapp.adapter.AnalyticsCategoriesAdapter;
+import com.example.pigfarmmanagementapp.model.AnalyticsCategories;
 import com.example.pigfarmmanagementapp.model.Cage;
 import com.example.pigfarmmanagementapp.model.Pig;
 import com.github.mikephil.charting.charts.BarChart;
@@ -32,9 +37,11 @@ import java.util.List;
 public class AnalyticsActivity extends AppCompatActivity {
 
     BarChart barChartView;
-    PieChart donutChartViewForVaccinatedPigs, donutChartPigsNotVaccinated;
-
     List<Pig> pigList = new ArrayList<>();
+
+    RecyclerView recyclerView;
+    List<AnalyticsCategories> analyticsCategories = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,11 +147,14 @@ public class AnalyticsActivity extends AppCompatActivity {
 
               }
                   barChartView = findViewById(R.id.groupedBarChart);
+                categories();
+
 
 
                 BarChartHelper.updateChart(barChartView, totalCages, totalPigs, vaccinated,
                         totalNotVaccinatedPigs, ill, totalNoSickPigs,
                         male, female);
+
 
 
                 Log.d("Analytics", "Total pigs: " + totalPigs +
@@ -162,7 +172,73 @@ public class AnalyticsActivity extends AppCompatActivity {
 
     }
 
+    private void categories(){
+
+        recyclerView = findViewById(R.id.recyclerView);
+
+        int totalPigsCount = pigList.size();
+
+        int vaccinated = 0;
+        int notVaccinated = 0;
+
+        int haveiIllness = 0;
+        int noIllness = 0;
+
+        for (Pig pig : pigList){
+            String vaccinatedStatus = pig.getVaccinationStatus();
+            String illnessStatus = pig.getPigIllness();
+
+            if (vaccinatedStatus != null && !vaccinatedStatus.equalsIgnoreCase("none")
+                    && !vaccinatedStatus.equalsIgnoreCase("Select Vaccines")
+                    && !vaccinatedStatus.trim().isEmpty()) {
+                vaccinated++;
+            }else {
+                notVaccinated++;
+            }
+
+            if (illnessStatus !=null &&
+                    !illnessStatus.equalsIgnoreCase("none")
+                    && !illnessStatus.equalsIgnoreCase("Select Illness")
+                    && !illnessStatus.trim().isEmpty()){
+                haveiIllness++;
+            }
+            else {
+                noIllness++;
+            }
 
 
+        }
+
+        // Add categorized items
+        analyticsCategories.add(new AnalyticsCategories(
+                "Vaccinated Pigs",
+                "Vaccinated Metrics",
+                R.drawable.vaccine_analytics,
+                (int) ((vaccinated / (float) totalPigsCount) * 100)
+        ));
+
+        analyticsCategories.add(new AnalyticsCategories(
+                "Illness Pigs",
+                "Illness Metrics",
+                R.drawable.illness_icon,
+                (int) ((haveiIllness / (float) totalPigsCount) * 100)
+        ));
+
+
+        // Setup RecyclerView
+        AnalyticsCategoriesAdapter adapter = new AnalyticsCategoriesAdapter(this, analyticsCategories, category -> {
+            if (category.getTitle().equalsIgnoreCase("Vaccinated Pigs")) {
+
+                 startActivity(new Intent(this, ChartVaccinatedActivity.class));
+            }
+        });
+
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+
+
+    }
 
 }
