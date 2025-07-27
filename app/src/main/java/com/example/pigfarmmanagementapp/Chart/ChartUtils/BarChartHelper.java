@@ -4,6 +4,7 @@ import android.graphics.Color;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -42,12 +43,14 @@ public class BarChartHelper {
         BarData data = new BarData(dataSet);
         data.setBarWidth(0.9f);
         barChart.setData(data);
+
         barChart.setFitBars(true);
         barChart.invalidate();
 
         XAxis xAxis = barChart.getXAxis();
         xAxis.setGranularity(1f);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
 
         barChart.getDescription().setEnabled(false);
         barChart.getLegend().setEnabled(false);

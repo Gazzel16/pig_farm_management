@@ -26,6 +26,7 @@
 
     <color name="brown_custom">#E48366</color>
     <color name="brown">#752D0D</color>
+    <color name="custom_analytic_color">#F0AB92</color>
 
     <color name="medium_grey">#9E9E9E</color>
     <color name="light_grey">#E0E0E0</color>

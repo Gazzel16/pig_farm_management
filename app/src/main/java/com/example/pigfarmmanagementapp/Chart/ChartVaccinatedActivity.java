@@ -1,7 +1,6 @@
 package com.example.pigfarmmanagementapp.Chart;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,8 +11,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.pigfarmmanagementapp.Chart.ChartUtils.BarChartHelper;
-import com.example.pigfarmmanagementapp.Chart.ChartUtils.ChartForIllnessPigsHelper;
+import com.example.pigfarmmanagementapp.Chart.ChartUtils.ChartForVaccinatedPigsHelper;
 import com.example.pigfarmmanagementapp.R;
 import com.example.pigfarmmanagementapp.model.Cage;
 import com.example.pigfarmmanagementapp.model.Pig;
@@ -29,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnalyticsActivity extends AppCompatActivity {
+public class ChartVaccinatedActivity extends AppCompatActivity {
 
     BarChart barChartView;
     PieChart donutChartViewForVaccinatedPigs, donutChartPigsNotVaccinated;
@@ -40,7 +38,7 @@ public class AnalyticsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_analytics);
+        setContentView(R.layout.chart_vaccinated);
 
         DatabaseReference dbRefPigs = FirebaseDatabase.getInstance()
                 .getReference("pigs");
@@ -49,12 +47,8 @@ public class AnalyticsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                int totalCages = 0;
-                int totalPigs = 0;
 
                 int vaccinated = 0;
-
-                int ill = 0;
 
                 int male = 0;
                 int female = 0;
@@ -65,22 +59,18 @@ public class AnalyticsActivity extends AppCompatActivity {
                 int maleNotVaccinated = 0;
                 int femaleNotVaccinated = 0;
 
-                int totalNotVaccinatedPigs = 0;
-                int totalNoSickPigs = 0;
+
 
 
                 for (DataSnapshot cageSnap : snapshot.getChildren()) {
                     Cage cage = cageSnap.getValue(Cage.class);
 
-                    if(cage != null){
-                        totalCages++;
-                    }
 
                     for (DataSnapshot pigSnap : cageSnap.getChildren()) {
                         Pig pig = pigSnap.getValue(Pig.class);
                         if (pig != null) {
                             pigList.add(pig);
-                            totalPigs++;
+
 
                             //Vaccinated Status
                             String status = pig.getVaccinationStatus();
@@ -90,9 +80,6 @@ public class AnalyticsActivity extends AppCompatActivity {
                                 vaccinated++;
                             }
 
-                            if ("none".equalsIgnoreCase(status)) {
-                                totalNotVaccinatedPigs++;
-                            }
 
                             //Pig gender vaccinated
                             if ("male".equalsIgnoreCase(pig.getGender())
@@ -116,16 +103,9 @@ public class AnalyticsActivity extends AppCompatActivity {
                                 femaleNotVaccinated++;
                             }
 
-                            //Pig illness status
-                            if (pig.getPigIllness() != null &&
-                                    !pig.getPigIllness().trim().isEmpty() &&
-                                    !"none".equalsIgnoreCase(pig.getPigIllness().trim())) {
-                                ill++;
-                            }
 
-                            if("none".equalsIgnoreCase(pig.getPigIllness())){
-                                totalNoSickPigs++;
-                            }
+
+
 
                             //Pig Gender Status
                             if ("Male".equalsIgnoreCase(pig.getGender())) {
@@ -138,31 +118,88 @@ public class AnalyticsActivity extends AppCompatActivity {
 
                     }
 
-              }
-                  barChartView = findViewById(R.id.groupedBarChart);
+                }
+                donutChartViewForVaccinatedPigs = findViewById(R.id.donutChartPigsVaccinated);
+                donutChartPigsNotVaccinated = findViewById(R.id.donutChartPigsNotVaccinated);
 
 
-                BarChartHelper.updateChart(barChartView, totalCages, totalPigs, vaccinated,
-                        totalNotVaccinatedPigs, ill, totalNoSickPigs,
-                        male, female);
+                ChartForVaccinatedPigsHelper.donutChartSetUpForPigsVaccinated(donutChartViewForVaccinatedPigs,
+                        maleVaccinated, femaleVaccinated);
+
+                ChartForVaccinatedPigsHelper.donutChartSetUpForNotVaccinatedPigs(donutChartPigsNotVaccinated,
+                        maleNotVaccinated, femaleNotVaccinated);
 
 
-                Log.d("Analytics", "Total pigs: " + totalPigs +
-                        ", Vaccinated: " + vaccinated +
-                        ", Ill: " + ill +
-                        ", Male: " + male +
-                        ", Female: " + female);
+                spinnerForVaccinatedPigs();
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(AnalyticsActivity.this, "Failed to load pigs", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChartVaccinatedActivity.this, "Failed to load pigs", Toast.LENGTH_SHORT).show();
             }
         });
 
     }
+    private void spinnerForVaccinatedPigs() {
+        Spinner vaccineSpinner = findViewById(R.id.spinnerForVaccinatedPigs); // Ensure the ID matches your layout
+        BarChart barChartForVaccinatedData = findViewById(R.id.barChartForVaccinatedData); // Adjust ID accordingly
 
+        String[] vaccinationStatus = {
+                "Select Vaccine",
+                "Mycoplasma hyopneumoniae (Enzootic Pneumonia)",
+                "Erysipelothrix rhusiopathiae (Swine Erysipelas)",
+                "Actinobacillus pleuropneumoniae (APP)",
+                "Lawsonia intracellularis (Ileitis)",
+                "Salmonella spp.",
+                "Porcine Circovirus Type 2 (PCV2)",
+                "Porcine Reproductive and Respiratory Syndrome (PRRS)",
+                "Classical Swine Fever (CSF)",
+                "Foot-and-Mouth Disease (FMD)",
+                "Pseudorabies (Aujeszky’s Disease)",
+                "Swine Influenza (SIV)",
+                "Clostridium perfringens Type C",
+                "Escherichia coli (Neonatal Scours)",
+                "Tetanus",
+                "Others"
+        };
 
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, vaccinationStatus);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        vaccineSpinner.setAdapter(adapter);
 
+        vaccineSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedVaccine = vaccinationStatus[position];
+
+                if (!selectedVaccine.equals("Select Vaccine")) {
+                    int maleCount = 0;
+                    int femaleCount = 0;
+
+                    for (Pig pig : pigList) { // Ensure pigList is accessible (class field or passed here)
+                        if (pig.getVaccinationStatus().contains(selectedVaccine)) {
+                            if (pig.getGender().equalsIgnoreCase("Male")) {
+                                maleCount++;
+                            } else if (pig.getGender().equalsIgnoreCase("Female")) {
+                                femaleCount++;
+                            }
+                        }
+                    }
+
+                    ChartForVaccinatedPigsHelper.chartForPigsVaccinatedData(
+                            barChartForVaccinatedData,
+                            maleCount,
+                            femaleCount
+                    );
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Optional: you can clear the chart here
+            }
+        });
+    }
 
 }
