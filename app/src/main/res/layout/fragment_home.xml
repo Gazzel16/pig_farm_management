@@ -39,8 +39,9 @@
                 android:id="@+id/wc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/fir_sans_italic"
+
                 android:text="Welcome Farmer!"
+                android:fontFamily="@font/fir_sans_italic"
                 android:textColor="@color/brown"
                 android:textSize="25sp"
                 android:textStyle="bold"

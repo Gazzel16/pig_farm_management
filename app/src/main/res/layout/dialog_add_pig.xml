@@ -10,6 +10,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="12dp">
+
+        <TextView
+            android:id="@+id/textView26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Breed"
+            android:textSize="18sp"/>
+
         <EditText
             android:id="@+id/etPigBreed"
             android:layout_width="match_parent"
@@ -20,6 +28,13 @@
             android:inputType="text"
             android:padding="15dp" />
 
+        <TextView
+            android:id="@+id/textView27"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gender"
+            android:textSize="18sp" />
+
         <Spinner
             android:id="@+id/spinnerPigGender"
             android:layout_width="match_parent"
@@ -29,6 +44,13 @@
             android:padding="15dp"
             android:paddingTop="8dp"
             android:spinnerMode="dropdown"/>
+
+        <TextView
+            android:id="@+id/textView30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="BirthDate"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/etPigBirthDate"
@@ -41,6 +63,13 @@
             android:inputType="text"
             android:padding="15dp" />
 
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Weight"
+            android:textSize="18sp" />
+
         <EditText
             android:id="@+id/etPigWeight"
             android:layout_width="match_parent"
@@ -49,6 +78,13 @@
             android:background="@drawable/edt_bg"
             android:inputType="text"
             android:padding="15dp" />
+
+        <TextView
+            android:id="@+id/textView32"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Illness"
+            android:textSize="18sp" />
 
         <Spinner
             android:id="@+id/spinnerPigIllness"
@@ -60,6 +96,13 @@
             android:paddingTop="8dp"
             android:spinnerMode="dropdown"/>
 
+        <TextView
+            android:id="@+id/textView33"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vaccine"
+            android:textSize="18sp" />
+
         <Spinner
             android:id="@+id/spinnerVaccinationStatus"
             android:layout_width="match_parent"
@@ -69,6 +112,13 @@
             android:padding="15dp"
             android:paddingTop="8dp"
             android:spinnerMode="dropdown"/>
+
+        <TextView
+            android:id="@+id/textView34"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Last Checkup"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/etPigLastCheckUp"
@@ -80,6 +130,26 @@
             android:focusable="false"
             android:clickable="true"
             android:background="@drawable/edt_bg"
+            android:inputType="text"
+            android:padding="15dp" />
+
+        <TextView
+            android:id="@+id/textView35"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Next Checkup"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/etPigNextCheckUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/edt_bg"
+            android:clickable="true"
+            android:focusable="false"
+            android:hint="Next Checkup "
             android:inputType="text"
             android:padding="15dp" />
 

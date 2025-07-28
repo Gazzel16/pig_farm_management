@@ -12,6 +12,7 @@ public class Pig {
     private String pigIllness;
 
     private String lastCheckUp;
+    private String nextCheckUp;
 
     private String cageId;
 
@@ -31,7 +32,8 @@ public class Pig {
     public Pig(String id, String breed,String gender, String birthDate,
                double weight, String pigIllness, String vaccinationStatus,
                String lastCheckUp, String cageId,  boolean purchase,
-               String buyerName, String buyerContact, String purchaseDateTime) {
+               String buyerName,
+               String buyerContact, String purchaseDateTime, String nextCheckUp) {
         this.id = id;
         this.breed = breed;
         this.gender = gender;
@@ -39,7 +41,10 @@ public class Pig {
         this.weight = weight;
         this.pigIllness = pigIllness;
         this.vaccinationStatus = vaccinationStatus;
+
         this.lastCheckUp = lastCheckUp;
+        this.nextCheckUp = nextCheckUp;
+
         this.cageId = cageId;
         this.purchase = purchase;
 
@@ -98,6 +103,7 @@ public class Pig {
         return vaccinationStatus;
     }
 
+
     //Pig Illness
     public void setPigIllness(String pigIllness) {
         this.pigIllness = pigIllness;
@@ -131,6 +137,14 @@ public class Pig {
 
     public String getLastCheckUp() {
         return lastCheckUp;
+    }
+
+    public void setNextCheckUp(String nextCheckUp){
+        this.nextCheckUp = nextCheckUp;
+    }
+
+    public String getNextCheckUp(){
+        return nextCheckUp;
     }
 
     public String lastCheckUp(){

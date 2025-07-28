@@ -31,8 +31,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import android.content.Context;  // Add this import for Context
@@ -154,19 +156,38 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
 
 
             TextView checkupTextView = dialogView.findViewById(R.id.tvPigCheckup);
-                try {
-                    Date checkUpDate = sdf.parse(pig.getLastCheckUp());
-                    long diffInMillies = today.getTime() - checkUpDate.getTime();
-                    long daysSinceCheckUp = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-                    if (daysSinceCheckUp > 30) {
-                        checkupTextView.setText(pig.lastCheckUp() + " (Overdue)");
-                        Log.d("Overdue", "Pig ID: " + pig.getId() + " is overdue by " + daysSinceCheckUp + " days");
-                    }else {
-                        checkupTextView.setText(pig.lastCheckUp() + " (On Schedule)");
-                    }
-                }catch (Exception e){
-                    e.printStackTrace();
+            TextView tvNextCheckUp = dialogView.findViewById(R.id.tvPigNextCheckup);
+
+            try {
+                String lastCheckupStr = pig.getLastCheckUp();
+                String nextCheckupStr = pig.getNextCheckUp();
+
+                Log.d("CheckupDebug", "LastCheckUp: " + lastCheckupStr);
+                Log.d("CheckupDebug", "NextCheckUp: " + nextCheckupStr);
+
+                if (lastCheckupStr == null || nextCheckupStr == null ||
+                        lastCheckupStr.isEmpty() || nextCheckupStr.isEmpty()) {
+                    throw new IllegalArgumentException("Date string is null or empty");
                 }
+
+                Date lastCheckUpDate = sdf.parse(lastCheckupStr);
+                Date nextCheckUpDate = sdf.parse(nextCheckupStr);
+
+                checkupTextView.setText("Last Check-Up: " + lastCheckupStr);
+
+                if (today.after(nextCheckUpDate)) {
+                    tvNextCheckUp.setText("Next Check-Up: " + nextCheckupStr + " (Overdue)");
+                    Log.d("Overdue", "Pig ID: " + pig.getId() + " is overdue");
+                } else {
+                    tvNextCheckUp.setText("Next Check-Up: " + nextCheckupStr + " (On Schedule)");
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                checkupTextView.setText("Invalid Check-Up Date");
+                tvNextCheckUp.setText("Next Check-Up: Error");
+            }
+
 
 
             AlertDialog dialog = new AlertDialog.Builder(v.getContext())

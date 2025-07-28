@@ -42,12 +42,33 @@ public class AddPigHandlerDialog {
         Spinner spinnerPigIllness = dialogView.findViewById(R.id.spinnerPigIllness);
         Spinner spinnerVaccinationStatus = dialogView.findViewById(R.id.spinnerVaccinationStatus);
         Spinner spinnerPigGender = dialogView.findViewById(R.id.spinnerPigGender);
+
         EditText etPigLastCheckUp = dialogView.findViewById(R.id.etPigLastCheckUp);
+        EditText etPigNextCheckUp = dialogView.findViewById(R.id.etPigNextCheckUp);
         Button btnAddPig = dialogView.findViewById(R.id.btnAddPig);
 
         etPigBirthDate.setInputType(InputType.TYPE_NULL); // Prevent keyboard
         etPigBirthDate.setFocusable(false);
 
+        etPigNextCheckUp.setOnClickListener(v -> {
+            final Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                    context, // replace with 'this' if you're inside onCreate
+                    (view, selectedYear, selectedMonth, selectedDay) -> {
+                        String formattedDate = selectedYear + "-"
+                                + String.format("%02d", (selectedMonth + 1)) + "-"
+                                + String.format("%02d", selectedDay);
+                        etPigNextCheckUp.setText(formattedDate);
+                    },
+                    year, month, day
+            );
+
+            datePickerDialog.show();
+        });
 
         etPigLastCheckUp.setOnClickListener(v -> {
             final Calendar calendar = Calendar.getInstance();
@@ -160,6 +181,7 @@ public class AddPigHandlerDialog {
             String pigWeightStr = etPigWeight.getText().toString().trim();
 
             String pigLastCheckUp = etPigLastCheckUp.getText().toString().trim();
+            String pigNextCheckUp = etPigNextCheckUp.getText().toString().trim();
 
             String selectedPigGender = spinnerPigGender.getSelectedItem()
                     != null ? spinnerPigGender.getSelectedItem().toString() : "";
@@ -189,7 +211,10 @@ public class AddPigHandlerDialog {
 
                 // Generate a new pigId (using Firebase push() method for uniqueness)
                 String pigId = String.format("%07d", (int)(Math.random() * 10000000));
-                Pig newPig = new Pig(pigId, pigBreed, selectedPigGender, pigBirthDate, pigWeight,selectedPigIllness, selectedStatus, pigLastCheckUp, cageId, isPurchase, buyerName, buyerContact, purchaseDateTime);
+                Pig newPig = new Pig(pigId, pigBreed, selectedPigGender, pigBirthDate,
+                        pigWeight,selectedPigIllness, selectedStatus,
+                        pigLastCheckUp, cageId, isPurchase, buyerName,
+                        buyerContact, purchaseDateTime, pigNextCheckUp);
 
                 // Store the pig data under the pigs node with the unique pigId
                 databasePigs.child(pigId).setValue(newPig).addOnCompleteListener(task -> {
