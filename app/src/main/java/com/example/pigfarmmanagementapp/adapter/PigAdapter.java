@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -140,7 +141,7 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
 
         holder.itemView.setOnLongClickListener(v -> {
             View dialogView = LayoutInflater.from(v.getContext())
-                    .inflate(R.layout.dialog_pig_details, null);
+                    .inflate(R.layout.dialog_details_pig, null);
 
             ((TextView) dialogView.findViewById(R.id.tvPigId)).setText(pig.getId());
             ((TextView) dialogView.findViewById(R.id.tvPigBreed)).setText(pig.getBreed());
@@ -158,6 +159,64 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
             TextView checkupTextView = dialogView.findViewById(R.id.tvPigCheckup);
             TextView tvNextCheckUp = dialogView.findViewById(R.id.tvPigNextCheckup);
 
+            LinearLayout page1 = dialogView.findViewById(R.id.page1);
+            LinearLayout page2 = dialogView.findViewById(R.id.page2);
+            LinearLayout page3 = dialogView.findViewById(R.id.page3);
+
+            Button nextBtn1 = dialogView.findViewById(R.id.nextBtn1);
+
+
+            Button nextBtn2 = dialogView.findViewById(R.id.nextBtn2);
+            Button backBtn2 = dialogView.findViewById(R.id.backBtn2);
+
+            Button backBtn3 = dialogView.findViewById(R.id.backBtn3);
+
+            nextBtn1.setOnClickListener(view -> {
+                page2.setVisibility(View.VISIBLE);
+                nextBtn2.setVisibility(View.VISIBLE);
+                backBtn2.setVisibility(View.VISIBLE);
+
+                page1.setVisibility(View.GONE);
+                page3.setVisibility(View.GONE);
+
+                nextBtn1.setVisibility(View.GONE);
+            });
+
+            nextBtn2.setOnClickListener(view -> {
+                page3.setVisibility(View.VISIBLE);
+                backBtn3.setVisibility(View.VISIBLE);
+
+                page1.setVisibility(View.GONE);
+                page2.setVisibility(View.GONE);
+
+            });
+
+            backBtn2.setOnClickListener(view -> {
+                page1.setVisibility(View.VISIBLE);
+                nextBtn1.setVisibility(View.VISIBLE);
+                backBtn3.setVisibility(View.VISIBLE);
+
+                page2.setVisibility(View.GONE);
+                page3.setVisibility(View.GONE);
+
+                nextBtn2.setVisibility(View.GONE);
+                backBtn2.setVisibility(View.GONE);
+            });
+
+            backBtn3.setOnClickListener(view -> {
+                page2.setVisibility(View.VISIBLE);
+                nextBtn2.setVisibility(View.VISIBLE);
+                backBtn2.setVisibility(View.VISIBLE);
+
+                page1.setVisibility(View.GONE);
+                page3.setVisibility(View.GONE);
+
+                backBtn3.setVisibility(View.GONE);
+            });
+
+
+
+
             try {
                 String lastCheckupStr = pig.getLastCheckUp();
                 String nextCheckupStr = pig.getNextCheckUp();
@@ -173,13 +232,13 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
                 Date lastCheckUpDate = sdf.parse(lastCheckupStr);
                 Date nextCheckUpDate = sdf.parse(nextCheckupStr);
 
-                checkupTextView.setText("Last Check-Up: " + lastCheckupStr);
+                checkupTextView.setText(lastCheckupStr);
 
                 if (today.after(nextCheckUpDate)) {
-                    tvNextCheckUp.setText("Next Check-Up: " + nextCheckupStr + " (Overdue)");
+                    tvNextCheckUp.setText(nextCheckupStr + " (Overdue)");
                     Log.d("Overdue", "Pig ID: " + pig.getId() + " is overdue");
                 } else {
-                    tvNextCheckUp.setText("Next Check-Up: " + nextCheckupStr + " (On Schedule)");
+                    tvNextCheckUp.setText(nextCheckupStr + " (On Schedule)");
                 }
 
             } catch (Exception e) {
