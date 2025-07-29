@@ -185,9 +185,12 @@ public class AnalyticsActivity extends AppCompatActivity {
         int haveiIllness = 0;
         int noIllness = 0;
 
+        int pigCheckUpStatus = 0;
+
         for (Pig pig : pigList){
             String vaccinatedStatus = pig.getVaccinationStatus();
             String illnessStatus = pig.getPigIllness();
+            String checkUpStatus = pig.getCheckupStatus();
 
             if (vaccinatedStatus != null && !vaccinatedStatus.equalsIgnoreCase("none")
                     && !vaccinatedStatus.equalsIgnoreCase("Select Vaccines")
@@ -206,6 +209,14 @@ public class AnalyticsActivity extends AppCompatActivity {
             else {
                 noIllness++;
             }
+
+            if (checkUpStatus !=null &&
+                    !checkUpStatus.equalsIgnoreCase("Overdue")
+                    && !checkUpStatus.equalsIgnoreCase("On Schedule")
+                    && !checkUpStatus.trim().isEmpty()){
+                pigCheckUpStatus++;
+            }
+
 
 
         }

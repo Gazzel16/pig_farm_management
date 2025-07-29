@@ -15,13 +15,31 @@ import java.util.List;
 
 public class ChartCheckUpStatusHelper {
 
-    public static void checkUpStatus(BarChart barChart, int overdue, int onSchedule) {
+    public static void checkUpStatus(BarChart barChart,
+                                     int overdue,
+                                     int onSchedule,
+                                     int maleOverdueCount,
+                                     int femaleOverdueCount,
+                                     int maleOnSchedCount,
+                                     int femaleOnSchedCount) {
+
         List<BarEntry> entries = new ArrayList<>();
         entries.add(new BarEntry(0f, overdue));
         entries.add(new BarEntry(1f, onSchedule));
+        entries.add(new BarEntry(2f, maleOverdueCount));
+        entries.add(new BarEntry(3f, femaleOverdueCount));
+        entries.add(new BarEntry(4f, maleOnSchedCount));
+        entries.add(new BarEntry(5f, femaleOnSchedCount));
 
         BarDataSet dataSet = new BarDataSet(entries, "Check-Up Status");
-        dataSet.setColors(Color.RED, Color.GREEN);
+        dataSet.setColors(
+                Color.RED,
+                Color.GREEN,
+                Color.parseColor("#3F51B5"),
+                Color.parseColor("#E91E63"),
+                Color.parseColor("#009688"),
+                Color.parseColor("#BA68C8")
+        );
         dataSet.setValueTextSize(14f);
         dataSet.setValueTextColor(Color.BLACK);
 
@@ -29,10 +47,7 @@ public class ChartCheckUpStatusHelper {
         barChart.setData(barData);
         barChart.getDescription().setEnabled(false);
 
-        // X-axis label setup
-        final String[] labels = {"Overdue", "On Schedule"};
         XAxis xAxis = barChart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
         xAxis.setGranularity(1f);
         xAxis.setGranularityEnabled(true);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);

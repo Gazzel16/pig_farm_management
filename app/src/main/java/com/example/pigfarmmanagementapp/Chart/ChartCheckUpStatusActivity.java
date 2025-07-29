@@ -2,6 +2,7 @@ package com.example.pigfarmmanagementapp.Chart;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -26,8 +27,9 @@ import java.util.Locale;
 public class ChartCheckUpStatusActivity extends AppCompatActivity {
 
     BarChart barchart;
-    List<Pig> pigList = new ArrayList<>();
+    TextView maleCountTv, femaleCountTv;
 
+    List<Pig> pigList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,53 +38,79 @@ public class ChartCheckUpStatusActivity extends AppCompatActivity {
         setContentView(R.layout.chart_check_up_status);
 
         barchart = findViewById(R.id.barChart);
-        DatabaseReference pigRef = FirebaseDatabase.getInstance().getReference();
+
+        maleCountTv = findViewById(R.id.maleCount);
+        femaleCountTv = findViewById(R.id.femaleCount);
+
+        DatabaseReference pigRef = FirebaseDatabase.getInstance()
+                .getReference("pigs");
 
         pigRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-                Date today = new Date();
-
                int overdue = 0;
                int onSchedule = 0;
 
+                int maleCount = 0;
+                int femaleCount = 0;
 
-               for (DataSnapshot pigSnap : snapshot.getChildren()){
+                int maleOverdueCount = 0;
+                int femaleOverdueCount = 0;
 
-                   Pig pig = pigSnap.getValue(Pig.class);
-                   if (pig != null){
+                int maleOnSchedCount = 0;
+                int femaleOnSchedCount = 0;
 
-                       try {
+                for (DataSnapshot cageSnap : snapshot.getChildren()) {
+                    for (DataSnapshot pigSnap : cageSnap.getChildren()) {
+                        Pig pig = pigSnap.getValue(Pig.class);
 
-                           String lastCheckUpStr = pig.getLastCheckUp();
-                           String nextCheckUpStr = pig.getNextCheckUp();
+                        if(pig != null){
+                            pigList.add(pig);
 
-                           if (lastCheckUpStr == null || nextCheckUpStr == null ||
-                                   lastCheckUpStr.isEmpty() || nextCheckUpStr.isEmpty()) {
-                               throw new IllegalArgumentException("Date string is null or empty");
-                           }
+                            String status = pigSnap.child("checkupStatus").getValue(String.class);
+                            if (status != null) {
+                                String normalized = status.trim().toLowerCase();
+                                if (normalized.equals("overdue")) {
+                                    overdue++;
+                                } else if (normalized.equals("on schedule")) {
+                                    onSchedule++;
+                                }
+                            }
 
-                           Date lastCheckupDate = sdf.parse(lastCheckUpStr);
-                           Date nextCheckUpDate = sdf.parse(nextCheckUpStr);
+                            String gender = pig.getGender();
+                            if (gender.equalsIgnoreCase("Male")){
+                                maleCount++;
+                            } else if (gender.equalsIgnoreCase("Female")){
+                                femaleCount++;
+                            }
 
-                           if(today.after(lastCheckupDate)){
-                               overdue++;
-                           }else {
-                               onSchedule++;
-                           }
+                            // Male and Female Checkup Status sorting chart
+                            if (gender.equalsIgnoreCase("Male")
+                            && status.equalsIgnoreCase("Overdue")){
+                                maleOverdueCount++;
+                            }else if(gender.equalsIgnoreCase("Female")
+                                    && status.equalsIgnoreCase("Overdue")){
+                                femaleOverdueCount++;
+                            }
+
+                            if (gender.equalsIgnoreCase("Male")
+                                    && status.equalsIgnoreCase("On Schedule")){
+                                maleOnSchedCount++;
+                            }else if(gender.equalsIgnoreCase("Female")
+                                    && status.equalsIgnoreCase("On Schedule")){
+                                femaleOnSchedCount++;
+                            }
+                        }
 
 
+                    }
+                }
 
-                       }catch (Exception e){
-                           Log.e("CheckupParsingError", "Error parsing dates for pig: " + pig.getId(), e);
-                       }
-                   }
-
-                   ChartCheckUpStatusHelper.checkUpStatus(barchart, overdue, onSchedule);
-               }
-
+                ChartCheckUpStatusHelper.checkUpStatus(barchart, overdue,
+                        onSchedule, maleOverdueCount,
+                        femaleOverdueCount, maleOnSchedCount, femaleOnSchedCount);
+                maleCountTv.setText(String.valueOf(maleCount));
+                femaleCountTv.setText(String.valueOf(femaleCount));
 
             }
 

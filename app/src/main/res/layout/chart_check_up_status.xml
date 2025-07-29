@@ -21,28 +21,29 @@
 
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barChart"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout38"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
+                android:id="@+id/linearLayout38"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/barChart">
+                app:layout_constraintStart_toStartOf="parent">
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/outline_border5"
-                    android:padding="8dp"
-                    android:layout_height="wrap_content">
+                    android:padding="8dp">
 
                     <ProgressBar
                         android:id="@+id/progressBarMale"
@@ -62,9 +63,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:layout_marginTop="4dp"
+                        android:fontFamily="@font/fir_sans_italic"
                         android:text="Male PIg"
                         android:textStyle="bold"
-                        android:fontFamily="@font/fir_sans_italic"
                         app:layout_constraintStart_toEndOf="@+id/imageView5"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -83,9 +84,9 @@
                         android:id="@+id/maleCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/fir_sans_italic"
                         android:text="100+"
                         android:textStyle="bold"
-                        android:fontFamily="@font/fir_sans_italic"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -94,10 +95,10 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/outline_border5"
-                    android:padding="8dp"
-                    android:layout_height="wrap_content">
+                    android:padding="8dp">
 
                     <ImageView
                         android:id="@+id/imageView6"
@@ -115,9 +116,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
+                        android:fontFamily="@font/fir_sans_italic"
                         android:text="Female PIg"
                         android:textStyle="bold"
-                        android:fontFamily="@font/fir_sans_italic"
                         app:layout_constraintStart_toEndOf="@+id/imageView6"
                         app:layout_constraintTop_toTopOf="parent" />
 
