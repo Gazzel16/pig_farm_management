@@ -24,6 +24,11 @@ import com.example.pigfarmmanagementapp.QrCode.QRCodeGenerator;
 import com.example.pigfarmmanagementapp.R;
 import com.example.pigfarmmanagementapp.model.Cage;
 import com.example.pigfarmmanagementapp.model.Pig;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.WriterException;
 
 import java.io.File;
@@ -214,38 +219,55 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
                 backBtn3.setVisibility(View.GONE);
             });
 
+            DatabaseReference pigRef = FirebaseDatabase.getInstance().getReference("pigs");
 
+            pigRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot cageSnap : snapshot.getChildren()) {
+                        String cageId = cageSnap.getKey();
 
+                        for (DataSnapshot pigSnap : cageSnap.getChildren()) {
+                            String pigId = pigSnap.getKey();
 
-            try {
-                String lastCheckupStr = pig.getLastCheckUp();
-                String nextCheckupStr = pig.getNextCheckUp();
+                            DataSnapshot detailsSnap = pigSnap.child("details");
+                            Pig pig = detailsSnap.getValue(Pig.class);
 
-                Log.d("CheckupDebug", "LastCheckUp: " + lastCheckupStr);
-                Log.d("CheckupDebug", "NextCheckUp: " + nextCheckupStr);
+                            if (pig != null) {
+                                try {
+                                    String lastCheckupStr = pig.getLastCheckUp();
+                                    String nextCheckupStr = pig.getNextCheckUp();
 
-                if (lastCheckupStr == null || nextCheckupStr == null ||
-                        lastCheckupStr.isEmpty() || nextCheckupStr.isEmpty()) {
-                    throw new IllegalArgumentException("Date string is null or empty");
+                                    if (lastCheckupStr == null || nextCheckupStr == null ||
+                                            lastCheckupStr.isEmpty() || nextCheckupStr.isEmpty()) {
+                                        continue;
+                                    }
+
+                                    Date nextCheckUpDate = sdf.parse(nextCheckupStr);
+                                    String status = today.after(nextCheckUpDate) ? "Overdue" : "On Schedule";
+
+                                    // ✅ Save status to Firebase under details
+                                    pigRef.child(cageId)
+                                            .child(pigId)
+                                            .child("details")
+                                            .child("checkup status")
+                                            .setValue(status);
+
+                                    Log.d("CheckupStatus", "Pig " + pigId + " is " + status);
+
+                                } catch (Exception e) {
+                                    Log.e("ParseError", "Date parsing error for pig " + pigId, e);
+                                }
+                            }
+                        }
+                    }
                 }
 
-                Date lastCheckUpDate = sdf.parse(lastCheckupStr);
-                Date nextCheckUpDate = sdf.parse(nextCheckupStr);
-
-                checkupTextView.setText(lastCheckupStr);
-
-                if (today.after(nextCheckUpDate)) {
-                    tvNextCheckUp.setText(nextCheckupStr + " (Overdue)");
-                    Log.d("Overdue", "Pig ID: " + pig.getId() + " is overdue");
-                } else {
-                    tvNextCheckUp.setText(nextCheckupStr + " (On Schedule)");
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("FirebaseError", "Error reading from Firebase", error.toException());
                 }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                checkupTextView.setText("Invalid Check-Up Date");
-                tvNextCheckUp.setText("Next Check-Up: Error");
-            }
+            });
 
 
 

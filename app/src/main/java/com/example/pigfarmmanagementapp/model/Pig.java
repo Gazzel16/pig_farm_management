@@ -1,5 +1,9 @@
 package com.example.pigfarmmanagementapp.model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class Pig {
     private String id;
     private String breed; // New field
@@ -195,5 +199,20 @@ public class Pig {
     public void setPurchaseDateTime(String buyerContact) {
         this.purchaseDateTime = purchaseDateTime;
     }
+
+    public String getCheckupStatus() {
+        if (nextCheckUp == null || nextCheckUp.isEmpty()) {
+            return "Unknown";
+        }
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            Date today = new Date();
+            Date next = sdf.parse(nextCheckUp);
+            return today.after(next) ? "Overdue" : "On Schedule";
+        } catch (Exception e) {
+            return "Invalid Date";
+        }
+    }
+
 
 }
