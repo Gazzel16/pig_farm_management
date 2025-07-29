@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -48,11 +50,32 @@ public class EditPigHandler {
         Spinner spinnerPigIllness = dialogView.findViewById(R.id.spinnerPigIllness);
         Spinner spinnerPigGender = dialogView.findViewById(R.id.spinnerPigGender);
         EditText etPigLastCheckUp = dialogView.findViewById(R.id.etPigLastCheckUp);
+        EditText etPigNextCheckUp = dialogView.findViewById(R.id.etPigNextCheckUp);
 
         // Populate input fields
         etPigBreed.setText(pig.getBreed());
         etPigBirthDate.setText(pig.getBirthDate());
         etPigWeight.setText(String.valueOf(pig.getWeight()));
+
+        ImageView backBtn = dialogView.findViewById(R.id.backBtn);
+        Button nextBtn = dialogView.findViewById(R.id.nextBtn);
+
+        LinearLayout page1 = dialogView.findViewById(R.id.page1);
+        LinearLayout page2 = dialogView.findViewById(R.id.page2);
+
+        nextBtn.setOnClickListener(view -> {
+            page2.setVisibility(View.VISIBLE);
+            backBtn.setVisibility(View.VISIBLE);
+
+            page1.setVisibility(View.GONE);
+        });
+
+        backBtn.setOnClickListener(view -> {
+            page1.setVisibility(View.VISIBLE);
+            nextBtn.setVisibility(View.VISIBLE);
+
+            page2.setVisibility(View.GONE);
+        });
 
         etPigBirthDate.setInputType(InputType.TYPE_NULL); // Prevent keyboard
         etPigBirthDate.setFocusable(false);
@@ -70,6 +93,26 @@ public class EditPigHandler {
                                 + String.format("%02d", (selectedMonth + 1)) + "-"
                                 + String.format("%02d", selectedDay);
                         etPigLastCheckUp.setText(formattedDate);
+                    },
+                    year, month, day
+            );
+
+            datePickerDialog.show();
+        });
+
+        etPigNextCheckUp.setOnClickListener(v -> {
+            final Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                    v.getContext(), // ✅ Use context from the clicked view
+                    (view, selectedYear, selectedMonth, selectedDay) -> {
+                        String formattedDate = selectedYear + "-"
+                                + String.format("%02d", (selectedMonth + 1)) + "-"
+                                + String.format("%02d", selectedDay);
+                        etPigNextCheckUp.setText(formattedDate);
                     },
                     year, month, day
             );
@@ -182,7 +225,11 @@ public class EditPigHandler {
         if (pig.getLastCheckUp() != null && !pig.getLastCheckUp().trim().isEmpty()) {
             etPigLastCheckUp.setText(pig.getLastCheckUp().trim());
         }
-        
+
+        if (pig.getNextCheckUp() != null && !pig.getNextCheckUp().trim().isEmpty()) {
+            etPigNextCheckUp.setText(pig.getNextCheckUp().trim());
+        }
+
         AlertDialog dialog = builder.create();
         dialog.show();
 
@@ -193,6 +240,8 @@ public class EditPigHandler {
             String weightString = etPigWeight.getText().toString().trim();
 
             String pigLastCheckUp = etPigLastCheckUp.getText().toString().trim();
+
+            String pigNextCheckUp = etPigNextCheckUp.getText().toString().trim();
 
             String selectedPigGender = spinnerPigGender.getSelectedItem()
                     != null ? spinnerPigGender.getSelectedItem().toString() : "";
@@ -260,7 +309,9 @@ public class EditPigHandler {
                     !birthDate.equals(pig.getBirthDate()) ||
                     !selectedPigIllness.equals(pig.getPigIllness()) ||
                     !selectedPigGender.equals(pig.getGender()) ||
-                    !pigLastCheckUp.equals(pig.getLastCheckUp());// ✅ Include this line
+                    !pigLastCheckUp.equals(pig.getLastCheckUp()) ||
+                    !pigNextCheckUp.equalsIgnoreCase(pig.getNextCheckUp());// ✅ Include this line
+
 
             Log.d("DEBUG", "Old birthDate: " + pig.getBirthDate() + ", New: " + birthDate);
 
@@ -279,6 +330,7 @@ public class EditPigHandler {
             updates.put("weight", weight);
             updates.put("vaccinationStatus", vaccinationStatus);
             updates.put("lastCheckUp", pigLastCheckUp);
+            updates.put("nextCheckUp", pigNextCheckUp);
             updates.put("pigIllness", selectedPigIllness);
 
             ProgressDialog progressDialog = new ProgressDialog(context);
@@ -299,6 +351,7 @@ public class EditPigHandler {
                             pig.setPigIllness(selectedPigIllness);
                             pig.setVaccinationStatus(vaccinationStatus);
                             pig.setLastCheckUp(pigLastCheckUp);
+                            pig.setNextCheckUp(pigNextCheckUp);
                             if (onPigUpdated != null) onPigUpdated.run();
                             dialog.dismiss();
                         } else {

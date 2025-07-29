@@ -166,8 +166,8 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
             Button nextBtn1 = dialogView.findViewById(R.id.nextBtn1);
 
 
-            Button nextBtn2 = dialogView.findViewById(R.id.nextBtn2);
-            Button backBtn2 = dialogView.findViewById(R.id.backBtn2);
+            ImageView nextBtn2 = dialogView.findViewById(R.id.nextBtn2);
+            ImageView backBtn2 = dialogView.findViewById(R.id.backBtn2);
 
             Button backBtn3 = dialogView.findViewById(R.id.backBtn3);
 

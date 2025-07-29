@@ -18,6 +18,9 @@
         android:theme="@style/Theme.PigFarmManagementApp"
         tools:targetApi="31">
         <activity
+            android:name=".Chart.ChartCheckUpStatusActivity"
+            android:exported="false" />
+        <activity
             android:name=".Chart.LastCheckUpActivity"
             android:exported="false" />
         <activity

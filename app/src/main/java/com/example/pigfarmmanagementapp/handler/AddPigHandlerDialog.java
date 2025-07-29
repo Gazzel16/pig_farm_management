@@ -2,12 +2,15 @@ package com.example.pigfarmmanagementapp.handler;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.media.Image;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -45,7 +48,27 @@ public class AddPigHandlerDialog {
 
         EditText etPigLastCheckUp = dialogView.findViewById(R.id.etPigLastCheckUp);
         EditText etPigNextCheckUp = dialogView.findViewById(R.id.etPigNextCheckUp);
+
         Button btnAddPig = dialogView.findViewById(R.id.btnAddPig);
+        ImageView backBtn = dialogView.findViewById(R.id.backBtn);
+        Button nextBtn = dialogView.findViewById(R.id.nextBtn);
+
+        LinearLayout page1 = dialogView.findViewById(R.id.page1);
+        LinearLayout page2 = dialogView.findViewById(R.id.page2);
+
+        nextBtn.setOnClickListener(view -> {
+            page2.setVisibility(View.VISIBLE);
+            backBtn.setVisibility(View.VISIBLE);
+
+            page1.setVisibility(View.GONE);
+        });
+
+        backBtn.setOnClickListener(view -> {
+            page1.setVisibility(View.VISIBLE);
+            nextBtn.setVisibility(View.VISIBLE);
+
+            page2.setVisibility(View.GONE);
+        });
 
         etPigBirthDate.setInputType(InputType.TYPE_NULL); // Prevent keyboard
         etPigBirthDate.setFocusable(false);

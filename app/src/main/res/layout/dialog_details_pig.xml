@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -276,7 +277,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone"
+android:visibility="gone"
         android:background="@drawable/bottom_border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -284,26 +285,51 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/orange_custom"
-            android:orientation="vertical"
             android:foregroundGravity="center"
             android:gravity="center"
-            android:padding="20dp">
+            android:padding="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Pig Health Details"
                 android:fontFamily="@font/fir_sans_italic"
+                android:text="Pig Health Details"
                 android:textColor="@color/white_custom"
-                android:textSize="25sp"
-                android:textStyle="bold"/>
+                android:textSize="21sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/nextBtn2"
+                app:layout_constraintStart_toEndOf="@+id/backBtn2"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/backBtn2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:tint="@color/white_custom"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/back" />
+
+            <ImageView
+                android:id="@+id/nextBtn2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleX="-1"
+                android:tint="@color/white_custom"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/back" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -523,36 +549,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:foregroundGravity="center"
-            android:layout_marginTop="8dp"
-            android:padding="12dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/backBtn2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Back"
-                android:layout_marginRight="6dp"
-                android:textColor="@color/white_custom"
-                android:background="@color/orange_custom"
-                android:textSize="12sp"/>
-
-            <Button
-                android:id="@+id/nextBtn2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Next"
-                android:layout_marginLeft="6dp"
-                android:textColor="@color/white_custom"
-                android:background="@color/orange_custom"
-                android:textSize="12sp"/>
-        </LinearLayout>
 
     </LinearLayout>
 

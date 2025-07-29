@@ -10,13 +10,13 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.pigfarmmanagementapp.R;
 
-public class LastCheckUpActivity extends AppCompatActivity {
+public class ChartCheckUpStatusActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.last_check_up);
+        setContentView(R.layout.chart_check_up_status);
 
 
     }

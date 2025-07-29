@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pigfarmmanagementapp.Chart.ChartUtils.BarChartHelper;
+import com.example.pigfarmmanagementapp.Chart.ChartUtils.ChartCheckUpStatusHelper;
 import com.example.pigfarmmanagementapp.Chart.ChartUtils.ChartForIllnessPigsHelper;
 import com.example.pigfarmmanagementapp.R;
 import com.example.pigfarmmanagementapp.adapter.AnalyticsCategoriesAdapter;
@@ -224,12 +225,29 @@ public class AnalyticsActivity extends AppCompatActivity {
                 (int) ((haveiIllness / (float) totalPigsCount) * 100)
         ));
 
+        analyticsCategories.add(new AnalyticsCategories(
+                "Pigs Checkup Status",
+                "Checkup Metrics",
+                R.drawable.checkup_icon,
+                (int) ((haveiIllness / (float) totalPigsCount) * 100)
+        ));
+
 
         // Setup RecyclerView
         AnalyticsCategoriesAdapter adapter = new AnalyticsCategoriesAdapter(this, analyticsCategories, category -> {
             if (category.getTitle().equalsIgnoreCase("Vaccinated Pigs")) {
 
                  startActivity(new Intent(this, ChartVaccinatedActivity.class));
+            }
+
+            if (category.getTitle().equalsIgnoreCase("Illness Pigs")) {
+
+                startActivity(new Intent(this, ChartIlnessActivity.class));
+            }
+
+            if (category.getTitle().equalsIgnoreCase("Pigs Checkup Status")) {
+
+                startActivity(new Intent(this, ChartCheckUpStatusActivity.class));
             }
         });
 
