@@ -2,10 +2,14 @@ package com.example.pigfarmmanagementapp.adapter;
 
 import android.content.ContentValues;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -161,7 +165,7 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
             ((TextView) dialogView.findViewById(R.id.buyerContact)).setText(pig.getBuyerContact());
 
 
-            TextView checkupTextView = dialogView.findViewById(R.id.tvPigCheckup);
+            TextView tvLastCheckUp = dialogView.findViewById(R.id.tvPigCheckup);
             TextView tvNextCheckUp = dialogView.findViewById(R.id.tvPigNextCheckup);
 
             LinearLayout page1 = dialogView.findViewById(R.id.page1);
@@ -237,7 +241,6 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
                                 try {
                                     String lastCheckupStr = pig.getLastCheckUp();
                                     String nextCheckupStr = pig.getNextCheckUp();
-
                                     if (lastCheckupStr == null || nextCheckupStr == null ||
                                             lastCheckupStr.isEmpty() || nextCheckupStr.isEmpty()) {
                                         continue;
@@ -269,6 +272,31 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
                 }
             });
 
+            String nextCheckup = pig.getNextCheckUp();
+            String status = pig.getCheckupStatus();
+            String fullText = nextCheckup + " (" + status + ") ";
+
+            SpannableString spannable = new SpannableString(fullText);
+
+            if (status.equalsIgnoreCase("Overdue")) {
+                spannable.setSpan(
+                        new ForegroundColorSpan(Color.RED),
+                        nextCheckup.length() + 1,
+                        fullText.length(),
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                );
+            } else if (status.equalsIgnoreCase("On Schedule")) {
+                spannable.setSpan(
+                        new ForegroundColorSpan(Color.parseColor("#4CAF50")),
+                        nextCheckup.length() + 1,
+                        fullText.length(),
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                );
+            }
+
+            tvNextCheckUp.setText(spannable);
+
+            tvLastCheckUp.setText(pig.getLastCheckUp());
 
 
             AlertDialog dialog = new AlertDialog.Builder(v.getContext())
