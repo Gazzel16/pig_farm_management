@@ -39,25 +39,69 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-
                     <Button
                         android:id="@+id/purchase"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginRight="25dp"
                         android:background="@color/green"
                         android:fontFamily="@font/fir_sans_italic"
                         android:foregroundGravity="center"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="10dp"
                         android:gravity="center"
                         android:text="Purchase Pig"
-                        android:textAlignment="center"
                         android:textColor="@color/white_custom"
-                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/linearLayout11" />
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout40"
+                        tools:layout_editor_absoluteX="20dp" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/linearLayout40"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#BC7A5E"
+                        android:padding="8dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout11">
+
+                        <TextView
+                            android:id="@+id/textView15"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/fir_sans_italic"
+                            android:text="Pig's Price Value:"
+                            android:textColor="@color/white_custom"
+                            android:textStyle="bold"
+                            android:padding="4dp"
+                            android:background="@color/brown_custom"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                        <TextView
+                            android:id="@+id/pigPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:fontFamily="@font/fir_sans_italic"
+                            android:text="₱100"
+                            android:padding="4dp"
+                            android:background="@color/brown_custom"
+                            android:textColor="@color/white_custom"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
                     <LinearLayout
                         android:id="@+id/linearLayout11"

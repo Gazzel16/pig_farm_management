@@ -160,7 +160,9 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
             ((TextView) dialogView.findViewById(R.id.tvPigIllness)).setText(pig.getPigIllness());
             ((TextView) dialogView.findViewById(R.id.tvPigVaccine)).setText(pig.getVaccinationStatus());
             ((TextView) dialogView.findViewById(R.id.tvPigCage)).setText(cageName);
+            ((TextView) dialogView.findViewById(R.id.tvPigPrice)).setText("₱ " + pig.getPrice());
 
+            ((TextView) dialogView.findViewById(R.id.tvPigStatus)).setText( pig.getStatus());
             ((TextView) dialogView.findViewById(R.id.buyerName)).setText( pig.getBuyerName());
             ((TextView) dialogView.findViewById(R.id.buyerContact)).setText(pig.getBuyerContact());
 
@@ -172,7 +174,7 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
             LinearLayout page2 = dialogView.findViewById(R.id.page2);
             LinearLayout page3 = dialogView.findViewById(R.id.page3);
 
-            Button nextBtn1 = dialogView.findViewById(R.id.nextBtn1);
+            ImageView nextBtn1 = dialogView.findViewById(R.id.nextBtn1);
 
 
             ImageView nextBtn2 = dialogView.findViewById(R.id.nextBtn2);

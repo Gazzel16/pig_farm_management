@@ -45,9 +45,11 @@ public class AddPigHandlerDialog {
         Spinner spinnerPigIllness = dialogView.findViewById(R.id.spinnerPigIllness);
         Spinner spinnerVaccinationStatus = dialogView.findViewById(R.id.spinnerVaccinationStatus);
         Spinner spinnerPigGender = dialogView.findViewById(R.id.spinnerPigGender);
+        Spinner spinnerPigStatus = dialogView.findViewById(R.id.spinnerPigStatus);
 
         EditText etPigLastCheckUp = dialogView.findViewById(R.id.etPigLastCheckUp);
         EditText etPigNextCheckUp = dialogView.findViewById(R.id.etPigNextCheckUp);
+        EditText etPigPrice = dialogView.findViewById(R.id.etPigPrice);
 
         Button btnAddPig = dialogView.findViewById(R.id.btnAddPig);
         ImageView backBtn = dialogView.findViewById(R.id.backBtn);
@@ -139,6 +141,12 @@ public class AddPigHandlerDialog {
                 "Female"
         };
 
+        String[] pigStatus = {
+                "Select Status",
+                "Alive",
+                "Dead"
+        };
+
         // Spinner data
         String[] vaccinationStatus = {
                 "Select Vaccines",
@@ -196,12 +204,17 @@ public class AddPigHandlerDialog {
         pigGenderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPigGender.setAdapter((pigGenderAdapter));
 
+        ArrayAdapter<String>pigStatusAdapter = new ArrayAdapter<>(context, R.layout.spinner_item, pigStatus);
+        pigStatusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerPigStatus.setAdapter((pigStatusAdapter));
+
         AlertDialog dialog = builder.create();
 
         btnAddPig.setOnClickListener(v -> {
             String pigBreed = etPigBreed.getText().toString().trim();
             String pigBirthDate = etPigBirthDate.getText().toString().trim();
             String pigWeightStr = etPigWeight.getText().toString().trim();
+            String pigPriceStr = etPigPrice.getText().toString().trim();
 
             String pigLastCheckUp = etPigLastCheckUp.getText().toString().trim();
             String pigNextCheckUp = etPigNextCheckUp.getText().toString().trim();
@@ -209,19 +222,24 @@ public class AddPigHandlerDialog {
             String selectedPigGender = spinnerPigGender.getSelectedItem()
                     != null ? spinnerPigGender.getSelectedItem().toString() : "";
 
+            String selectedPigStatus = spinnerPigStatus.getSelectedItem()
+                    != null ? spinnerPigStatus.getSelectedItem().toString() : "";
+
             String selectedPigIllness = spinnerPigIllness.getSelectedItem()
                     != null ? spinnerPigIllness.getSelectedItem().toString() : "";
 
-            String selectedStatus = spinnerVaccinationStatus.getSelectedItem() != null
+            String selectedVaccinationStatus = spinnerVaccinationStatus.getSelectedItem() != null
                     ? spinnerVaccinationStatus.getSelectedItem().toString()
                     : "";
 
             if (pigBreed.isEmpty()
-                    || selectedStatus.equals("Select Status")
+                    || selectedVaccinationStatus.equalsIgnoreCase("Select Status")
                     || pigWeightStr.isEmpty()
-                    || selectedStatus.isEmpty()
-                    || selectedPigGender.equals("Select Gender")
-                    || selectedPigIllness.equals("Select Illness")
+                    || selectedVaccinationStatus.isEmpty()
+                    || selectedPigGender.equalsIgnoreCase("Select Gender")
+                    || selectedPigIllness.equalsIgnoreCase("Select Illness")
+                    || selectedPigStatus.equalsIgnoreCase("Select Status")
+
             )
             {
                 Toast.makeText(context, "Please fill in all fields and select a valid status.", Toast.LENGTH_SHORT).show();
@@ -232,12 +250,15 @@ public class AddPigHandlerDialog {
                 pigWeightStr = pigWeightStr.replace(",", ""); // Remove commas
                 double pigWeight = Double.parseDouble(pigWeightStr);
 
+                pigPriceStr = pigPriceStr.replace(",", "");
+                double pigPrice = Double.parseDouble(pigPriceStr);
+
                 // Generate a new pigId (using Firebase push() method for uniqueness)
                 String pigId = String.format("%07d", (int)(Math.random() * 10000000));
                 Pig newPig = new Pig(pigId, pigBreed, selectedPigGender, pigBirthDate,
-                        pigWeight,selectedPigIllness, selectedStatus,
+                        pigWeight,selectedPigIllness, selectedVaccinationStatus,
                         pigLastCheckUp, cageId, isPurchase, buyerName,
-                        buyerContact, purchaseDateTime, pigNextCheckUp);
+                        buyerContact, purchaseDateTime, pigNextCheckUp, pigPrice, selectedPigStatus);
 
                 // Store the pig data under the pigs node with the unique pigId
                 databasePigs.child(pigId).setValue(newPig).addOnCompleteListener(task -> {

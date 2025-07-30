@@ -1,6 +1,7 @@
 package com.example.pigfarmmanagementapp.Chart;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -243,6 +245,13 @@ public class AnalyticsActivity extends AppCompatActivity {
                 (int) ((haveiIllness / (float) totalPigsCount) * 100)
         ));
 
+        analyticsCategories.add(new AnalyticsCategories(
+                "Pig Sales Overview",
+                "Pig Sales Overview",
+                R.drawable.purchase,
+                (int) ((haveiIllness / (float) totalPigsCount) * 100)
+        ));
+
 
         // Setup RecyclerView
         AnalyticsCategoriesAdapter adapter = new AnalyticsCategoriesAdapter(this, analyticsCategories, category -> {
@@ -260,11 +269,25 @@ public class AnalyticsActivity extends AppCompatActivity {
 
                 startActivity(new Intent(this, ChartCheckUpStatusActivity.class));
             }
+
+            if (category.getTitle().equalsIgnoreCase("Pig Sales Overview")) {
+
+                startActivity(new Intent(this, ChartCheckUpStatusActivity.class));
+            }
         });
 
 
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+        int widthRes;
+
+
+        if (screenWidth >= 900){
+            widthRes = 2;
+        } else {
+            widthRes = 1;
+        }
+        recyclerView.setLayoutManager(new GridLayoutManager(this, widthRes));
         recyclerView.setAdapter(adapter);
 
 

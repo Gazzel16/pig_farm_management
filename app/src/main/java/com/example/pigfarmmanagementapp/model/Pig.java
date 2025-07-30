@@ -11,6 +11,9 @@ public class Pig {
     private String gender;
     private String birthDate; // New field
     private double weight; // New field
+
+    private double price;
+
     private String vaccinationStatus; // New field
 
     private String pigIllness;
@@ -21,6 +24,8 @@ public class Pig {
     private String cageId;
 
     private boolean purchase = false;
+
+    private String status;
 
     private String buyerName;
     private String buyerContact;
@@ -37,7 +42,7 @@ public class Pig {
                double weight, String pigIllness, String vaccinationStatus,
                String lastCheckUp, String cageId,  boolean purchase,
                String buyerName,
-               String buyerContact, String purchaseDateTime, String nextCheckUp) {
+               String buyerContact, String purchaseDateTime, String nextCheckUp, double price, String status) {
         this.id = id;
         this.breed = breed;
         this.gender = gender;
@@ -56,6 +61,17 @@ public class Pig {
         this.buyerContact = buyerContact;
         this.purchaseDateTime = purchaseDateTime;
 
+        this.price = price;
+        this.status = status;
+
+    }
+
+    //Pig Status dead or alive
+    public String getStatus(){
+        return  status;
+    }
+    public void setStatus(String status){
+        this.status = status;
     }
 
     // Getter and Setter for ID
@@ -91,6 +107,16 @@ public class Pig {
 
     public void setWeight(double weight) {
         this.weight = weight;
+    }
+
+    //pig price
+
+    public double getPrice(){
+        return price;
+    }
+
+    public void setPrice(double price){
+        this.price = price;
     }
 
     // Getter and Setter for Vaccination Status

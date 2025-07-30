@@ -10,7 +10,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bottom_border"
         android:orientation="vertical"
         android:padding="12dp">
 
@@ -18,7 +17,7 @@
         android:id="@+id/page1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/edt_bg"
+android:background="@drawable/edt_bg"
         android:orientation="vertical"
         android:padding="12dp">
 
@@ -71,6 +70,24 @@
             android:inputType="text" />
 
         <TextView
+            android:id="@+id/textView28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price: "
+            android:layout_marginTop="8dp"
+            android:textStyle="bold"
+            android:textColor="@color/brown_custom"
+            android:textSize="18sp" />
+
+
+        <EditText
+            android:id="@+id/etPigPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:inputType="text" />
+
+        <TextView
             android:id="@+id/textView27"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -84,8 +101,28 @@
             android:id="@+id/spinnerPigGender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:paddingTop="8dp"
             android:spinnerMode="dropdown"/>
+
+        <TextView
+            android:id="@+id/textView271"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:layout_marginTop="8dp"
+            android:textStyle="bold"
+            android:textColor="@color/brown_custom"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/spinnerPigStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingTop="8dp"
+            android:spinnerMode="dropdown"/>
+
 
         <Button
             android:id="@+id/nextBtn"
