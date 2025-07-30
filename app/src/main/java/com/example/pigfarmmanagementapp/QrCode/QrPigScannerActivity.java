@@ -2,6 +2,7 @@ package com.example.pigfarmmanagementapp.QrCode;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.annotation.ColorLong;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.pigfarmmanagementapp.R;
@@ -34,7 +36,9 @@ import java.util.Locale;
 
 public class QrPigScannerActivity extends AppCompatActivity {
 
-    private TextView breedTv, weightTv, statusTv, birthDateTv, genderTv, lastCheckUpTv, illnessTv;
+    private TextView breedTv, weightTv,
+            statusTv, birthDateTv,
+            genderTv, lastCheckUpTv, illnessTv, nextCheckupTv;
 
     private Button purchase;
 
@@ -61,6 +65,7 @@ public class QrPigScannerActivity extends AppCompatActivity {
 
         genderTv = findViewById(R.id.gender);
         lastCheckUpTv = findViewById(R.id.lastCheckUp);
+        nextCheckupTv = findViewById(R.id.nextCheckup);
         illnessTv = findViewById(R.id.illness);
 
         pigId = getIntent().getStringExtra("id");
@@ -196,22 +201,25 @@ public class QrPigScannerActivity extends AppCompatActivity {
                             String gender = pigSnapshot.child("gender").getValue(String.class);
                             String illness = pigSnapshot.child("pigIllness").getValue(String.class);
                             String lastCheckUp = pigSnapshot.child("lastCheckUp").getValue(String.class);
+                            String nextCheckUp = pigSnapshot.child("nextCheckUp").getValue(String.class);
 
                             // ✅ Get the purchase value (default to false if null)
                             Boolean purchaseValue = pigSnapshot.child("purchase").getValue(Boolean.class);
                             isPurchase = (purchaseValue != null) ? purchaseValue : false;
 
-                            breedTv.setText("Breed: " + breed);
-                            weightTv.setText("Weight: " + weight);
-                            birthDateTv.setText("B-Date: " + birthDate);
-                            statusTv.setText("V-Status: " + status);
+                            breedTv.setText(breed);
+                            weightTv.setText(weight);
+                            birthDateTv.setText(birthDate);
+                            statusTv.setText(status);
 
-                            genderTv.setText("Gender: " + gender);
-                            illnessTv.setText("Illness: " + illness);
-                            lastCheckUpTv.setText("Last CheckUp: " + lastCheckUp);
+                            genderTv.setText(gender);
+                            illnessTv.setText(illness);
+                            lastCheckUpTv.setText(lastCheckUp);
+                            nextCheckupTv.setText(nextCheckUp);
 
                             if (isPurchase) {
                                 purchase.setEnabled(false);
+                                purchase.setBackgroundColor(Color.GRAY);
                                 purchase.setText(pig.getBuyerName() + " purchased this pig");
                             } else {
                                 purchase.setEnabled(true);
@@ -234,7 +242,8 @@ public class QrPigScannerActivity extends AppCompatActivity {
 
                         genderTv.setText("Gender: -" );
                         illnessTv.setText("Illness: -");
-                        lastCheckUpTv.setText("Last CheckU: -");
+                        lastCheckUpTv.setText("Last CheckUp: -");
+                        nextCheckupTv.setText("Next CheckUp: -");
                     }
                 }
 

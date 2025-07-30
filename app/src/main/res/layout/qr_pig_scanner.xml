@@ -3,140 +3,356 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="#F4CFA4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".QrCode.QrPigScannerActivity">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/outline_border"
-        android:orientation="horizontal"
-        android:padding="15dp"
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.449"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.484">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-
-            <ImageView
-                android:id="@+id/imageHandler"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.053"
-                app:srcCompat="@drawable/pig" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/linearLayout11"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#F4CFA4"
                 android:orientation="horizontal"
-                android:padding="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/imageHandler"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.634">
+                app:layout_constraintVertical_bias="0.0">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/breed"
-                        android:layout_width="wrap_content"
+
+                    <Button
+                        android:id="@+id/purchase"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:text="Breed: "
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginRight="25dp"
+                        android:background="@color/green"
+                        android:fontFamily="@font/fir_sans_italic"
+                        android:foregroundGravity="center"
+                        android:gravity="center"
+                        android:text="Purchase Pig"
+                        android:textAlignment="center"
+                        android:textColor="@color/white_custom"
                         android:textStyle="bold"
-                        app:layout_constraintStart_toEndOf="@+id/imageHandler"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/weight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:text="Weight: "
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toEndOf="@+id/imageHandler"
-                        app:layout_constraintTop_toBottomOf="@+id/gender" />
-
-                    <TextView
-                        android:id="@+id/birthDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="B-date: "
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toEndOf="@+id/imageHandler"
-                        app:layout_constraintTop_toBottomOf="@+id/weight" />
-
-                    <TextView
-                        android:id="@+id/status"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:text="Vaccine: "
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toEndOf="@+id/imageHandler"
-                        app:layout_constraintTop_toBottomOf="@+id/birthDate"
-                        app:layout_constraintVertical_bias="0.0" />
-
-                    <TextView
-                        android:id="@+id/gender"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Gender: "
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/breed" />
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout11" />
 
-                    <TextView
-                        android:id="@+id/illness"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Illness"
+                    <LinearLayout
+                        android:id="@+id/linearLayout11"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="15dp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/lastCheckUp" />
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    <TextView
-                        android:id="@+id/lastCheckUp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Last CheckUp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/status" />
 
+                        <LinearLayout
+                            android:id="@+id/linearLayout39"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bottom_border"
+                            android:orientation="vertical"
+                            android:padding="8dp"
+                            app:layout_constraintBottom_toTopOf="@+id/purchase"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/textView15"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/brown_custom"
+                                android:fontFamily="@font/fir_sans_italic"
+                                android:padding="15dp"
+                                android:text="Pig Basic Informations"
+                                android:textColor="@color/white_custom"
+                                android:textStyle="bold" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:padding="7dp">
+
+                                <TextView
+                                    android:id="@+id/breed1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Breed: "
+
+                                    app:layout_constraintStart_toEndOf="@+id/imageHandler"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                                <TextView
+                                    android:id="@+id/breed"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:background="@drawable/edt_bg"
+                                    android:padding="6dp"
+                                    android:text="Black Pig "
+                                    app:layout_constraintStart_toEndOf="@+id/imageHandler"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="7dp">
+
+                                <TextView
+                                    android:id="@+id/gender1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Gender: "
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/breed" />
+
+                                <TextView
+                                    android:id="@+id/gender"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:background="@drawable/edt_bg"
+                                    android:padding="6dp"
+                                    android:text="Femaile: "
+
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/breed" />
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:padding="7dp">
+
+                                <TextView
+                                    android:id="@+id/birthDate1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="B-date: "
+                                    app:layout_constraintStart_toEndOf="@+id/imageHandler"
+                                    app:layout_constraintTop_toBottomOf="@+id/weight" />
+
+
+                                <TextView
+                                    android:id="@+id/birthDate"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:background="@drawable/edt_bg"
+                                    android:padding="6dp"
+                                    android:text="1-1-2025"
+                                    app:layout_constraintStart_toEndOf="@+id/imageHandler"
+                                    app:layout_constraintTop_toBottomOf="@+id/weight" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="7dp">
+
+                                <TextView
+                                    android:id="@+id/weight1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Weight: "
+                                    app:layout_constraintStart_toEndOf="@+id/imageHandler"
+                                    app:layout_constraintTop_toBottomOf="@+id/gender" />
+
+
+                                <TextView
+                                    android:id="@+id/weight"
+                                    android:layout_width="match_parent"
+
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:background="@drawable/edt_bg"
+                                    android:padding="6dp"
+                                    android:text="12kg "
+                                    app:layout_constraintStart_toEndOf="@+id/imageHandler"
+                                    app:layout_constraintTop_toBottomOf="@+id/gender" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/bottom_border"
+                            android:orientation="vertical"
+                            android:padding="15dp">
+
+                            <TextView
+                                android:id="@+id/textView15"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/brown_custom"
+                                android:fontFamily="@font/fir_sans_italic"
+                                android:padding="15dp"
+                                android:text="Pig Health Informations"
+                                android:textColor="@color/white_custom"
+                                android:textStyle="bold" />
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:padding="7dp">
+
+                                <TextView
+                                    android:id="@+id/status1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Vaccine: "
+                                    app:layout_constraintStart_toEndOf="@+id/imageHandler"
+                                    app:layout_constraintTop_toBottomOf="@+id/birthDate"
+                                    app:layout_constraintVertical_bias="0.0" />
+
+
+                                <TextView
+                                    android:id="@+id/status"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:background="@drawable/edt_bg"
+                                    android:padding="6dp"
+                                    android:text="Vaccine "
+                                    app:layout_constraintStart_toEndOf="@+id/imageHandler"
+                                    app:layout_constraintTop_toBottomOf="@+id/birthDate"
+                                    app:layout_constraintVertical_bias="0.0" />
+
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:padding="7dp">
+
+                                <TextView
+                                    android:id="@+id/illness1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Illness"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/lastCheckUp" />
+
+
+                                <TextView
+                                    android:id="@+id/illness"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:background="@drawable/edt_bg"
+                                    android:padding="6dp"
+                                    android:text="Illness"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/lastCheckUp" />
+
+
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:padding="7dp">
+
+                                <TextView
+                                    android:id="@+id/lastCheckUp1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Last CheckUp"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/status" />
+
+                                <TextView
+                                    android:id="@+id/lastCheckUp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:background="@drawable/edt_bg"
+                                    android:padding="6dp"
+                                    android:text="1-1-2025"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/status" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:padding="7dp">
+
+                                <TextView
+                                    android:id="@+id/nextCheckup1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Next CheckUp"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/status" />
+
+                                <TextView
+                                    android:id="@+id/nextCheckup"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:background="@drawable/edt_bg"
+                                    android:padding="6dp"
+                                    android:text="1-1-2025"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/status" />
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             </LinearLayout>
 
-            <Button
-                android:id="@+id/purchase"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Purchase Pig"
-                android:gravity="center"
-                android:foregroundGravity="center"
-                android:textAlignment="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout11" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -33,8 +33,8 @@ public class ChartCheckUpStatusHelper {
 
         BarDataSet dataSet = new BarDataSet(entries, "Check-Up Status");
         dataSet.setColors(
-                Color.RED,
-                Color.GREEN,
+                Color.parseColor("#C81F1F"),
+                Color.parseColor("#4CAF50"),
                 Color.parseColor("#3F51B5"),
                 Color.parseColor("#E91E63"),
                 Color.parseColor("#009688"),
