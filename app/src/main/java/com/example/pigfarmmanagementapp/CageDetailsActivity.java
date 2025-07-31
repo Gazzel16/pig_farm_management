@@ -2,12 +2,14 @@ package com.example.pigfarmmanagementapp;
 
 import com.example.pigfarmmanagementapp.handler.AddPigHandlerDialog;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.pigfarmmanagementapp.adapter.PigAdapter;
@@ -53,8 +55,19 @@ public class CageDetailsActivity extends AppCompatActivity {
 
         EditText etSearchPig = findViewById(R.id.etSearchPig);
         // Set up RecyclerView
+
+        int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+        int width;
+
+        if(screenWidth >= 1700){
+            width = 3;
+        }else if(screenWidth >= 900){
+            width = 2;
+        }else {
+            width = 1;
+        }
         recyclerViewPigs = findViewById(R.id.recyclerViewPigs);
-        recyclerViewPigs.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewPigs.setLayoutManager(new GridLayoutManager(this, width));
         pigAdapter = new PigAdapter(pigList, cageName, cageId);
         recyclerViewPigs.setAdapter(pigAdapter);
 

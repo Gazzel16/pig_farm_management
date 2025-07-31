@@ -272,7 +272,7 @@ public class AnalyticsActivity extends AppCompatActivity {
 
             if (category.getTitle().equalsIgnoreCase("Pig Sales Overview")) {
 
-                startActivity(new Intent(this, ChartCheckUpStatusActivity.class));
+                startActivity(new Intent(this, PigsSalesOverviewActivity.class));
             }
         });
 

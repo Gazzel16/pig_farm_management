@@ -3,8 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:padding="15dp"
+    android:layout_margin="12dp"
     android:layout_height="wrap_content">
 
     <LinearLayout
@@ -18,10 +19,12 @@
 
             <ImageView
                 android:id="@+id/imageView9"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
+                android:layout_width="150dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/genderBg"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
                 app:srcCompat="@drawable/pig_img_cute" />
 
             <ImageView
@@ -35,32 +38,45 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout41"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageView9"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/textView20"
+                    android:id="@+id/notSold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/border_not_sold"
                     android:fontFamily="@font/fir_sans_italic"
-                    android:background="@drawable/border_alive"
-                    android:textColor="@color/white"
                     android:padding="4dp"
-                    android:text="Not Sold" />
+                    android:text="Not Sold"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/sold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_sold"
+                    android:fontFamily="@font/fir_sans_italic"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:text="Sold"
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tvPigBreed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
                     android:fontFamily="@font/fir_sans_italic"
                     android:text="Black Pig Brand"
                     android:textSize="18sp"
-                    android:layout_marginTop="7dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -90,20 +106,33 @@
             <LinearLayout
                 android:id="@+id/genderBg"
                 android:layout_width="0dp"
-                android:layout_height="28dp"
+                android:layout_height="wrap_content"
                 android:background="#ED99C1"
                 android:gravity="center"
+                android:padding="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/linearLayout41"
-                app:layout_constraintTop_toBottomOf="@+id/imageView9">
+                app:layout_constraintStart_toEndOf="@+id/linearLayout41">
 
                 <TextView
                     android:id="@+id/tvGender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="Female" />
+                    android:text="Female"
+                    android:textColor="@color/white" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvPigId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:textSize="10sp"
+                android:text="09158043724"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+                app:layout_constraintEnd_toEndOf="@+id/imageView9"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/imageView9" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -70,7 +70,7 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
     @NonNull
     @Override
     public PigViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_pig, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pig_item, parent, false);
         return new PigViewHolder(view);
     }
 
@@ -80,42 +80,30 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
 
         holder.tvPigBreed.setText(pig.getBreed());
         holder.tvPigBirthDate.setText( pig.getBirthDate());
-        holder.tvPigWeight.setText(pig.getWeight() + " kg");
-        holder.tvPigStatus.setText(pig.vaccinationStatus());
-        holder.tvPigIllness.setText(pig.pigIllness());
+        holder.tvPigId.setText(pig.getId());
+        holder.tvGender.setText(pig.getGender());
 
-        holder.tvCageName.setText(cageName);
-        holder.tvGender.setText(pig.gender());
-        holder.tvPiglastCheckUpDate.setText("Illness: " + pig.lastCheckUp());
+        //Purchase Status
+        if(!pig.isPurchase()){
+            holder.notSold.setVisibility(View.VISIBLE);
+            holder.sold.setVisibility(View.GONE);
+        }else {
+            holder.notSold.setVisibility(View.GONE);
+            holder.sold.setVisibility(View.VISIBLE);
+        }
+
+        //Gender Color Legend
+        if (pig.getGender().equalsIgnoreCase("Male")){
+            holder.linearLayoutGenderBg.setBackgroundColor(Color.parseColor("#0664A6"));
+        }else if (pig.getGender().equalsIgnoreCase("Female")){
+            holder.linearLayoutGenderBg.setBackgroundColor(Color.parseColor("#D56198"));
+        }
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Match your format
         Date today = new Date();
 
 
-            try {
-                Date checkUpDate = sdf.parse(pig.getLastCheckUp());
-                long diffInMillies = today.getTime() - checkUpDate.getTime();
-                long daysSinceCheckUp = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-                if (daysSinceCheckUp > 30) {
-                    holder.tvPiglastCheckUpDate.setText("Last Checkup: " + pig.lastCheckUp() + " (Overdue)");
-                    Log.d("Overdue", "Pig ID: " + pig.getId() + " is overdue by " + daysSinceCheckUp + " days");
-                }
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-
-
-
-        if (pig.isPurchase()) {
-            holder.tvBuyerName1.setText(pig.getBuyerName());
-            holder.sold.setVisibility(View.VISIBLE);
-        } else {
-            holder.tvBuyerName1.setText("No Buyer Yet");
-            holder.sold.setVisibility(View.GONE);
-        }
-
-
-        holder.btnEdit.setOnClickListener(v -> {
+        holder.itemView.setOnClickListener(v -> {
             // Make sure cageId is being passed correctly from the activity/fragment
             if (cageId == null) {
                 Log.e("EditPigHandler", "cageId is null");
@@ -129,26 +117,7 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
             });
         });
 
-
-        // Delete button functionality
-        // Delete button functionality
-        // Use holder.getAdapterPosition() when needed
-        holder.btnDelete.setOnClickListener(v -> {
-            int currentPosition = holder.getAdapterPosition();  // Get the current position dynamically
-
-            if (currentPosition != RecyclerView.NO_POSITION) {
-                // Call the delete handler with the current position
-                DeletePigHandler.deletePig(v.getContext(), pig, cageId, new Runnable() {
-                    @Override
-                    public void run() {
-                        pigList.remove(currentPosition);  // Remove the pig from the list
-                        notifyItemRemoved(currentPosition);  // Notify the adapter
-                    }
-                });
-            }
-        });
-
-        holder.itemView.setOnLongClickListener(v -> {
+        holder.allDetailsBtn.setOnLongClickListener(v -> {
             View dialogView = LayoutInflater.from(v.getContext())
                     .inflate(R.layout.dialog_details_pig, null);
 
@@ -402,35 +371,30 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
     }
 
     static class PigViewHolder extends RecyclerView.ViewHolder {
-        TextView tvPigBreed,tvPigBirthDate, tvPigWeight,
-                tvPigStatus, tvPigIllness, tvGender,
-                tvPiglastCheckUpDate, tvCageName, tvBuyerName, tvBuyerContact, tvBuyerName1;
-        ImageView qrCode, sold;
-        ImageView btnEdit, btnDelete;
+        TextView tvPigBreed,tvPigBirthDate, tvPigId,
+                tvPigStatus,  tvGender, allDetailsBtn, notSold, sold;
+        ImageView qrCode;
+
+        LinearLayout linearLayoutGenderBg;
 
         PigViewHolder(View itemView) {
             super(itemView);
             tvPigBreed = itemView.findViewById(R.id.tvPigBreed);
             tvPigBirthDate = itemView.findViewById(R.id.tvPigBirthDate);
-            tvPigWeight = itemView.findViewById(R.id.tvPigWeight);
             tvPigStatus = itemView.findViewById(R.id.tvPigStatus);
-            tvPigIllness = itemView.findViewById(R.id.tvPigIllness);
             qrCode = itemView.findViewById(R.id.qrCode);
-            btnEdit = itemView.findViewById(R.id.btnEdit);
-            btnDelete = itemView.findViewById(R.id.btnDelete);
+            tvPigId = itemView.findViewById(R.id.tvPigId);
 
-            tvCageName = itemView.findViewById(R.id.tvCageName);
-            tvGender = itemView.findViewById(R.id.tvGender);
-            tvPiglastCheckUpDate = itemView.findViewById(R.id.tvPiglastCheckUpDate);
+            linearLayoutGenderBg = itemView.findViewById(R.id.genderBg);
 
-            tvBuyerName = itemView.findViewById(R.id.buyerName);
-            tvBuyerContact = itemView.findViewById(R.id.buyerContact);
-
-            tvBuyerName1 = itemView.findViewById(R.id.tvBuyerName1);
-
-
-
+            notSold = itemView.findViewById(R.id.notSold);
             sold = itemView.findViewById(R.id.sold);
+
+            tvGender = itemView.findViewById(R.id.tvGender);
+            allDetailsBtn = itemView.findViewById(R.id.details);
+
+
+
         }
     }
 

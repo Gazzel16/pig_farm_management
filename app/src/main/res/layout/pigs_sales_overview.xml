@@ -160,6 +160,55 @@
                     </LinearLayout>
 
 
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+
+                        <View
+                            android:id="@+id/view"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="#A43603" />
+
+                        <TextView
+                            android:id="@+id/textView14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="7dp"
+                            android:fontFamily="@font/fir_sans_italic"
+                            android:text="Male Pig Not Sold"
+                            android:textColor="@color/white_custom"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+
+                        <View
+                            android:id="@+id/view"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="#9B13B1" />
+
+                        <TextView
+                            android:id="@+id/textView14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="7dp"
+                            android:fontFamily="@font/fir_sans_italic"
+                            android:text="Female Pig Not Sold"
+                            android:textColor="@color/white_custom"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+
                 </LinearLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
