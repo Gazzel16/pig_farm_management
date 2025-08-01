@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_margin="7dp"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/buyerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:fontFamily="@font/fir_sans_italic"
+            android:text="Buyer: John Doe"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/buyerContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:fontFamily="@font/fir_sans_italic"
+            android:text="Contact: 09158043724"
+
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/timeDateSold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:fontFamily="@font/fir_sans_italic"
+            android:text="Date Purchase: 1-1-2025 12:05"
+
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/pigBreed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:fontFamily="@font/fir_sans_italic"
+            android:text="Pig Bought: Black Pig"
+
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/pigId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:fontFamily="@font/fir_sans_italic"
+            android:text="Pig ID: 133456"
+
+            android:textSize="18sp" />
+
+        <View
+            android:id="@+id/view5"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_margin="4dp"
+            android:background="@color/black_custom"
+            android:fontFamily="@font/fir_sans_italic" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

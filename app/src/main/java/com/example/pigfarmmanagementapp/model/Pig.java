@@ -196,6 +196,7 @@ public class Pig {
         return purchase;
     }
 
+
     public void setPurchase(boolean purchase) {
         this.purchase = purchase;
     }
@@ -222,7 +223,7 @@ public class Pig {
         return purchaseDateTime;
     }
 
-    public void setPurchaseDateTime(String buyerContact) {
+    public void setPurchaseDateTime(String purchaseDateTime) {
         this.purchaseDateTime = purchaseDateTime;
     }
 
