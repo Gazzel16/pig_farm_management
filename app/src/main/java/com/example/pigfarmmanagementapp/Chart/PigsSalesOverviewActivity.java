@@ -1,7 +1,10 @@
 package com.example.pigfarmmanagementapp.Chart;
 
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.widget.GridLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -46,6 +49,22 @@ public class PigsSalesOverviewActivity extends AppCompatActivity {
 
         barChart = findViewById(R.id.barChart);
         lineChart = findViewById(R.id.lineChart);
+        GridLayout gridLayout = findViewById(R.id.gridLayout);
+
+        // Get screen width in dp
+        float density = Resources.getSystem().getDisplayMetrics().density;
+        int screenWidthDp = (int) (Resources.getSystem().getDisplayMetrics().widthPixels / density);
+
+        int columnCount;
+
+        if (screenWidthDp >= 500 || screenWidthDp >= 900) {
+
+            columnCount = 2;
+        } else {
+
+            columnCount = 1;
+        }
+        gridLayout.setColumnCount(columnCount);
 
         pigSaleOverViewBarChart();
         pigSaleOverViewLineChart();
