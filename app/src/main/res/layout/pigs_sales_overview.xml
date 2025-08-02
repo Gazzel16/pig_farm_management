@@ -1,355 +1,623 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
+
     android:layout_height="match_parent">
 
-
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/linearLayout45"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#F4CFA4"
+        android:layout_height="wrap_content"
+        android:background="@color/brown_custom"
+        android:orientation="horizontal"
+        android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/fir_sans_italic"
+            android:text="Pig Sale Statistic"
+            android:textColor="@color/white_custom"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
-        <LinearLayout
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:padding="15dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout45"
+        app:layout_constraintVertical_bias="1.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/scrollContent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
+            android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/linearLayout46"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/brown_custom"
-                android:foregroundGravity="center"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="15dp">
-
-                <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/fir_sans_italic"
-                    android:text="Pig Sales Overview Statistics"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#F4CFA4"
-                android:orientation="vertical"
-                android:padding="15dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/brown_custom"
-                    android:orientation="vertical"
-                    android:padding="15dp">
+                    android:padding="4dp"
+                    android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/textView16"
-                        android:layout_width="match_parent"
+                    <androidx.cardview.widget.CardView
+                        android:id="@id/cardView2"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:fontFamily="@font/fir_sans_italic"
-                        android:text="Pig Sales by Status and Gender"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:layout_margin="15dp"
+                        app:cardCornerRadius="12dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/textView20"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="8dp"
+                                android:text="Male Pigs"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+                            <TextView
+                                android:id="@+id/malePigsTotalSold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="8dp"
+                                android:text="Sold = 10"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+                            <TextView
+                                android:id="@+id/malePigRevenue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="8dp"
+                                android:text="Sale: P1000"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/malePigsTotalSold"
+                                app:layout_constraintVertical_bias="0.833" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="30dp"
+                                android:background="@color/blue_custom"
+                                android:orientation="vertical"
+                                android:padding="4dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="1.0"
+                                app:layout_constraintStart_toEndOf="@+id/malePigsTotalSold"
+                                app:layout_constraintTop_toBottomOf="@+id/textView23"
+                                app:layout_constraintVertical_bias="1.0">
 
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
+                                <ImageView
+                                    android:id="@+id/imageView7"
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    app:srcCompat="@drawable/revenue" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/textView23"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/blue_custom"
+                                android:padding="7dp"
+                                android:text="Pig Sale Revenue"
+                                android:textColor="@color/white_custom"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@id/cardView"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        app:cardCornerRadius="12dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cardView2">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/textView20"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="8dp"
+                                android:text="Female Pigs"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+                            <TextView
+                                android:id="@+id/femalePigsTotalSold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="8dp"
+                                android:text="Sold = 10"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+                            <TextView
+                                android:id="@+id/femalePigRevenue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="8dp"
+                                android:text="Sale: P1000"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/femalePigsTotalSold"
+                                app:layout_constraintVertical_bias="0.833" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="30dp"
+                                android:orientation="vertical"
+                                android:background="#E91E63"
+                                android:padding="4dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="1.0"
+                                app:layout_constraintStart_toEndOf="@+id/malePigsTotalSold"
+                                app:layout_constraintTop_toBottomOf="@+id/textView23"
+                                app:layout_constraintVertical_bias="1.0">
 
 
-                        <View
-                            android:id="@+id/view"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:background="#C81F1F" />
+                                <ImageView
+                                    android:id="@+id/imageView7"
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    app:srcCompat="@drawable/revenue" />
+                            </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/textView14"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="7dp"
-                            android:fontFamily="@font/fir_sans_italic"
-                            android:text="Sold"
-                            android:textColor="@color/white_custom"
-                            android:textStyle="bold" />
-                    </LinearLayout>
+                            <TextView
+                                android:id="@+id/textView23"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="#E91E63"
+                                android:padding="7dp"
+                                android:text="Pig Sale Revenue"
+                                android:textColor="@color/white_custom"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="12dp"
-                        android:orientation="horizontal">
-
-
-                        <View
-                            android:id="@+id/view"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:background="#4CAF50" />
-
-                        <TextView
-                            android:id="@+id/textView14"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="7dp"
-                            android:fontFamily="@font/fir_sans_italic"
-                            android:text="Not Sold"
-                            android:textColor="@color/white_custom"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="12dp"
-                        android:orientation="horizontal">
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
 
-                        <View
-                            android:id="@+id/view"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:background="#3F51B5" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout46">
 
-                        <TextView
-                            android:id="@+id/textView14"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="7dp"
-                            android:fontFamily="@font/fir_sans_italic"
-                            android:text="Male Pig Sold"
-                            android:textColor="@color/white_custom"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="12dp"
-                        android:orientation="horizontal">
-
-
-                        <View
-                            android:id="@+id/view"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:background="#E91E63" />
-
-                        <TextView
-                            android:id="@+id/textView14"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="7dp"
-                            android:fontFamily="@font/fir_sans_italic"
-                            android:text="Female Pig Sold"
-                            android:textColor="@color/white_custom"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="12dp"
-                        android:orientation="horizontal">
-
-
-                        <View
-                            android:id="@+id/view"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:background="#A43603" />
-
-                        <TextView
-                            android:id="@+id/textView14"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="7dp"
-                            android:fontFamily="@font/fir_sans_italic"
-                            android:text="Male Pig Not Sold"
-                            android:textColor="@color/white_custom"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="12dp"
-                        android:orientation="horizontal">
-
-
-                        <View
-                            android:id="@+id/view"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:background="#9B13B1" />
-
-                        <TextView
-                            android:id="@+id/textView14"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="7dp"
-                            android:fontFamily="@font/fir_sans_italic"
-                            android:text="Female Pig Not Sold"
-                            android:textColor="@color/white_custom"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-
-                </LinearLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+
                     <com.github.mikephil.charting.charts.BarChart
                         android:id="@+id/barChart"
-                        android:layout_width="0dp"
-                        android:layout_height="300dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@color/custom_analytic_color"
-                        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+
+                        android:background="#F6F3F3"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.133" />
+                        app:layout_constraintTop_toBottomOf="@+id/textView19"/>
 
-                    <LinearLayout
-                        android:id="@+id/linearLayout"
+                    <TextView
+                        android:id="@+id/textView19"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/brown_custom"
+                        android:background="@color/green_custom"
+                        android:fontFamily="@font/fir_sans_italic"
+                        android:padding="12dp"
+                        android:text="Pig Sales by Status and Gender"
+                        android:textColor="@color/white_custom"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout44"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:layout_marginTop="7dp"
-                        android:padding="15dp"
+                        android:padding="7dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/barChart">
 
-                        <TextView
-                            android:id="@+id/textView16"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/fir_sans_italic"
-                            android:text="Monthly Pig Sales Trend"
-                            android:textColor="@color/white"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="12dp"
-                            android:orientation="horizontal">
+                            android:id="@+id/linearLayout42"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="4dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/barChart"
+                            app:layout_constraintVertical_bias="0.0">
 
                             <View
-                                android:id="@+id/view"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:background="@color/green" />
+                                android:id="@+id/view6"
+                                android:layout_width="20sp"
+                                android:layout_height="20sp"
+                                android:background="#C81F1F" />
 
                             <TextView
-                                android:id="@+id/textView14"
+                                android:id="@+id/textView18"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="7dp"
+                                android:layout_weight="1"
                                 android:fontFamily="@font/fir_sans_italic"
-                                android:text="Total Pig Sold"
-                                android:textColor="@color/white_custom"
+                                android:text="Sold"
+                                android:textSize="15sp"
                                 android:textStyle="bold" />
-
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="12dp"
-                            android:orientation="horizontal">
+                            android:id="@+id/linearLayout43"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="4dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout42"
+                            app:layout_constraintVertical_bias="0.0">
 
                             <View
-                                android:id="@+id/view"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:id="@+id/view6"
+                                android:layout_width="20sp"
+                                android:layout_height="20sp"
+                                android:background="#4CAF50" />
+
+                            <TextView
+                                android:id="@+id/textView18"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="7dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/fir_sans_italic"
+                                android:text="Not Sold"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="4dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout43"
+                            app:layout_constraintVertical_bias="0.0">
+
+                            <View
+                                android:id="@+id/view6"
+                                android:layout_width="20sp"
+                                android:layout_height="20sp"
                                 android:background="#3F51B5" />
 
                             <TextView
-                                android:id="@+id/textView14"
+                                android:id="@+id/textView18"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="7dp"
+                                android:layout_weight="1"
                                 android:fontFamily="@font/fir_sans_italic"
-                                android:text="Male Pig Sold"
-                                android:textColor="@color/white_custom"
+                                android:text="Male Sold"
+                                android:textSize="15sp"
                                 android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="12dp"
-                            android:orientation="horizontal">
-
-                            <View
-                                android:id="@+id/view"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:background="#E91E63" />
-
-                            <TextView
-                                android:id="@+id/textView14"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="7dp"
-                                android:fontFamily="@font/fir_sans_italic"
-                                android:text="Female Pig Sold"
-                                android:textColor="@color/white_custom"
-                                android:textStyle="bold" />
-
                         </LinearLayout>
 
                     </LinearLayout>
 
-                    <com.github.mikephil.charting.charts.LineChart
-                        android:id="@+id/lineChart"
-                        android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        android:layout_marginTop="7dp"
-                        android:background="@color/custom_analytic_color"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="7dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+                        app:layout_constraintStart_toEndOf="@+id/linearLayout44"
+                        app:layout_constraintTop_toBottomOf="@+id/barChart">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout42"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="4dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/barChart2"
+                            app:layout_constraintVertical_bias="0.0">
+
+                            <View
+                                android:id="@+id/view6"
+                                android:layout_width="20dp"
+                                android:layout_height="20sp"
+                                android:background="#E91E63" />
+
+                            <TextView
+                                android:id="@+id/textView18"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="7dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/fir_sans_italic"
+                                android:text="Female Sold"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout43"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="4dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout42"
+                            app:layout_constraintVertical_bias="0.0">
+
+                            <View
+                                android:id="@+id/view6"
+                                android:layout_width="20sp"
+                                android:layout_height="20sp"
+                                android:background="#A43603" />
+
+                            <TextView
+                                android:id="@+id/textView18"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="7dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/fir_sans_italic"
+                                android:text="Male Not Sold"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="4dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout43"
+                            app:layout_constraintVertical_bias="0.0">
+
+                            <View
+                                android:id="@+id/view6"
+                                android:layout_width="20sp"
+                                android:layout_height="20sp"
+                                android:background="#9B13B1" />
+
+                            <TextView
+                                android:id="@+id/textView18"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="7dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/fir_sans_italic"
+                                android:text="Female Not Sold"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
-            </LinearLayout>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                android:layout_marginTop="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView">
 
-        </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/lineChart"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:background="#F6F3F3"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView19"/>
+
+                    <TextView
+                        android:id="@+id/textView19"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/green_custom"
+                        android:fontFamily="@font/fir_sans_italic"
+                        android:padding="12dp"
+                        android:text="Pig Sales by Status and Gender"
+                        android:textColor="@color/white_custom"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout44"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="7dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/lineChart">
+
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout43"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="4dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout42"
+                            app:layout_constraintVertical_bias="0.0">
+
+                            <View
+                                android:id="@+id/view6"
+                                android:layout_width="20sp"
+                                android:layout_height="20sp"
+                                android:background="#4CAF50" />
+
+                            <TextView
+                                android:id="@+id/textView18"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="7dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/fir_sans_italic"
+                                android:text="Total Sold"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="4dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout43"
+                            app:layout_constraintVertical_bias="0.0">
+
+                            <View
+                                android:id="@+id/view6"
+                                android:layout_width="20sp"
+                                android:layout_height="20sp"
+                                android:background="#3F51B5" />
+
+                            <TextView
+                                android:id="@+id/textView18"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="7dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/fir_sans_italic"
+                                android:text="Male Sold"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout42"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="4dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/barChart2"
+                            app:layout_constraintVertical_bias="0.0">
+
+                            <View
+                                android:id="@+id/view6"
+                                android:layout_width="20dp"
+                                android:layout_height="20sp"
+                                android:background="#E91E63" />
+
+                            <TextView
+                                android:id="@+id/textView18"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="7dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/fir_sans_italic"
+                                android:text="Female Sold"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
