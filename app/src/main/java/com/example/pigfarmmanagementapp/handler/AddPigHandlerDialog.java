@@ -21,7 +21,10 @@ import com.example.pigfarmmanagementapp.R;
 import com.example.pigfarmmanagementapp.model.Pig;
 import com.google.firebase.database.DatabaseReference;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class AddPigHandlerDialog {
 
@@ -232,6 +235,8 @@ public class AddPigHandlerDialog {
                     ? spinnerVaccinationStatus.getSelectedItem().toString()
                     : "";
 
+            String timeAdded = new SimpleDateFormat("yyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+
             if (pigBreed.isEmpty()
                     || selectedVaccinationStatus.equalsIgnoreCase("Select Status")
                     || pigWeightStr.isEmpty()
@@ -258,7 +263,8 @@ public class AddPigHandlerDialog {
                 Pig newPig = new Pig(pigId, pigBreed, selectedPigGender, pigBirthDate,
                         pigWeight,selectedPigIllness, selectedVaccinationStatus,
                         pigLastCheckUp, cageId, isPurchase, buyerName,
-                        buyerContact, purchaseDateTime, pigNextCheckUp, pigPrice, selectedPigStatus);
+                        buyerContact, purchaseDateTime,
+                        pigNextCheckUp, pigPrice, selectedPigStatus, timeAdded);
 
                 // Store the pig data under the pigs node with the unique pigId
                 databasePigs.child(pigId).setValue(newPig).addOnCompleteListener(task -> {

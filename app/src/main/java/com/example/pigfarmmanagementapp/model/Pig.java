@@ -31,6 +31,7 @@ public class Pig {
     private String buyerContact;
 
     private String purchaseDateTime;
+    private String timeAdded;
 
 
     // Default constructor
@@ -42,7 +43,9 @@ public class Pig {
                double weight, String pigIllness, String vaccinationStatus,
                String lastCheckUp, String cageId,  boolean purchase,
                String buyerName,
-               String buyerContact, String purchaseDateTime, String nextCheckUp, double price, String status) {
+               String buyerContact,
+               String purchaseDateTime,
+               String nextCheckUp, double price, String status, String timeAdded) {
         this.id = id;
         this.breed = breed;
         this.gender = gender;
@@ -61,9 +64,20 @@ public class Pig {
         this.buyerContact = buyerContact;
         this.purchaseDateTime = purchaseDateTime;
 
+        this.timeAdded = timeAdded;
+
         this.price = price;
         this.status = status;
 
+    }
+
+    //Pig timeAdded
+    public String getTimeAdded(){
+        return timeAdded;
+    }
+
+    public void setTimeAdded(String timeAdded){
+        this.timeAdded = timeAdded;
     }
 
     //Pig Status dead or alive

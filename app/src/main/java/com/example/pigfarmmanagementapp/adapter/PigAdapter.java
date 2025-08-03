@@ -80,7 +80,7 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
 
         holder.tvPigBreed.setText(pig.getBreed());
         holder.tvPigBirthDate.setText( pig.getBirthDate());
-        holder.tvPigId.setText(pig.getId());
+        holder.tvPigId.setText("id: " + pig.getId());
         holder.tvGender.setText(pig.getGender());
 
         //Purchase Status
