@@ -99,7 +99,7 @@ public class ChartForVaccinatedPigsHelper {
         });
 
         dataSet.setValueTextSize(12f);
-        dataSet.setValueTextColor(Color.WHITE);
+        dataSet.setValueTextColor(Color.GRAY);
 
         BarData barData = new BarData(dataSet);
         barData.setBarWidth(0.4f);
@@ -108,7 +108,7 @@ public class ChartForVaccinatedPigsHelper {
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setGranularity(1f);
-        xAxis.setTextColor(Color.WHITE);
+        xAxis.setTextColor(Color.GRAY);
         xAxis.setDrawGridLines(false);
         xAxis.setTextSize(12f);
         xAxis.setGranularity(1f);

@@ -9,355 +9,364 @@
 
 
     <ScrollView
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:padding="5dp"
-        android:background="#F4CFA4"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout35">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:padding="12dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView3"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="18dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout31" />
+                    android:layout_height="match_parent">
 
+                    <TextView
+                        android:id="@+id/textView17"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/orange_custom"
+                        android:fontFamily="@font/fir_sans_italic"
+                        android:padding="12dp"
+                        android:text="Statistics Overview"
+                        android:textColor="@color/white_custom"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <LinearLayout
-                    android:id="@+id/linearLayout31"
-                    android:layout_width="match_parent"
-                    android:layout_height="500dp"
-                    android:background="#F4CFA4"
-                    android:orientation="horizontal"
-                    android:padding="15dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/groupedBarChart"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="300dp"
+                        android:background="@color/white_custom"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
-                        <com.github.mikephil.charting.charts.BarChart
-                            android:id="@+id/groupedBarChart"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_margin="7dp"
-                            android:background="@color/custom_analytic_color"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/linearLayout21" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout26"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="7dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/groupedBarChart">
 
                         <LinearLayout
                             android:id="@+id/linearLayout21"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@color/brown_custom"
                             android:orientation="horizontal"
-                            app:layout_constraintEnd_toEndOf="parent"
+                            android:padding="4dp"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <androidx.constraintlayout.widget.ConstraintLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-
-                                <!-- Legend Item -->
+                            app:layout_constraintTop_toBottomOf="@+id/groupedBarChart">
 
 
-                                <LinearLayout
-                                    android:id="@+id/linearLayout29"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:padding="4dp"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"
-                                    app:layout_constraintVertical_bias="0.0">
+                            <View
+                                android:id="@+id/view7"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_margin="4dp"
+                                android:background="@color/medium_grey" />
 
-                                    <androidx.constraintlayout.widget.ConstraintLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/textView22"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Cages"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
 
-                                        <LinearLayout
-                                            android:id="@+id/linearLayout25"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:orientation="horizontal"
-                                            android:padding="4dp"
-                                            app:layout_constraintStart_toStartOf="parent"
-                                            app:layout_constraintTop_toTopOf="parent">
+                        </LinearLayout>
 
-                                            <View
-
-                                                android:layout_width="20dp"
-                                                android:layout_height="20dp"
-                                                android:layout_marginEnd="8dp"
-                                                android:background="@android:color/darker_gray" /> <!-- Blue -->
-
-                                            <TextView
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:textColor="@color/white"
-                                                android:text="Total Cages" />
-                                        </LinearLayout>
-
-                                        <LinearLayout
-                                            android:id="@+id/linearLayout24"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:orientation="horizontal"
-                                            android:padding="4dp"
-                                            app:layout_constraintStart_toStartOf="parent"
-                                            app:layout_constraintTop_toBottomOf="@+id/linearLayout25">
-
-                                            <View
-                                                android:layout_width="20dp"
-                                                android:layout_height="20dp"
-                                                android:layout_marginEnd="8dp"
-                                                android:background="@color/edit_blue" /> <!-- Green -->
-
-                                            <TextView
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:textColor="@color/white"
-                                                android:text="Total Pigs" />
-                                        </LinearLayout>
-
-                                        <LinearLayout
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:orientation="horizontal"
-                                            android:padding="4dp"
-                                            app:layout_constraintStart_toStartOf="parent"
-                                            app:layout_constraintTop_toBottomOf="@+id/linearLayout24">
-
-                                            <View
-                                                android:layout_width="20dp"
-                                                android:layout_height="20dp"
-                                                android:layout_marginEnd="8dp"
-                                                android:background="#00FF00" /> <!-- Green -->
-
-                                            <TextView
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:textColor="@color/white"
-                                                android:text="Vaccinated" />
-                                        </LinearLayout>
-
-                                    </androidx.constraintlayout.widget.ConstraintLayout>
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:id="@+id/linearLayout30"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:padding="4dp"
-                                    app:layout_constraintStart_toEndOf="@+id/linearLayout29"
-                                    app:layout_constraintTop_toTopOf="parent">
-
-                                    <androidx.constraintlayout.widget.ConstraintLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content">
-
-                                        <LinearLayout
-                                            android:id="@+id/linearLayout27"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:orientation="horizontal"
-                                            android:padding="4dp"
-                                            app:layout_constraintEnd_toEndOf="parent"
-                                            app:layout_constraintHorizontal_bias="0.0"
-                                            app:layout_constraintStart_toStartOf="parent"
-                                            app:layout_constraintTop_toBottomOf="@+id/linearLayout23">
-
-                                            <View
-                                                android:layout_width="20dp"
-                                                android:layout_height="20dp"
-                                                android:layout_marginEnd="8dp"
-                                                android:background="#F44336" />
-
-                                            <TextView
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:textColor="@color/white"
-                                                android:text="Sick Pig" />
+                        <LinearLayout
+                            android:id="@+id/linearLayout22"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="4dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout21">
 
 
-                                        </LinearLayout>
+                            <View
+                                android:id="@+id/view7"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_margin="4dp"
+                                android:background="@color/blue_custom" />
 
-                                        <LinearLayout
-                                            android:id="@+id/linearLayout26"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:orientation="horizontal"
-                                            android:padding="4dp"
-                                            app:layout_constraintBottom_toBottomOf="parent"
-                                            app:layout_constraintEnd_toEndOf="parent"
-                                            app:layout_constraintHorizontal_bias="0.0"
-                                            app:layout_constraintStart_toStartOf="parent"
-                                            app:layout_constraintTop_toBottomOf="@+id/linearLayout27"
-                                            app:layout_constraintVertical_bias="0.0">
+                            <TextView
+                                android:id="@+id/textView22"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Pigs"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
 
-                                            <View
-                                                android:layout_width="20dp"
-                                                android:layout_height="20dp"
-                                                android:layout_marginEnd="8dp"
-                                                android:background="#009688" />
+                        </LinearLayout>
 
-                                            <TextView
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:textColor="@color/white"
-                                                android:text="No Sick" />
-                                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/linearLayout23"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="4dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout22">
 
-                                        <LinearLayout
-                                            android:id="@+id/linearLayout23"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:orientation="horizontal"
-                                            android:padding="4dp"
-                                            app:layout_constraintEnd_toEndOf="parent"
-                                            app:layout_constraintStart_toStartOf="parent"
-                                            app:layout_constraintTop_toTopOf="parent">
 
-                                            <View
-                                                android:layout_width="20dp"
-                                                android:layout_height="20dp"
-                                                android:layout_marginEnd="8dp"
-                                                android:background="#FF9800" />
+                            <View
+                                android:id="@+id/view7"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_margin="4dp"
+                                android:background="#4CAF50" />
 
-                                            <TextView
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:textColor="@color/white"
-                                                android:text="Not Vaccinated" />
-                                        </LinearLayout>
+                            <TextView
+                                android:id="@+id/textView22"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Vaccinated"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
 
-                                    </androidx.constraintlayout.widget.ConstraintLayout>
-                                </LinearLayout>
+                        </LinearLayout>
 
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:padding="4dp"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintHorizontal_bias="0.0"
-                                    app:layout_constraintStart_toEndOf="@+id/linearLayout30"
-                                    app:layout_constraintTop_toTopOf="parent"
-                                    app:layout_constraintVertical_bias="0.0">
+                        <LinearLayout
+                            android:id="@+id/linearLayout24"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="4dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout23">
 
-                                    <androidx.constraintlayout.widget.ConstraintLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content">
 
-                                        <LinearLayout
-                                            android:id="@+id/linearLayout22"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:orientation="horizontal"
-                                            android:padding="4dp"
-                                            app:layout_constraintEnd_toEndOf="parent"
-                                            app:layout_constraintHorizontal_bias="0.0"
-                                            app:layout_constraintStart_toStartOf="parent"
-                                            app:layout_constraintTop_toTopOf="parent">
+                            <View
+                                android:id="@+id/view7"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_margin="4dp"
+                                android:background="#FF9800" />
 
-                                            <View
-                                                android:layout_width="20dp"
-                                                android:layout_height="20dp"
-                                                android:layout_marginEnd="8dp"
-                                                android:background="#3F51B5" /> <!-- Gray -->
+                            <TextView
+                                android:id="@+id/textView22"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Not Vaccinated"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
 
-                                            <TextView
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:textColor="@color/white"
-                                                android:text="Male Pigs" />
-                                        </LinearLayout>
-
-                                        <LinearLayout
-                                            android:id="@+id/linearLayout28"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:orientation="horizontal"
-                                            android:padding="4dp"
-                                            app:layout_constraintEnd_toEndOf="parent"
-                                            app:layout_constraintHorizontal_bias="0.0"
-                                            app:layout_constraintStart_toStartOf="parent"
-                                            app:layout_constraintTop_toBottomOf="@+id/linearLayout22">
-
-                                            <View
-                                                android:layout_width="20dp"
-                                                android:layout_height="20dp"
-                                                android:layout_marginEnd="8dp"
-                                                android:background="#E91E63" /> <!-- Green -->
-
-                                            <TextView
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:textColor="@color/white"
-                                                android:text="Female Pigs" />
-                                        </LinearLayout>
-
-                                    </androidx.constraintlayout.widget.ConstraintLayout>
-                                </LinearLayout>
-
-                            </androidx.constraintlayout.widget.ConstraintLayout>
                         </LinearLayout>
 
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="7dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/linearLayout26"
+                        app:layout_constraintTop_toBottomOf="@+id/groupedBarChart">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout21"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="4dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/groupedBarChart">
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                            <View
+                                android:id="@+id/view7"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_margin="4dp"
+                                android:background="#F44336" />
 
-        </LinearLayout>
+                            <TextView
+                                android:id="@+id/textView22"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Sick"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout22"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="4dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout21">
+
+
+                            <View
+                                android:id="@+id/view7"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_margin="4dp"
+                                android:background="#009688" />
+
+                            <TextView
+                                android:id="@+id/textView22"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="No Sick"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout23"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="4dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout22">
+
+
+                            <View
+                                android:id="@+id/view7"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_margin="4dp"
+                                android:background="#3F51B5" />
+
+                            <TextView
+                                android:id="@+id/textView22"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Male"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout24"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="4dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout23">
+
+
+                            <View
+                                android:id="@+id/view7"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_margin="4dp"
+                                android:background="#E91E63" />
+
+                            <TextView
+                                android:id="@+id/textView22"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Female"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/textView37"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/fir_sans_italic"
+                android:text="Other Categories"
+                android:textColor="@color/brown"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView3" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="7dp"
+                android:layout_marginTop="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView37"
+                app:layout_constraintVertical_bias="1.0" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </ScrollView>
 
     <LinearLayout
         android:id="@+id/linearLayout35"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:background="@color/brown_custom"
+        android:padding="15dp"
+        android:background="@color/orange"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pig Statistics: Cages and Health"
-                android:textColor="@color/white"
+                android:text="Pig Analytics"
+                android:textColor="@color/white_custom"
                 android:fontFamily="@font/fir_sans_italic"
                 android:textSize="20sp"
                 android:textStyle="bold"

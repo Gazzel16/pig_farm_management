@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_margin="6dp"
     android:layout_height="wrap_content">
@@ -16,7 +17,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/outline_border5">
+            android:background="@color/white_custom">
 
             <ImageView
                 android:id="@+id/icon"
@@ -28,6 +29,7 @@
                 app:srcCompat="@drawable/vaccine_analytics" />
 
             <LinearLayout
+                android:id="@+id/linearLayout25"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -43,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Vaccination Metrics"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/brown" />
 
                 <TextView
                     android:id="@+id/description"
@@ -51,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="Metrics Summarization"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/brown_custom" />
 
                 <ProgressBar
                     android:id="@+id/progressBar"
@@ -61,10 +63,21 @@
                     android:layout_marginTop="4dp"
                     android:max="100"
                     android:progress="50"
-                    android:progressTint="#009688" />
+                    android:progressTint="@color/brown_custom" />
 
 
             </LinearLayout>
+
+            <View
+                android:id="@+id/view8"
+                android:layout_width="10dp"
+                android:layout_height="0dp"
+                android:background="@color/orange_custom"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.955"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

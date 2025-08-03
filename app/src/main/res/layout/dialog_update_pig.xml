@@ -11,8 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bottom_border"
-        android:orientation="vertical"
-        android:padding="12dp">
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/page1"
@@ -32,7 +31,7 @@
                 android:background="#ED2525"
                 android:padding="12dp"
                 android:textStyle="bold"
-                android:text="Pig Details" />
+                android:text="Edit Pig Details" />
 
             <TextView
                 android:id="@+id/textView26"
@@ -134,7 +133,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Pig Health Details"
+                    android:text="Edit Pig Health Details"
                     android:textColor="@color/white_custom"
                     android:textSize="18sp"
                     android:textStyle="bold"

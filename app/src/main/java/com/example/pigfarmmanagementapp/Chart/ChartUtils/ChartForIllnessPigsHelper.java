@@ -34,7 +34,7 @@ public class ChartForIllnessPigsHelper {
         });
 
         barDataSet.setValueTextSize(12f);
-        barDataSet.setValueTextColor(Color.WHITE);
+        barDataSet.setValueTextColor(Color.GRAY);
 
         BarData barData = new BarData(barDataSet);
         barData.setBarWidth(0.4f);
@@ -43,7 +43,7 @@ public class ChartForIllnessPigsHelper {
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setGranularity(1f);
-        xAxis.setTextColor(Color.WHITE);
+        xAxis.setTextColor(Color.GRAY);
         xAxis.setDrawGridLines(false);
         xAxis.setTextSize(12f);
         xAxis.setGranularity(1f);

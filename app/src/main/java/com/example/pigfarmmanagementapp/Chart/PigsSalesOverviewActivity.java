@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.GridLayout;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -40,12 +41,19 @@ public class PigsSalesOverviewActivity extends AppCompatActivity {
     LineChart lineChart;
     List<Pig> pigList = new ArrayList<>();
 
+    private TextView malePigRevenueTv, malePigsTotalSoldTv, femalePigsTotalSoldTv, femalePigRevenueTv;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.pigs_sales_overview);
+
+        malePigRevenueTv = findViewById(R.id.malePigRevenue);
+        malePigsTotalSoldTv = findViewById(R.id.malePigsTotalSold);
+        femalePigsTotalSoldTv = findViewById(R.id.femalePigsTotalSold);
+        femalePigRevenueTv = findViewById(R.id.femalePigRevenue);
 
         barChart = findViewById(R.id.barChart);
         lineChart = findViewById(R.id.lineChart);
@@ -68,9 +76,70 @@ public class PigsSalesOverviewActivity extends AppCompatActivity {
 
         pigSaleOverViewBarChart();
         pigSaleOverViewLineChart();
+        pigSaleRevenue();
 
     }
 
+    public void pigSaleRevenue(){
+        DatabaseReference pigRef = FirebaseDatabase.getInstance().getReference("pigs");
+
+        pigRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int malePigsTotalSold = 0;
+                int femalePigsTotalSold = 0;
+
+                int maleSaleRevenue = 0;
+                int femaleSaleRevenue = 0;
+                double maleRevenue = 0.0;
+                double femaleRevenue = 0.0;
+
+                for(DataSnapshot cageSnap : snapshot.getChildren()){
+
+                    for (DataSnapshot pigSnap : cageSnap.getChildren()){
+                        Pig pig = pigSnap.getValue(Pig.class);
+
+                        if(pig != null){
+
+                            String gender = pig.getGender();
+                            if (gender.equalsIgnoreCase("Male")){
+                                malePigsTotalSold++;
+                            } else if (gender.equalsIgnoreCase("Female")){
+                                femalePigsTotalSold++;
+                            }
+
+                            double pigRevenue = pig.getPrice();
+
+                            if (gender.equalsIgnoreCase("Male")){
+                                maleSaleRevenue++;
+                                maleRevenue = maleRevenue + pigRevenue;
+                            } else if (gender.equalsIgnoreCase("Female")){
+                                femaleSaleRevenue++;
+                                femaleRevenue = femaleRevenue + pigRevenue;
+                            }
+
+
+
+                        }
+
+                    }
+                }
+                malePigsTotalSoldTv.setText(String.valueOf("Sold: " + malePigsTotalSold));
+                femalePigsTotalSoldTv.setText(String.valueOf("Sold: " + femalePigsTotalSold));
+
+                malePigRevenueTv.setText(String.valueOf("Sale: ₱" +  maleRevenue));
+                femalePigRevenueTv.setText(String.valueOf("Sale: ₱" +  femaleRevenue));
+
+                Log.d("Revenue", "Sale " +  maleRevenue );
+                Log.d("Revenue", "Sale " +  femaleRevenue );
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
     public void pigSaleOverViewBarChart(){
         DatabaseReference pigRef = FirebaseDatabase.getInstance()
                 .getReference("pigs");
@@ -149,6 +218,8 @@ public class PigsSalesOverviewActivity extends AppCompatActivity {
 
     public void pigSaleOverViewLineChart(){
         DatabaseReference pigRef = FirebaseDatabase.getInstance().getReference("pigs");
+
+
 
         pigRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

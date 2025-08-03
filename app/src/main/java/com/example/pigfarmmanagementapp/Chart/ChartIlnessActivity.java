@@ -156,7 +156,7 @@ public class ChartIlnessActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedIllness = pigIllness[position];
 
-                if (!selectedIllness.equals("Select Vaccine")) {
+                if (!selectedIllness.equals("Select Illness")) {
                     int maleCount = 0;
                     int femaleCount = 0;
 
