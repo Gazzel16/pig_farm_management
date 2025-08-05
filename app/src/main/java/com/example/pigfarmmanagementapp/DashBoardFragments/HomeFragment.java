@@ -154,22 +154,39 @@ public class HomeFragment extends Fragment {
     }
 
     public void pigsAndCagesCount(){
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("pigs");
+        DatabaseReference pigRef = FirebaseDatabase.getInstance().getReference("pigs");
+        DatabaseReference cageRef = FirebaseDatabase.getInstance().getReference("cages");
 
-        dbRef.addValueEventListener(new ValueEventListener() {
+        cageRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                int male = 0;
-                int female = 0;
 
                 int totalCages = 0;
 
                 for (DataSnapshot cageSnap : snapshot.getChildren()){
                     Cage cage = cageSnap.getValue(Cage.class);
 
-                    if (cage != null){
+                    if(cage != null){
                         totalCages++;
                     }
+                }
+
+                cageCount.setText(String.valueOf("+" + totalCages + " cages"));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+                pigRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int male = 0;
+                int female = 0;
+
+                for (DataSnapshot cageSnap : snapshot.getChildren()){
 
                     for (DataSnapshot pigSnap : cageSnap.getChildren()){
                         Pig pig = pigSnap.getValue(Pig.class);
@@ -189,7 +206,6 @@ public class HomeFragment extends Fragment {
                 int pigTotalCount = male + female;
 
                 pigCount.setText(String.valueOf("+" + pigTotalCount + " pigs"));
-                cageCount.setText(String.valueOf("+" + totalCages + " cages"));
             }
 
             @Override

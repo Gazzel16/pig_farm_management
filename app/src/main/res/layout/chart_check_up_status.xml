@@ -11,7 +11,7 @@
             android:id="@+id/linearLayout27"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/orange"
+            android:background="#FFA85E"
             android:foregroundGravity="center"
             android:orientation="horizontal"
             android:padding="15dp"
@@ -76,7 +76,7 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@color/white_custom">
+                            android:background="#F6F4F4">
 
                             <ProgressBar
                                 android:id="@+id/progressBarMale"
@@ -142,7 +142,7 @@
                                 android:id="@+id/view9"
                                 android:layout_width="10dp"
                                 android:layout_height="0dp"
-                                android:background="@color/orange_custom"
+                                android:background="@color/brown_custom"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
@@ -154,7 +154,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:background="@color/white_custom">
+                            android:background="#F6F4F4">
 
                             <ImageView
                                 android:id="@+id/imageView6"
@@ -210,7 +210,7 @@
                                 android:id="@+id/view10"
                                 android:layout_width="10dp"
                                 android:layout_height="0dp"
-                                android:background="@color/orange_custom"
+                                android:background="@color/brown_custom"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -236,7 +236,7 @@
                                 android:id="@+id/barChart"
                                 android:layout_width="match_parent"
                                 android:layout_height="300dp"
-                                android:background="@color/white_custom"
+                                android:background="#F6F4F4"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
@@ -244,7 +244,7 @@
                                 android:id="@+id/textView14"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:background="@color/orange_custom"
+                                android:background="#FFA85E"
                                 android:fontFamily="@font/fir_sans_italic"
                                 android:padding="12dp"
                                 android:text="Checkup Statistic Overview"
@@ -279,7 +279,8 @@
                                         android:layout_width="15dp"
                                         android:layout_height="15dp"
                                         android:layout_margin="4dp"
-                                        android:background="#C81F1F" />
+                                        android:background="@drawable/outline_border2"
+                                        android:backgroundTint="#C81F1F" />
 
                                     <TextView
                                         android:id="@+id/textView22"
@@ -307,7 +308,8 @@
                                         android:layout_width="15dp"
                                         android:layout_height="15dp"
                                         android:layout_margin="4dp"
-                                        android:background="#4CAF50" />
+                                        android:background="@drawable/outline_border2"
+                                        android:backgroundTint="#4CAF50" />
 
                                     <TextView
                                         android:id="@+id/textView22"
@@ -335,7 +337,8 @@
                                         android:layout_width="15dp"
                                         android:layout_height="15dp"
                                         android:layout_margin="4dp"
-                                        android:background="#3F51B5" />
+                                        android:background="@drawable/outline_border2"
+                                        android:backgroundTint="#3F51B5" />
 
                                     <TextView
                                         android:id="@+id/textView22"
@@ -380,7 +383,8 @@
                                         android:layout_width="15dp"
                                         android:layout_height="15dp"
                                         android:layout_margin="4dp"
-                                        android:background="#009688" />
+                                        android:background="@drawable/outline_border2"
+                                        android:backgroundTint="#009688" />
 
                                     <TextView
                                         android:id="@+id/textView22"
@@ -408,7 +412,8 @@
                                         android:layout_width="15dp"
                                         android:layout_height="15dp"
                                         android:layout_margin="4dp"
-                                        android:background="#BA68C8" />
+                                        android:background="@drawable/outline_border2"
+                                        android:backgroundTint="#BA68C8" />
 
                                     <TextView
                                         android:id="@+id/textView22"
@@ -436,7 +441,8 @@
                                         android:layout_width="15dp"
                                         android:layout_height="15dp"
                                         android:layout_margin="4dp"
-                                        android:background="#E91E63" />
+                                        android:background="@drawable/outline_border2"
+                                        android:backgroundTint="#E91E63" />
 
                                     <TextView
                                         android:id="@+id/textView22"

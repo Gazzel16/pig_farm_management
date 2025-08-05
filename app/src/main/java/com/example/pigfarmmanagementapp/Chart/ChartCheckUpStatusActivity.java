@@ -109,8 +109,8 @@ public class ChartCheckUpStatusActivity extends AppCompatActivity {
                 ChartCheckUpStatusHelper.checkUpStatus(barchart, overdue,
                         onSchedule, maleOverdueCount,
                         femaleOverdueCount, maleOnSchedCount, femaleOnSchedCount);
-                maleCountTv.setText(String.valueOf(maleCount));
-                femaleCountTv.setText(String.valueOf(femaleCount));
+                maleCountTv.setText(String.valueOf("+" + maleCount));
+                femaleCountTv.setText(String.valueOf("+" + femaleCount));
 
             }
 

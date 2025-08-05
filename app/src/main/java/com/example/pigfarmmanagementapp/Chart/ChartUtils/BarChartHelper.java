@@ -56,6 +56,9 @@ public class BarChartHelper {
         barChart.getLegend().setEnabled(false);
         barChart.setScaleEnabled(false);
         barChart.setPinchZoom(false);
+
+        xAxis.setDrawGridLines(false);
+        barChart.setExtraBottomOffset(0f);
         barChart.setDragEnabled(false);
     }
 }

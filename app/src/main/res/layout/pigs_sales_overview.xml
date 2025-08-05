@@ -304,7 +304,8 @@
                                 android:id="@+id/view6"
                                 android:layout_width="20sp"
                                 android:layout_height="20sp"
-                                android:background="#C81F1F" />
+                                android:background="@drawable/outline_border2"
+                                android:backgroundTint="#C81F1F" />
 
                             <TextView
                                 android:id="@+id/textView18"
@@ -333,7 +334,8 @@
                                 android:id="@+id/view6"
                                 android:layout_width="20sp"
                                 android:layout_height="20sp"
-                                android:background="#4CAF50" />
+                                android:background="@drawable/outline_border2"
+                                android:backgroundTint="#4CAF50" />
 
                             <TextView
                                 android:id="@+id/textView18"
@@ -361,7 +363,8 @@
                                 android:id="@+id/view6"
                                 android:layout_width="20sp"
                                 android:layout_height="20sp"
-                                android:background="#3F51B5" />
+                                android:background="@drawable/outline_border2"
+                                android:backgroundTint="#3F51B5" />
 
                             <TextView
                                 android:id="@+id/textView18"
@@ -401,7 +404,8 @@
                                 android:id="@+id/view6"
                                 android:layout_width="20dp"
                                 android:layout_height="20sp"
-                                android:background="#E91E63" />
+                                android:background="@drawable/outline_border2"
+                                android:backgroundTint="#E91E63" />
 
                             <TextView
                                 android:id="@+id/textView18"
@@ -430,7 +434,8 @@
                                 android:id="@+id/view6"
                                 android:layout_width="20sp"
                                 android:layout_height="20sp"
-                                android:background="#A43603" />
+                                android:background="@drawable/outline_border2"
+                                android:backgroundTint="#A43603" />
 
                             <TextView
                                 android:id="@+id/textView18"
@@ -544,7 +549,8 @@
                                 android:id="@+id/view6"
                                 android:layout_width="20sp"
                                 android:layout_height="20sp"
-                                android:background="#4CAF50" />
+                                android:background="@drawable/outline_border2"
+                                android:backgroundTint="#4CAF50" />
 
                             <TextView
                                 android:id="@+id/textView18"
@@ -572,7 +578,8 @@
                                 android:id="@+id/view6"
                                 android:layout_width="20sp"
                                 android:layout_height="20sp"
-                                android:background="#3F51B5" />
+                                android:background="@drawable/outline_border2"
+                                android:backgroundTint="#3F51B5" />
 
                             <TextView
                                 android:id="@+id/textView18"
@@ -601,7 +608,8 @@
                                 android:id="@+id/view6"
                                 android:layout_width="20dp"
                                 android:layout_height="20sp"
-                                android:background="#E91E63" />
+                                android:background="@drawable/outline_border2"
+                                android:backgroundTint="#E91E63" />
 
                             <TextView
                                 android:id="@+id/textView18"

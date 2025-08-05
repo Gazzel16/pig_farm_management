@@ -269,18 +269,18 @@ public class PigsSalesOverviewActivity extends AppCompatActivity {
 //                Random random = new Random();
 //                for (int i = 0; i < 6; i++){
 //                    Calendar calendar = Calendar.getInstance();
-//                    calendar.add(Calendar.MONTH, -1);
+//                    calendar.add(Calendar.MONTH, -i);
 //                    String fakeMonthKey = monthFormat.format(calendar.getTime());
 //
 //                    PigSalesStats stats = monthlyStats.getOrDefault(fakeMonthKey, new PigSalesStats());
 //
 //                    int fakeSold = 10 + random.nextInt(10);
-//                    int fakeMaleSold = random.nextInt(fakeSold +1);
+//                    int fakeMaleSold = random.nextInt(fakeSold + 1);
 //                    int fakeFemaleSold = fakeSold - fakeMaleSold;
 //
-//                    stats.sold = sold + fakeSold;
-//                    stats.maleSold = sold + fakeMaleSold;
-//                    stats.femaleSold = sold + fakeFemaleSold;
+//                    stats.sold = fakeSold * 3;
+//                    stats.maleSold = fakeMaleSold * 3;
+//                    stats.femaleSold = fakeFemaleSold * 3;
 //
 //                    monthlyStats.put(fakeMonthKey, stats);
 //

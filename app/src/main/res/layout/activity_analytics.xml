@@ -5,334 +5,46 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/dot_bg"
     tools:context=".Chart.AnalyticsActivity">
 
 
     <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout35">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="12dp">
+            android:layout_height="match_parent">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView3"
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@id/groupedBarChart"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_height="300dp"
+                android:padding="12dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/textView17"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:background="@color/orange_custom"
-                        android:fontFamily="@font/fir_sans_italic"
-                        android:padding="12dp"
-                        android:text="Statistics Overview"
-                        android:textColor="@color/white_custom"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.github.mikephil.charting.charts.BarChart
-                        android:id="@+id/groupedBarChart"
-                        android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        android:background="@color/white_custom"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView17" />
-
-
-                    <LinearLayout
-                        android:id="@+id/linearLayout26"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="7dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/groupedBarChart">
-
-                        <LinearLayout
-                            android:id="@+id/linearLayout21"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="4dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/groupedBarChart">
-
-
-                            <View
-                                android:id="@+id/view7"
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:layout_margin="4dp"
-                                android:background="@color/medium_grey" />
-
-                            <TextView
-                                android:id="@+id/textView22"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Cages"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/linearLayout22"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="4dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/linearLayout21">
-
-
-                            <View
-                                android:id="@+id/view7"
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:layout_margin="4dp"
-                                android:background="@color/blue_custom" />
-
-                            <TextView
-                                android:id="@+id/textView22"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Pigs"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/linearLayout23"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="4dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/linearLayout22">
-
-
-                            <View
-                                android:id="@+id/view7"
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:layout_margin="4dp"
-                                android:background="#4CAF50" />
-
-                            <TextView
-                                android:id="@+id/textView22"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Vaccinated"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/linearLayout24"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="4dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/linearLayout23">
-
-
-                            <View
-                                android:id="@+id/view7"
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:layout_margin="4dp"
-                                android:background="#FF9800" />
-
-                            <TextView
-                                android:id="@+id/textView22"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Not Vaccinated"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="7dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/linearLayout26"
-                        app:layout_constraintTop_toBottomOf="@+id/groupedBarChart">
-
-                        <LinearLayout
-                            android:id="@+id/linearLayout21"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="4dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/groupedBarChart">
-
-
-                            <View
-                                android:id="@+id/view7"
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:layout_margin="4dp"
-                                android:background="#F44336" />
-
-                            <TextView
-                                android:id="@+id/textView22"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Sick"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/linearLayout22"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="4dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/linearLayout21">
-
-
-                            <View
-                                android:id="@+id/view7"
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:layout_margin="4dp"
-                                android:background="#009688" />
-
-                            <TextView
-                                android:id="@+id/textView22"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="No Sick"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/linearLayout23"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="4dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/linearLayout22">
-
-
-                            <View
-                                android:id="@+id/view7"
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:layout_margin="4dp"
-                                android:background="#3F51B5" />
-
-                            <TextView
-                                android:id="@+id/textView22"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Male"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/linearLayout24"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="4dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/linearLayout23">
-
-
-                            <View
-                                android:id="@+id/view7"
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:layout_margin="4dp"
-                                android:background="#E91E63" />
-
-                            <TextView
-                                android:id="@+id/textView22"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Female"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-
-                    </LinearLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
+                app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
             <TextView
                 android:id="@+id/textView37"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/fir_sans_italic"
                 android:text="Other Categories"
                 android:textColor="@color/brown"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView3" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout9" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="7dp"
                 android:layout_marginTop="12dp"
+                android:padding="7dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -340,38 +52,259 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView37"
                 app:layout_constraintVertical_bias="1.0" />
 
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pig Analytics"
+                android:padding="15dp"
+                android:background="#FFA85E"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:fontFamily="@font/fir_sans_italic"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp"
+                app:layout_constraintTop_toBottomOf="@+id/groupedBarChart">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="7dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="7dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:id="@+id/view11"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@drawable/outline_border2"
+                            android:backgroundTint="@color/dark_grey" />
+
+                        <TextView
+                            android:id="@+id/textView8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:fontFamily="@font/fir_sans_italic"
+                            android:text="Cages"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="7dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:id="@+id/view11"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginLeft="12dp"
+                            android:background="@drawable/outline_border2"
+                            android:backgroundTint="@color/edit_blue" />
+
+                        <TextView
+                            android:id="@+id/textView8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:fontFamily="@font/fir_sans_italic"
+                            android:text="Pigs"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="7dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:id="@+id/view11"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginLeft="28dp"
+                            android:background="@drawable/outline_border2"
+                            android:backgroundTint="#4CAF50" />
+
+                        <TextView
+                            android:id="@+id/textView8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:fontFamily="@font/fir_sans_italic"
+                            android:text="Vaccinated"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="7dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="7dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:id="@+id/view11"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@drawable/outline_border2"
+                            android:backgroundTint="#3F51B5" />
+
+                        <TextView
+                            android:id="@+id/textView8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:fontFamily="@font/fir_sans_italic"
+                            android:text="Male"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="7dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:id="@+id/view11"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginLeft="18dp"
+                            android:background="@drawable/outline_border2"
+                            android:backgroundTint="#E91E63" />
+
+                        <TextView
+                            android:id="@+id/textView8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:fontFamily="@font/fir_sans_italic"
+                            android:text="Female"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="7dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:id="@+id/view11"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginLeft="12dp"
+                            android:background="@drawable/outline_border2"
+                            android:backgroundTint="#FF9800" />
+
+                        <TextView
+                            android:id="@+id/textView8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:fontFamily="@font/fir_sans_italic"
+                            android:text="Not Vaccinated"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="7dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="7dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:id="@+id/view11"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@drawable/outline_border2"
+                            android:backgroundTint="#F44336" />
+
+                        <TextView
+                            android:id="@+id/textView8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:fontFamily="@font/fir_sans_italic"
+                            android:text="Sick"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="7dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:id="@+id/view11"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginLeft="21dp"
+                            android:background="@drawable/outline_border2"
+                            android:backgroundTint="#009688" />
+
+                        <TextView
+                            android:id="@+id/textView8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:fontFamily="@font/fir_sans_italic"
+                            android:text="No Sick"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </ScrollView>
 
-    <LinearLayout
-        android:id="@+id/linearLayout35"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:background="@color/orange"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pig Analytics"
-                android:textColor="@color/white_custom"
-                android:fontFamily="@font/fir_sans_italic"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
