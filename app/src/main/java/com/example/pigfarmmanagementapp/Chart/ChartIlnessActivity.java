@@ -1,15 +1,18 @@
 package com.example.pigfarmmanagementapp.Chart;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.GridLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.helper.widget.Grid;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -43,6 +46,12 @@ public class ChartIlnessActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.chart_ilness);
 
+
+        spinnerForIllnessPigs();
+        illnessAndNoIlness();
+    }
+
+    private void illnessAndNoIlness(){
         DatabaseReference dbRefPigs = FirebaseDatabase.getInstance()
                 .getReference("pigs");
 
@@ -109,8 +118,6 @@ public class ChartIlnessActivity extends AppCompatActivity {
                         maleNotVaccinated, femaleNotVaccinated);
 
 
-                spinnerForIllnessPigs();
-
             }
 
             @Override
@@ -118,7 +125,6 @@ public class ChartIlnessActivity extends AppCompatActivity {
                 Toast.makeText(ChartIlnessActivity.this, "Failed to load pigs", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
     private void spinnerForIllnessPigs() {
         Spinner vaccineSpinner = findViewById(R.id.spinnerForIllnessPigs); // Ensure the ID matches your layout

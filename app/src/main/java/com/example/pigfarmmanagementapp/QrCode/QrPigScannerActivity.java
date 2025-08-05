@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.ColorLong;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.pigfarmmanagementapp.R;
 import com.example.pigfarmmanagementapp.model.Pig;
@@ -38,7 +40,7 @@ public class QrPigScannerActivity extends AppCompatActivity {
 
     private TextView breedTv, weightTv,
             statusTv, birthDateTv,
-            genderTv, lastCheckUpTv, illnessTv, nextCheckupTv;
+            genderTv, lastCheckUpTv, illnessTv, nextCheckupTv, vaccineTv;
 
     private Button purchase;
 
@@ -49,17 +51,22 @@ public class QrPigScannerActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private ProgressDialog progressDialog;
 
+    ImageView nextBtn, backBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.qr_pig_scanner);
+        setContentView(R.layout.pig_qr_scanner);
 
         breedTv = findViewById(R.id.breed);
         weightTv = findViewById(R.id.weight);
         statusTv = findViewById(R.id.status);
         birthDateTv = findViewById(R.id.birthDate);
+
+        nextBtn = findViewById(R.id.nextBtn);
+        backBtn = findViewById(R.id.backBtn);
+
 
         purchase = findViewById(R.id.purchase);
 
@@ -67,6 +74,7 @@ public class QrPigScannerActivity extends AppCompatActivity {
         lastCheckUpTv = findViewById(R.id.lastCheckUp);
         nextCheckupTv = findViewById(R.id.nextCheckup);
         illnessTv = findViewById(R.id.illness);
+        vaccineTv = findViewById(R.id.vaccine);
 
         pigId = getIntent().getStringExtra("id");
 
@@ -75,6 +83,12 @@ public class QrPigScannerActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Fetching pig details...");
 
+        purchasePig();
+        startQrScanner();
+    }
+
+
+    private void purchasePig(){
 
         purchase.setOnClickListener(view -> {
             if (pigId == null || pigId.isEmpty()) {
@@ -91,7 +105,7 @@ public class QrPigScannerActivity extends AppCompatActivity {
             View dialogView = LayoutInflater.from(this).inflate(R.layout.item_buyer, null);
             AlertDialog buyerDialog = new AlertDialog.Builder(this)
                     .setView(dialogView)
-                    .setCancelable(false)
+                    .setCancelable(true)
                     .create();
 
 // Find your views from the custom layout
@@ -128,11 +142,7 @@ public class QrPigScannerActivity extends AppCompatActivity {
             buyerDialog.show();
 
         });
-
-
-        startQrScanner();
     }
-
     private void startQrScanner() {
         ScanOptions options = new ScanOptions();
         options.setPrompt("Scan a QR Code");
@@ -196,10 +206,11 @@ public class QrPigScannerActivity extends AppCompatActivity {
                             String breed = pigSnapshot.child("breed").getValue(String.class);
                             String weight = String.valueOf(pigSnapshot.child("weight").getValue());
                             String birthDate = pigSnapshot.child("birthDate").getValue(String.class);
-                            String status = pigSnapshot.child("vaccinationStatus").getValue(String.class);
+                            String status = pigSnapshot.child("status").getValue(String.class);
 
                             String gender = pigSnapshot.child("gender").getValue(String.class);
                             String illness = pigSnapshot.child("pigIllness").getValue(String.class);
+                            String vaccine = pigSnapshot.child("vaccinationStatus").getValue(String.class);
                             String lastCheckUp = pigSnapshot.child("lastCheckUp").getValue(String.class);
                             String nextCheckUp = pigSnapshot.child("nextCheckUp").getValue(String.class);
 
@@ -208,12 +219,13 @@ public class QrPigScannerActivity extends AppCompatActivity {
                             isPurchase = (purchaseValue != null) ? purchaseValue : false;
 
                             breedTv.setText(breed);
-                            weightTv.setText(weight);
+                            weightTv.setText(weight + " kg");
                             birthDateTv.setText(birthDate);
                             statusTv.setText(status);
 
                             genderTv.setText(gender);
                             illnessTv.setText(illness);
+                            vaccineTv.setText(vaccine);
                             lastCheckUpTv.setText(lastCheckUp);
                             nextCheckupTv.setText(nextCheckUp);
 

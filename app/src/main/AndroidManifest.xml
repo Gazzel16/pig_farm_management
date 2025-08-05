@@ -27,9 +27,6 @@
             android:name=".Chart.ChartCheckUpStatusActivity"
             android:exported="false" />
         <activity
-            android:name=".Chart.LastCheckUpActivity"
-            android:exported="false" />
-        <activity
             android:name=".Chart.ChartVaccinatedActivity"
             android:exported="false" />
         <activity
@@ -46,6 +43,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".QrCode.QrPigScannerActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".CageDetailsActivity"
