@@ -40,7 +40,8 @@ public class QrPigScannerActivity extends AppCompatActivity {
 
     private TextView breedTv, weightTv,
             statusTv, birthDateTv,
-            genderTv, lastCheckUpTv, illnessTv, nextCheckupTv, vaccineTv;
+            genderTv, lastCheckUpTv, illnessTv,
+            nextCheckupTv, vaccineTv, idTv, priceTv, pigTotalPriceTv;
 
     private Button purchase;
 
@@ -64,9 +65,12 @@ public class QrPigScannerActivity extends AppCompatActivity {
         statusTv = findViewById(R.id.status);
         birthDateTv = findViewById(R.id.birthDate);
 
+        idTv = findViewById(R.id.id);
+        priceTv = findViewById(R.id.price);
+
         nextBtn = findViewById(R.id.nextBtn);
         backBtn = findViewById(R.id.backBtn);
-
+        pigTotalPriceTv = findViewById(R.id.pigTotalPrice);
 
         purchase = findViewById(R.id.purchase);
 
@@ -203,31 +207,38 @@ public class QrPigScannerActivity extends AppCompatActivity {
                                 return;
                             }
 
-                            String breed = pigSnapshot.child("breed").getValue(String.class);
-                            String weight = String.valueOf(pigSnapshot.child("weight").getValue());
-                            String birthDate = pigSnapshot.child("birthDate").getValue(String.class);
-                            String status = pigSnapshot.child("status").getValue(String.class);
+                            String id = pig.getId();
+                            String breed = pig.getBreed();
+                            double weight = pig.getWeight();
+                            String birthDate = pig.getBirthDate();
+                            String status = pig.getStatus();
 
-                            String gender = pigSnapshot.child("gender").getValue(String.class);
-                            String illness = pigSnapshot.child("pigIllness").getValue(String.class);
-                            String vaccine = pigSnapshot.child("vaccinationStatus").getValue(String.class);
-                            String lastCheckUp = pigSnapshot.child("lastCheckUp").getValue(String.class);
-                            String nextCheckUp = pigSnapshot.child("nextCheckUp").getValue(String.class);
+                            String gender = pig.getGender();
+                            String illness = pig.getPigIllness();
+                            String vaccine = pig.getVaccinationStatus();
+                            String lastCheckUp = pig.getLastCheckUp();
+                            String nextCheckUp = pig.getNextCheckUp();
 
                             // ✅ Get the purchase value (default to false if null)
                             Boolean purchaseValue = pigSnapshot.child("purchase").getValue(Boolean.class);
                             isPurchase = (purchaseValue != null) ? purchaseValue : false;
 
-                            breedTv.setText(breed);
-                            weightTv.setText(weight + " kg");
-                            birthDateTv.setText(birthDate);
-                            statusTv.setText(status);
+                            double price = pig.getPrice();
 
-                            genderTv.setText(gender);
-                            illnessTv.setText(illness);
-                            vaccineTv.setText(vaccine);
-                            lastCheckUpTv.setText(lastCheckUp);
-                            nextCheckupTv.setText(nextCheckUp);
+                            pigTotalPriceTv.setText(String.valueOf("PHP" + "₱" + price));
+                            priceTv.setText(String.valueOf("PHP" + "₱" + price));
+
+                            idTv.setText("Id: " + id);
+                            breedTv.setText("Breed: " + breed);
+                            weightTv.setText("Weight: " + weight + " kg");
+                            birthDateTv.setText("B-Date: " + birthDate);
+                            statusTv.setText("Status: " + status);
+
+                            genderTv.setText("Gender: " + gender);
+                            illnessTv.setText("Illness: " + illness);
+                            vaccineTv.setText("Vax: " + vaccine);
+                            lastCheckUpTv.setText("Last Checkup: " + lastCheckUp);
+                            nextCheckupTv.setText("Next Checkup: " + nextCheckUp);
 
                             if (isPurchase) {
                                 purchase.setEnabled(false);
