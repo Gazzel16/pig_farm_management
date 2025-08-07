@@ -2,7 +2,6 @@ package com.example.pigfarmmanagementapp.handler;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.media.Image;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.example.pigfarmmanagementapp.CageDetailsActivity;
 import com.example.pigfarmmanagementapp.R;
 import com.example.pigfarmmanagementapp.model.Pig;
 import com.google.firebase.database.DatabaseReference;

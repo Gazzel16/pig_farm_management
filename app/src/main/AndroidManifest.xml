@@ -18,6 +18,9 @@
         android:theme="@style/Theme.PigFarmManagementApp"
         tools:targetApi="31">
         <activity
+            android:name=".AddPig"
+            android:exported="false" />
+        <activity
             android:name=".PigPurchaseHistoryActivity"
             android:exported="false" />
         <activity
@@ -43,8 +46,8 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".QrCode.QrPigScannerActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".CageDetailsActivity"
             android:exported="false" />
