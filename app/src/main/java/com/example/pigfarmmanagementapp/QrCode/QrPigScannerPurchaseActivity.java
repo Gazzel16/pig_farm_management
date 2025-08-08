@@ -15,9 +15,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.annotation.ColorLong;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bumptech.glide.Glide;
 import com.example.pigfarmmanagementapp.R;
@@ -37,7 +35,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class QrPigScannerActivity extends AppCompatActivity {
+public class QrPigScannerPurchaseActivity extends AppCompatActivity {
 
     private TextView breedTv, weightTv,
             statusTv, birthDateTv,
@@ -59,7 +57,7 @@ public class QrPigScannerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.pig_qr_scanner);
+        setContentView(R.layout.pig_qr_scanner_purchase);
 
         breedTv = findViewById(R.id.breed);
         weightTv = findViewById(R.id.weight);
@@ -204,7 +202,7 @@ public class QrPigScannerActivity extends AppCompatActivity {
                             Pig pig = pigSnapshot.getValue(Pig.class);
 
                             if (pig == null) {
-                                Toast.makeText(QrPigScannerActivity.this, "Failed to load pig data", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(QrPigScannerPurchaseActivity.this, "Failed to load pig data", Toast.LENGTH_SHORT).show();
                                 return;
                             }
 
@@ -269,7 +267,7 @@ public class QrPigScannerActivity extends AppCompatActivity {
                     progressDialog.dismiss();
 
                     if (!found) {
-                        Toast.makeText(QrPigScannerActivity.this, "Pig not found", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(QrPigScannerPurchaseActivity.this, "Pig not found", Toast.LENGTH_SHORT).show();
                         breedTv.setText("Breed: -");
                         weightTv.setText("Weight: -");
                         birthDateTv.setText("B-Date: -");
@@ -285,7 +283,7 @@ public class QrPigScannerActivity extends AppCompatActivity {
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                     progressDialog.dismiss();
-                    Toast.makeText(QrPigScannerActivity.this, "Database error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(QrPigScannerPurchaseActivity.this, "Database error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
 

@@ -1,7 +1,5 @@
 package com.example.pigfarmmanagementapp.DashBoardFragments;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -15,15 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.pigfarmmanagementapp.AddCageActivity;
 import com.example.pigfarmmanagementapp.Chart.AnalyticsActivity;
-import com.example.pigfarmmanagementapp.Chart.ChartIlnessActivity;
-import com.example.pigfarmmanagementapp.Chart.ChartVaccinatedActivity;
 import com.example.pigfarmmanagementapp.PigAdvisoryStatusFragment.PigAdviceStatusAdviceFragment;
+import com.example.pigfarmmanagementapp.QrCode.PigScannerQr;
 import com.example.pigfarmmanagementapp.QrCode.QrCageScannerActivity;
-import com.example.pigfarmmanagementapp.QrCode.QrPigScannerActivity;
+import com.example.pigfarmmanagementapp.QrCode.QrPigScannerPurchaseActivity;
 import com.example.pigfarmmanagementapp.R;
 import com.example.pigfarmmanagementapp.adapter.CategoriesAdapter;
 import com.example.pigfarmmanagementapp.model.Cage;
@@ -70,7 +66,7 @@ public class HomeFragment extends Fragment {
 
         CategoriesAdapter adapter = new CategoriesAdapter(categoryList, category -> {
             if (category.getTitle().equals("Pig Scanner")) {
-                startActivity(new Intent(requireContext(), QrPigScannerActivity.class));
+                startActivity(new Intent(requireContext(), PigScannerQr.class));
             }
 
             if (category.getTitle().equals("Cage Scanner")) {
