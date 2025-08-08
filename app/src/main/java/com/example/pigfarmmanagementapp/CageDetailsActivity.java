@@ -2,17 +2,23 @@ package com.example.pigfarmmanagementapp;
 
 import com.example.pigfarmmanagementapp.handler.AddPigHandlerDialog;
 
+import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.pigfarmmanagementapp.adapter.PigAdapter;
+import com.example.pigfarmmanagementapp.handler.ImageHandler;
 import com.example.pigfarmmanagementapp.model.Cage;
 import com.example.pigfarmmanagementapp.model.Pig;
 import com.google.firebase.database.DataSnapshot;
@@ -40,6 +46,16 @@ public class CageDetailsActivity extends AppCompatActivity {
     private String purchaseDateTime;
 
     private String cageName;
+
+    private String imageUrl;
+    private String targetPigId;
+
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private Uri selectedImageUri;
+    private AddPigHandlerDialog currentDialog;
+
+    private ImageView imagePlaceHolder;
+    private String uploadedImageUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +92,8 @@ public class CageDetailsActivity extends AppCompatActivity {
 
         // Set listener for the "Add Pig" button
         findViewById(R.id.btnAddPig).setOnClickListener(v -> {
-            AddPigHandlerDialog handler = new AddPigHandlerDialog(this);
-            handler.show(
+            currentDialog = new AddPigHandlerDialog(this);
+            currentDialog.show(
                     cageId,
                     databasePigs,
                     isPurchase,
@@ -101,6 +117,24 @@ public class CageDetailsActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri selectedImageUri = data.getData();
+
+            if (currentDialog != null) {
+                currentDialog.setSelectedImageUri(selectedImageUri);
+            }
+        }
+    }
+
+
+
+
+
 
     // This method filters the pigs based on the name (breed in your case)
     private void filterPigsByName(String query) {

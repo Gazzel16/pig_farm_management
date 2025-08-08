@@ -33,6 +33,7 @@ public class Pig {
     private String purchaseDateTime;
     private String timeAdded;
 
+    private String imageUrl;
 
     // Default constructor
     public Pig() {
@@ -45,7 +46,7 @@ public class Pig {
                String buyerName,
                String buyerContact,
                String purchaseDateTime,
-               String nextCheckUp, double price, String status, String timeAdded) {
+               String nextCheckUp, double price, String status, String timeAdded, String imageUrl) {
         this.id = id;
         this.breed = breed;
         this.gender = gender;
@@ -69,6 +70,18 @@ public class Pig {
         this.price = price;
         this.status = status;
 
+        this.imageUrl = imageUrl;
+
+    }
+
+    //Pig Image
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     //Pig timeAdded

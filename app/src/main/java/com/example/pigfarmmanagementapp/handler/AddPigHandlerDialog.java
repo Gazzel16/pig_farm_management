@@ -1,8 +1,15 @@
 package com.example.pigfarmmanagementapp.handler;
 
+import static androidx.core.app.ActivityCompat.startActivityForResult;
+
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -18,6 +25,7 @@ import androidx.appcompat.app.AlertDialog;
 import com.example.pigfarmmanagementapp.R;
 import com.example.pigfarmmanagementapp.model.Pig;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,13 +36,26 @@ public class AddPigHandlerDialog {
 
 
     private final Context context;
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private ImageView imagePlaceHolder;
+
+    private Uri selectedImageUri;
+
+    private String uploadedImageUrl = null;
+
+    private String imageUrl;
+
 
     public AddPigHandlerDialog(Context context) {
         this.context = context;
     }
 
+
+
+
     public void show(String cageId, DatabaseReference databasePigs,
-                     boolean isPurchase, String buyerName, String buyerContact, String purchaseDateTime) {
+                     boolean isPurchase, String buyerName,
+                     String buyerContact, String purchaseDateTime) {
 
         View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_add_pig, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -58,6 +79,16 @@ public class AddPigHandlerDialog {
 
         LinearLayout page1 = dialogView.findViewById(R.id.page1);
         LinearLayout page2 = dialogView.findViewById(R.id.page2);
+
+        imagePlaceHolder = dialogView.findViewById(R.id.imagePlaceHolder);
+
+        imagePlaceHolder.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType("image/*");
+            ((Activity) context).startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+        });
+
+
 
         nextBtn.setOnClickListener(view -> {
             page2.setVisibility(View.VISIBLE);
@@ -214,71 +245,100 @@ public class AddPigHandlerDialog {
         btnAddPig.setOnClickListener(v -> {
             String pigBreed = etPigBreed.getText().toString().trim();
             String pigBirthDate = etPigBirthDate.getText().toString().trim();
-            String pigWeightStr = etPigWeight.getText().toString().trim();
-            String pigPriceStr = etPigPrice.getText().toString().trim();
+            final String[] pigWeightStr = {etPigWeight.getText().toString().trim()};
+            final String[] pigPriceStr = {etPigPrice.getText().toString().trim()};
 
             String pigLastCheckUp = etPigLastCheckUp.getText().toString().trim();
             String pigNextCheckUp = etPigNextCheckUp.getText().toString().trim();
 
-            String selectedPigGender = spinnerPigGender.getSelectedItem()
-                    != null ? spinnerPigGender.getSelectedItem().toString() : "";
+            String selectedPigGender = spinnerPigGender.getSelectedItem() != null
+                    ? spinnerPigGender.getSelectedItem().toString() : "";
 
-            String selectedPigStatus = spinnerPigStatus.getSelectedItem()
-                    != null ? spinnerPigStatus.getSelectedItem().toString() : "";
+            String selectedPigStatus = spinnerPigStatus.getSelectedItem() != null
+                    ? spinnerPigStatus.getSelectedItem().toString() : "";
 
-            String selectedPigIllness = spinnerPigIllness.getSelectedItem()
-                    != null ? spinnerPigIllness.getSelectedItem().toString() : "";
+            String selectedPigIllness = spinnerPigIllness.getSelectedItem() != null
+                    ? spinnerPigIllness.getSelectedItem().toString() : "";
 
             String selectedVaccinationStatus = spinnerVaccinationStatus.getSelectedItem() != null
-                    ? spinnerVaccinationStatus.getSelectedItem().toString()
-                    : "";
+                    ? spinnerVaccinationStatus.getSelectedItem().toString() : "";
 
             String timeAdded = new SimpleDateFormat("yyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 
+            // Validation
             if (pigBreed.isEmpty()
                     || selectedVaccinationStatus.equalsIgnoreCase("Select Status")
-                    || pigWeightStr.isEmpty()
-                    || selectedVaccinationStatus.isEmpty()
+                    || pigWeightStr[0].isEmpty()
                     || selectedPigGender.equalsIgnoreCase("Select Gender")
                     || selectedPigIllness.equalsIgnoreCase("Select Illness")
                     || selectedPigStatus.equalsIgnoreCase("Select Status")
-
-            )
-            {
+            ) {
                 Toast.makeText(context, "Please fill in all fields and select a valid status.", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            try {
-                pigWeightStr = pigWeightStr.replace(",", ""); // Remove commas
-                double pigWeight = Double.parseDouble(pigWeightStr);
-
-                pigPriceStr = pigPriceStr.replace(",", "");
-                double pigPrice = Double.parseDouble(pigPriceStr);
-
-                // Generate a new pigId (using Firebase push() method for uniqueness)
-                String pigId = String.format("%07d", (int)(Math.random() * 10000000));
-                Pig newPig = new Pig(pigId, pigBreed, selectedPigGender, pigBirthDate,
-                        pigWeight,selectedPigIllness, selectedVaccinationStatus,
-                        pigLastCheckUp, cageId, isPurchase, buyerName,
-                        buyerContact, purchaseDateTime,
-                        pigNextCheckUp, pigPrice, selectedPigStatus, timeAdded);
-
-                // Store the pig data under the pigs node with the unique pigId
-                databasePigs.child(pigId).setValue(newPig).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(context, "Pig added successfully.", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(context, "Failed to add pig.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                dialog.dismiss();
-            } catch (NumberFormatException e) {
-                Toast.makeText(context, "Invalid weight format.", Toast.LENGTH_SHORT).show();
+            if (selectedImageUri == null) {
+                Toast.makeText(context, "Please select an image before adding the pig.", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            btnAddPig.setEnabled(false); // disable button during upload
+
+            // Upload image here
+            ImageHandler.uploadImageToCloudinary(context, selectedImageUri, uploadedUrl -> {
+                Log.d("AddPig", "Uploaded URL: " + uploadedUrl);
+                btnAddPig.setEnabled(true); // re-enable button after upload
+
+                if (uploadedUrl == null || uploadedUrl.isEmpty()) {
+                    Toast.makeText(context, "Image upload failed. Please try again.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Now imageUrl is ready
+                imageUrl = uploadedUrl;
+
+                // Parse numbers safely
+                try {
+                    pigWeightStr[0] = pigWeightStr[0].replace(",", "");
+                    double pigWeight = Double.parseDouble(pigWeightStr[0]);
+
+                    pigPriceStr[0] = pigPriceStr[0].replace(",", "");
+                    double pigPrice = Double.parseDouble(pigPriceStr[0]);
+
+                    String pigId = String.format("%07d", (int) (Math.random() * 10000000));
+
+                    Pig newPig = new Pig(pigId, pigBreed, selectedPigGender, pigBirthDate,
+                            pigWeight, selectedPigIllness, selectedVaccinationStatus,
+                            pigLastCheckUp, cageId, isPurchase, buyerName,
+                            buyerContact, purchaseDateTime,
+                            pigNextCheckUp, pigPrice, selectedPigStatus, timeAdded, imageUrl);
+
+                    databasePigs.child(pigId).setValue(newPig).addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(context, "Pig added successfully.", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        } else {
+                            Toast.makeText(context, "Failed to add pig.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                } catch (NumberFormatException e) {
+                    Toast.makeText(context, "Invalid weight or price format.", Toast.LENGTH_SHORT).show();
+                }
+            });
+
         });
 
         dialog.show();
     }
+    public void setSelectedImageUri(Uri uri) {
+        this.selectedImageUri = uri;
+
+        if (imagePlaceHolder != null && uri != null) {
+            imagePlaceHolder.setImageURI(uri); // show image
+        }
+
+    }
+
+
 }

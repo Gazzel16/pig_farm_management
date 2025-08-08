@@ -47,6 +47,7 @@ dependencies {
 
     implementation("com.google.zxing:core:3.5.2")
     implementation("com.journeyapps:zxing-android-embedded:4.3.0") // For Android integration
+    implementation("com.cloudinary:cloudinary-android:2.3.1");
 
     // Firebase dependencies
     implementation(platform("com.google.firebase:firebase-bom:33.8.0"))
