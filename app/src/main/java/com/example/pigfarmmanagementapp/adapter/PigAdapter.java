@@ -24,6 +24,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.pigfarmmanagementapp.QrCode.QRCodeGenerator;
 import com.example.pigfarmmanagementapp.R;
 import com.example.pigfarmmanagementapp.model.Cage;
@@ -83,6 +84,17 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
         holder.tvPigId.setText("id: " + pig.getId());
         holder.tvGender.setText(pig.getGender());
 
+        String imageUrl = pig.getImageUrl();
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            Glide.with(holder.imagePlaceHolder.getContext())
+                    .load(imageUrl)
+                    .placeholder(R.drawable.pig_img_cute)  // Your placeholder drawable
+                    .into(holder.imagePlaceHolder);
+        } else {
+            // Set default placeholder if no image URL
+            holder.imagePlaceHolder.setImageResource(R.drawable.pig_img_cute);
+        }
+
         //Purchase Status
         if(!pig.isPurchase()){
             holder.notSold.setVisibility(View.VISIBLE);
@@ -116,6 +128,7 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
                 notifyDataSetChanged();
             });
         });
+
 
         holder.allDetailsBtn.setOnLongClickListener(v -> {
             View dialogView = LayoutInflater.from(v.getContext())
@@ -373,7 +386,7 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
     static class PigViewHolder extends RecyclerView.ViewHolder {
         TextView tvPigBreed,tvPigBirthDate, tvPigId,
                 tvPigStatus,  tvGender, allDetailsBtn, notSold, sold;
-        ImageView qrCode;
+        ImageView qrCode, imagePlaceHolder;
 
         LinearLayout linearLayoutGenderBg;
 
@@ -384,6 +397,7 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
             tvPigStatus = itemView.findViewById(R.id.tvPigStatus);
             qrCode = itemView.findViewById(R.id.qrCode);
             tvPigId = itemView.findViewById(R.id.tvPigId);
+            imagePlaceHolder = itemView.findViewById(R.id.imagePlaceHolder);
 
             linearLayoutGenderBg = itemView.findViewById(R.id.genderBg);
 

@@ -18,7 +18,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imageView9"
+                android:id="@+id/imagePlaceHolder"
                 android:layout_width="150dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toTopOf="@+id/genderBg"
@@ -32,8 +32,8 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
 
-                app:layout_constraintEnd_toEndOf="@+id/imageView9"
-                app:layout_constraintTop_toTopOf="@+id/imageView9"
+                app:layout_constraintEnd_toEndOf="@+id/imagePlaceHolder"
+                app:layout_constraintTop_toTopOf="@+id/imagePlaceHolder"
                 app:srcCompat="@drawable/baseline_qr_code_24" />
 
             <LinearLayout
@@ -43,7 +43,7 @@
                 android:orientation="vertical"
                 android:padding="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageView9"
+                app:layout_constraintEnd_toStartOf="@+id/imagePlaceHolder"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -129,10 +129,10 @@
                 android:layout_marginBottom="4dp"
                 android:textSize="10sp"
                 android:text="09158043724"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView9"
-                app:layout_constraintEnd_toEndOf="@+id/imageView9"
+                app:layout_constraintBottom_toBottomOf="@+id/imagePlaceHolder"
+                app:layout_constraintEnd_toEndOf="@+id/imagePlaceHolder"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/imageView9" />
+                app:layout_constraintStart_toStartOf="@+id/imagePlaceHolder" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
