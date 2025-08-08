@@ -283,6 +283,7 @@ public class AddPigHandlerDialog {
             }
 
             btnAddPig.setEnabled(false); // disable button during upload
+            btnAddPig.setText("Adding.....");
 
             // Upload image here
             ImageHandler.uploadImageToCloudinary(context, selectedImageUri, uploadedUrl -> {

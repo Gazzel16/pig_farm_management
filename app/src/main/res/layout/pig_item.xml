@@ -21,6 +21,7 @@
                 android:id="@+id/imagePlaceHolder"
                 android:layout_width="150dp"
                 android:layout_height="0dp"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toTopOf="@+id/genderBg"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -29,8 +30,8 @@
 
             <ImageView
                 android:id="@+id/qrCode"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
 
                 app:layout_constraintEnd_toEndOf="@+id/imagePlaceHolder"
                 app:layout_constraintTop_toTopOf="@+id/imagePlaceHolder"
@@ -127,11 +128,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
-                android:textSize="10sp"
+                android:fontFamily="@font/quick_sand"
                 android:text="09158043724"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/imagePlaceHolder"
                 app:layout_constraintEnd_toEndOf="@+id/imagePlaceHolder"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.82"
                 app:layout_constraintStart_toStartOf="@+id/imagePlaceHolder" />
 
 

@@ -84,6 +84,7 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
         holder.tvPigId.setText("id: " + pig.getId());
         holder.tvGender.setText(pig.getGender());
 
+        //Pig Image Handler Function
         String imageUrl = pig.getImageUrl();
         if (imageUrl != null && !imageUrl.isEmpty()) {
             Glide.with(holder.imagePlaceHolder.getContext())

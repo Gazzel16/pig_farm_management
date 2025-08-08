@@ -50,6 +50,7 @@ public class CageDetailsActivity extends AppCompatActivity {
     private String imageUrl;
     private String targetPigId;
 
+    //Image Handler
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri selectedImageUri;
     private AddPigHandlerDialog currentDialog;
@@ -122,7 +123,9 @@ public class CageDetailsActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == PICK_IMAGE_REQUEST &&
+                resultCode == RESULT_OK &&
+                data != null && data.getData() != null) {
             Uri selectedImageUri = data.getData();
 
             if (currentDialog != null) {
@@ -130,10 +133,6 @@ public class CageDetailsActivity extends AppCompatActivity {
             }
         }
     }
-
-
-
-
 
 
     // This method filters the pigs based on the name (breed in your case)

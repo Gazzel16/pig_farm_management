@@ -19,6 +19,7 @@ import androidx.annotation.ColorLong;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.bumptech.glide.Glide;
 import com.example.pigfarmmanagementapp.R;
 import com.example.pigfarmmanagementapp.model.Pig;
 import com.google.firebase.database.DataSnapshot;
@@ -52,7 +53,7 @@ public class QrPigScannerActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private ProgressDialog progressDialog;
 
-    ImageView nextBtn, backBtn;
+    ImageView imagePlaceHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +69,6 @@ public class QrPigScannerActivity extends AppCompatActivity {
         idTv = findViewById(R.id.id);
         priceTv = findViewById(R.id.price);
 
-        nextBtn = findViewById(R.id.nextBtn);
-        backBtn = findViewById(R.id.backBtn);
         pigTotalPriceTv = findViewById(R.id.pigTotalPrice);
 
         purchase = findViewById(R.id.purchase);
@@ -79,6 +78,8 @@ public class QrPigScannerActivity extends AppCompatActivity {
         nextCheckupTv = findViewById(R.id.nextCheckup);
         illnessTv = findViewById(R.id.illness);
         vaccineTv = findViewById(R.id.vaccine);
+
+        imagePlaceHolder = findViewById(R.id.imagePlaceHolder);
 
         pigId = getIntent().getStringExtra("id");
 
@@ -219,6 +220,17 @@ public class QrPigScannerActivity extends AppCompatActivity {
                             String lastCheckUp = pig.getLastCheckUp();
                             String nextCheckUp = pig.getNextCheckUp();
 
+                            String imageUrl = pig.getImageUrl();
+                            if (imageUrl != null && !imageUrl.isEmpty()) {
+                                Glide.with(imagePlaceHolder.getContext())
+                                        .load(imageUrl)
+                                        .placeholder(R.drawable.pig_img_cute)  // Your placeholder drawable
+                                        .into(imagePlaceHolder);
+                            } else {
+                                // Set default placeholder if no image URL
+                                imagePlaceHolder.setImageResource(R.drawable.pig_img_cute);
+                            }
+
                             // ✅ Get the purchase value (default to false if null)
                             Boolean purchaseValue = pigSnapshot.child("purchase").getValue(Boolean.class);
                             isPurchase = (purchaseValue != null) ? purchaseValue : false;
@@ -234,7 +246,7 @@ public class QrPigScannerActivity extends AppCompatActivity {
                             birthDateTv.setText("B-Date: " + birthDate);
                             statusTv.setText("Status: " + status);
 
-                            genderTv.setText("Gender: " + gender);
+                            genderTv.setText( gender);
                             illnessTv.setText("Illness: " + illness);
                             vaccineTv.setText("Vax: " + vaccine);
                             lastCheckUpTv.setText("Last Checkup: " + lastCheckUp);
