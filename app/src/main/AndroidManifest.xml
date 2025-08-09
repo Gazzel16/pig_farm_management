@@ -19,6 +19,9 @@
         android:theme="@style/Theme.PigFarmManagementApp"
         tools:targetApi="31">
         <activity
+            android:name=".PigPriceCalculator"
+            android:exported="false" />
+        <activity
             android:name=".QrCode.PigScannerQr"
             android:exported="false" />
         <activity
