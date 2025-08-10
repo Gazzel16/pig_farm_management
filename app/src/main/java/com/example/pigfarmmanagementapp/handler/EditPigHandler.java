@@ -1,8 +1,11 @@
 package com.example.pigfarmmanagementapp.handler;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
+import com.bumptech.glide.Glide;
 import com.example.pigfarmmanagementapp.CageDetailsActivity;
 import com.example.pigfarmmanagementapp.R;
 import com.example.pigfarmmanagementapp.model.Pig;
@@ -28,12 +32,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EditPigHandler {
+    private static final int PICK_IMAGE_REQUEST = 1;
 
-    public static void editPig(Context context, Pig pig, String cageId, Runnable onPigUpdated) {
+    private Uri selectedImageUri;
+
+    private ImageView imagePlaceHolder;
+
+    public void editPig(Context context, Pig pig, String cageId, Runnable onPigUpdated) {
         if (pig == null || pig.getId() == null) {
             Toast.makeText(context, "Error: Pig data or key is missing!", Toast.LENGTH_SHORT).show();
             return;
         }
+
 
         LayoutInflater inflater = LayoutInflater.from(context);
         View dialogView = inflater.inflate(R.layout.dialog_update_pig, null);
@@ -44,24 +54,38 @@ public class EditPigHandler {
         EditText etPigBreed = dialogView.findViewById(R.id.etPigBreed);
         EditText etPigBirthDate = dialogView.findViewById(R.id.etPigBirthDate);
         EditText etPigWeight = dialogView.findViewById(R.id.etPigWeight);
-        Spinner spinnerVaccinationStatus = dialogView.findViewById(R.id.spinnerVaccinationStatus);
-        Button updatePig = dialogView.findViewById(R.id.updatePig);
-
         Spinner spinnerPigIllness = dialogView.findViewById(R.id.spinnerPigIllness);
+        Spinner spinnerVaccinationStatus = dialogView.findViewById(R.id.spinnerVaccinationStatus);
         Spinner spinnerPigGender = dialogView.findViewById(R.id.spinnerPigGender);
+        Spinner spinnerPigStatus = dialogView.findViewById(R.id.spinnerPigStatus);
+
         EditText etPigLastCheckUp = dialogView.findViewById(R.id.etPigLastCheckUp);
         EditText etPigNextCheckUp = dialogView.findViewById(R.id.etPigNextCheckUp);
+        EditText etPigPrice = dialogView.findViewById(R.id.etPigPrice);
 
-        // Populate input fields
-        etPigBreed.setText(pig.getBreed());
-        etPigBirthDate.setText(pig.getBirthDate());
-        etPigWeight.setText(String.valueOf(pig.getWeight()));
-
+        Button updatePig = dialogView.findViewById(R.id.updatePig);
         ImageView backBtn = dialogView.findViewById(R.id.backBtn);
         Button nextBtn = dialogView.findViewById(R.id.nextBtn);
 
         LinearLayout page1 = dialogView.findViewById(R.id.page1);
         LinearLayout page2 = dialogView.findViewById(R.id.page2);
+
+        imagePlaceHolder = dialogView.findViewById(R.id.imagePlaceHolder);
+
+        // Populate input fields
+        etPigBreed.setText(pig.getBreed());
+        etPigBirthDate.setText(pig.getBirthDate());
+        etPigWeight.setText(String.valueOf(pig.getWeight()));
+        etPigPrice.setText(String.valueOf(pig.getPrice()));
+
+
+        imagePlaceHolder.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType("image/*");
+            ((Activity) context).startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+
+            Log.d("image", "image selected" + imagePlaceHolder + " imagePlaceHolder");
+        });
 
         nextBtn.setOnClickListener(view -> {
             page2.setVisibility(View.VISIBLE);
@@ -141,6 +165,12 @@ public class EditPigHandler {
         });
 
 
+        String[] pigStatus = {
+                "Select Status",
+                "Alive",
+                "Dead"
+        };
+
         String[] pigGender = {
                 "Select Gender",
                 "Male",
@@ -200,9 +230,13 @@ public class EditPigHandler {
         pigIllnessAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPigIllness.setAdapter(pigIllnessAdapter);
 
-        ArrayAdapter<String>pigGenderAdapter = new ArrayAdapter<>(context, R.layout.spinner_item, pigGender);
+        ArrayAdapter<String> pigGenderAdapter = new ArrayAdapter<>(context, R.layout.spinner_item, pigGender);
         pigGenderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPigGender.setAdapter((pigGenderAdapter));
+
+        ArrayAdapter<String> pigStatusAdapter = new ArrayAdapter<>(context, R.layout.spinner_item, pigStatus);
+        pigStatusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerPigStatus.setAdapter((pigStatusAdapter));
 
         if (pig.getVaccinationStatus() != null) {
             int spinnerPosition = adapter.getPosition(pig.getVaccinationStatus());
@@ -220,6 +254,11 @@ public class EditPigHandler {
             int illnessPosition = pigIllnessAdapter.getPosition(pig.getPigIllness().trim());
             spinnerPigIllness.setSelection(illnessPosition >= 0 ? illnessPosition : 0); // Fallback to "Select Illness"
         }
+// Set status spinner selection
+        if (pig.getStatus() != null && !pig.getStatus().trim().isEmpty()) {
+            int statusPosition = pigStatusAdapter.getPosition(pig.getStatus().trim());
+            spinnerPigStatus.setSelection(statusPosition >= 0 ? statusPosition : 0);
+        }
 
 // Set last check-up field
         if (pig.getLastCheckUp() != null && !pig.getLastCheckUp().trim().isEmpty()) {
@@ -230,6 +269,15 @@ public class EditPigHandler {
             etPigNextCheckUp.setText(pig.getNextCheckUp().trim());
         }
 
+        //image handler
+
+        if (pig.getImageUrl() != null && !pig.getImageUrl().isEmpty()) {
+            Glide.with(context)
+                    .load(pig.getImageUrl())
+                    .placeholder(R.drawable.add_image_icon) // your placeholder
+                    .into(imagePlaceHolder);
+        }
+
         AlertDialog dialog = builder.create();
         dialog.show();
 
@@ -238,6 +286,7 @@ public class EditPigHandler {
             String birthDate = etPigBirthDate.getText().toString().trim();
 
             String weightString = etPigWeight.getText().toString().trim();
+
 
             String pigLastCheckUp = etPigLastCheckUp.getText().toString().trim();
 
@@ -251,6 +300,10 @@ public class EditPigHandler {
 
             String vaccinationStatus = spinnerVaccinationStatus.getSelectedItem() != null
                     ? spinnerVaccinationStatus.getSelectedItem().toString()
+                    : "";
+
+            String status = spinnerPigStatus.getSelectedItem() != null
+                    ? spinnerPigStatus.getSelectedItem().toString()
                     : "";
 
             if (selectedPigGender.equals("Select Gender")
@@ -273,6 +326,7 @@ public class EditPigHandler {
             }
 
             double weight;
+
             try {
                 weightString = weightString.replace(",", "");
                 weight = Double.parseDouble(weightString);
@@ -288,7 +342,6 @@ public class EditPigHandler {
             }
 
 
-
             if (pig.getId() == null || pig.getId().isEmpty()) {
                 Toast.makeText(context, "Error: Pig key is missing!", Toast.LENGTH_SHORT).show();
                 return;
@@ -300,7 +353,6 @@ public class EditPigHandler {
             }
 
 
-
             DatabaseReference pigRef = FirebaseDatabase.getInstance().getReference("pigs").child(cageId).child(pig.getId());
 
             boolean hasChanges = !breed.equals(pig.getBreed()) ||
@@ -310,7 +362,9 @@ public class EditPigHandler {
                     !selectedPigIllness.equals(pig.getPigIllness()) ||
                     !selectedPigGender.equals(pig.getGender()) ||
                     !pigLastCheckUp.equals(pig.getLastCheckUp()) ||
-                    !pigNextCheckUp.equalsIgnoreCase(pig.getNextCheckUp());// ✅ Include this line
+                    !pigNextCheckUp.equalsIgnoreCase(pig.getNextCheckUp()) ||
+                    !status.equalsIgnoreCase(pig.getStatus()) ||
+                    selectedImageUri != null;
 
 
             Log.d("DEBUG", "Old birthDate: " + pig.getBirthDate() + ", New: " + birthDate);
@@ -322,6 +376,7 @@ public class EditPigHandler {
                 return;
             }
 
+
             // ✅ Ensure we only send necessary fields (no "id" or "key" duplication)
             Map<String, Object> updates = new HashMap<>();
             updates.put("breed", breed);
@@ -332,6 +387,7 @@ public class EditPigHandler {
             updates.put("lastCheckUp", pigLastCheckUp);
             updates.put("nextCheckUp", pigNextCheckUp);
             updates.put("pigIllness", selectedPigIllness);
+            updates.put("status", status);
 
             ProgressDialog progressDialog = new ProgressDialog(context);
             progressDialog.setMessage("Updating pig details...");
@@ -339,27 +395,77 @@ public class EditPigHandler {
             progressDialog.show();
             Log.d("FirebaseUpdate", "Updating pig at path: " + pigRef.toString());
 
-            pigRef.updateChildren(updates)
-                    .addOnCompleteListener(task -> {
+            // ✅ If a new image is selected, upload to Cloudinary first
+            if (selectedImageUri != null) {
+                ImageHandler.uploadImageToCloudinary(context, selectedImageUri, uploadedUrl -> {
+                    if (uploadedUrl == null || uploadedUrl.isEmpty()) {
                         progressDialog.dismiss();
-                        if (task.isSuccessful()) {
-                            Toast.makeText(context, "Pig details updated successfully!", Toast.LENGTH_SHORT).show();
-                            pig.setBreed(breed);
-                            pig.setGender(selectedPigGender);
-                            pig.setBirthDate(birthDate);
-                            pig.setWeight(weight);
-                            pig.setPigIllness(selectedPigIllness);
-                            pig.setVaccinationStatus(vaccinationStatus);
-                            pig.setLastCheckUp(pigLastCheckUp);
-                            pig.setNextCheckUp(pigNextCheckUp);
-                            if (onPigUpdated != null) onPigUpdated.run();
-                            dialog.dismiss();
-                        } else {
-                            Toast.makeText(context, "Failed to update pig details.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                        Toast.makeText(context, "Image upload failed. Please try again.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
+                    updates.put("imageUrl", uploadedUrl); // Save new Cloudinary URL
+                    updatePigData(pigRef, updates, pig, breed, selectedPigGender, birthDate,
+                            weight, selectedPigIllness, vaccinationStatus,
+                            pigLastCheckUp, pigNextCheckUp, status,
+                            progressDialog, dialog, onPigUpdated);
+                });
+            } else {
+                // No image change — just update DB
+                updatePigData(pigRef, updates, pig, breed, selectedPigGender, birthDate,
+                        weight, selectedPigIllness, vaccinationStatus,
+                        pigLastCheckUp, pigNextCheckUp, status,
+                        progressDialog, dialog, onPigUpdated);
+            }
         });
 
+
     }
+
+    private static void updatePigData(DatabaseReference pigRef, Map<String, Object> updates, Pig pig,
+                                      String breed, String gender, String birthDate, double weight,
+                                      String illness, String vaccinationStatus, String lastCheckUp,
+                                      String nextCheckUp, String status,
+                                      ProgressDialog progressDialog, AlertDialog dialog, Runnable onPigUpdated) {
+        pigRef.updateChildren(updates)
+                .addOnCompleteListener(task -> {
+                    progressDialog.dismiss();
+                    if (task.isSuccessful()) {
+                        Toast.makeText(dialog.getContext(), "Pig details updated successfully!", Toast.LENGTH_SHORT).show();
+                        pig.setBreed(breed);
+                        pig.setGender(gender);
+                        pig.setBirthDate(birthDate);
+                        pig.setWeight(weight);
+                        pig.setPigIllness(illness);
+                        pig.setVaccinationStatus(vaccinationStatus);
+                        pig.setLastCheckUp(lastCheckUp);
+                        pig.setNextCheckUp(nextCheckUp);
+                        pig.setStatus(status);
+                        if (updates.containsKey("imageUrl")) {
+                            pig.setImageUrl((String) updates.get("imageUrl"));
+                        }
+                        if (onPigUpdated != null) onPigUpdated.run();
+                        dialog.dismiss();
+                    } else {
+                        Toast.makeText(dialog.getContext(), "Failed to update pig details.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    public void setSelectedImageUri(Uri uri) {
+        Log.d("EditPigHandler", "setSelectedImageUri() called with URI: " + uri);
+        this.selectedImageUri = uri;
+
+        if (imagePlaceHolder == null) {
+            Log.e("EditPigHandler", "imagePlaceHolder is NULL! Cannot set image.");
+        } else {
+            if (uri == null) {
+                Log.e("EditPigHandler", "URI is NULL! No image to set.");
+            } else {
+                imagePlaceHolder.setImageURI(uri); // show image
+                Log.d("EditPigHandler", "Image successfully set in imagePlaceHolder");
+            }
+        }
+    }
+
 }

@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.pigfarmmanagementapp.CageDetailsActivity;
 import com.example.pigfarmmanagementapp.QrCode.QRCodeGenerator;
 import com.example.pigfarmmanagementapp.R;
 import com.example.pigfarmmanagementapp.model.Cage;
@@ -61,6 +62,8 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
     private String cageName;
     private List<Pig> pigListFull;
     private String cageId;
+
+    private EditPigHandler editPigHandler;
     public PigAdapter(List<Pig> pigList, String cageName, String cageId) {
         this.pigList = pigList;
         this.pigListFull = new ArrayList<>(pigList); // Make a copy for filtering
@@ -124,8 +127,9 @@ public class PigAdapter extends RecyclerView.Adapter<PigAdapter.PigViewHolder> i
                 return;
             }
 
-            EditPigHandler.editPig(v.getContext(), pig, cageId, () -> {
-                // Code to refresh the data or notify the adapter
+            EditPigHandler handler = new EditPigHandler();
+            ((CageDetailsActivity) v.getContext()).setEditPigHandler(handler);  // Add a setter in your activity
+            handler.editPig(v.getContext(), pig, cageId, () -> {
                 notifyDataSetChanged();
             });
         });

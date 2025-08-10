@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.pigfarmmanagementapp.adapter.PigAdapter;
+import com.example.pigfarmmanagementapp.handler.EditPigHandler;
 import com.example.pigfarmmanagementapp.handler.ImageHandler;
 import com.example.pigfarmmanagementapp.model.Cage;
 import com.example.pigfarmmanagementapp.model.Pig;
@@ -54,9 +56,8 @@ public class CageDetailsActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri selectedImageUri;
     private AddPigHandlerDialog currentDialog;
+    private EditPigHandler editPigHandler;
 
-    private ImageView imagePlaceHolder;
-    private String uploadedImageUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +103,7 @@ public class CageDetailsActivity extends AppCompatActivity {
                     buyerContact,
                     purchaseDateTime
             );
+
         });
 
         etSearchPig.addTextChangedListener(new TextWatcher() {
@@ -119,6 +121,10 @@ public class CageDetailsActivity extends AppCompatActivity {
 
     }
 
+    public void setEditPigHandler(EditPigHandler handler) {
+        this.editPigHandler = handler;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -131,8 +137,14 @@ public class CageDetailsActivity extends AppCompatActivity {
             if (currentDialog != null) {
                 currentDialog.setSelectedImageUri(selectedImageUri);
             }
+
+            if (editPigHandler != null) {
+                Log.d("onActivityResult", "Setting image URI on editPigHandler");
+                editPigHandler.setSelectedImageUri(selectedImageUri);
+            }
         }
     }
+
 
 
     // This method filters the pigs based on the name (breed in your case)

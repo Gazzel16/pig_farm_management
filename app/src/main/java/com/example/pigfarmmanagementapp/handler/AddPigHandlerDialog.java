@@ -41,8 +41,6 @@ public class AddPigHandlerDialog {
 
     private Uri selectedImageUri;
 
-    private String uploadedImageUrl = null;
-
     private String imageUrl;
 
 
