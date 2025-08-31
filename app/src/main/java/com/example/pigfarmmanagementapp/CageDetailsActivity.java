@@ -79,7 +79,7 @@ public class CageDetailsActivity extends AppCompatActivity {
 
         if(screenWidth >= 1700){
             width = 3;
-        }else if(screenWidth >= 900){
+        }else if(screenWidth >= 1400){
             width = 2;
         }else {
             width = 1;
@@ -121,12 +121,13 @@ public class CageDetailsActivity extends AppCompatActivity {
 
     }
 
-    public void setEditPigHandler(EditPigHandler handler) {
+    //Image Handler
+    public void setEditPigHandler(EditPigHandler handler) { //this line is connected to my dialog to notify the changes if they select a image
         this.editPigHandler = handler;
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) { // this line will show the result of their activity from selecting a image
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_IMAGE_REQUEST &&

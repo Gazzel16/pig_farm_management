@@ -282,7 +282,7 @@ public class AnalyticsActivity extends AppCompatActivity {
         int widthRes;
 
 
-        if (screenWidth >= 900){
+        if (screenWidth >= 1400){
             widthRes = 2;
         } else {
             widthRes = 1;

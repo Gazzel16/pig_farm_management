@@ -79,7 +79,7 @@ public class EditPigHandler {
         etPigPrice.setText(String.valueOf(pig.getPrice()));
 
 
-        imagePlaceHolder.setOnClickListener(v -> {
+        imagePlaceHolder.setOnClickListener(v -> { //this line is opening the file to pick a image
             Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType("image/*");
             ((Activity) context).startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
@@ -452,7 +452,7 @@ public class EditPigHandler {
                 });
     }
 
-    public void setSelectedImageUri(Uri uri) {
+    public void setSelectedImageUri(Uri uri) { // this line will handle the image from my activity
         Log.d("EditPigHandler", "setSelectedImageUri() called with URI: " + uri);
         this.selectedImageUri = uri;
 

@@ -60,6 +60,7 @@ public class HomeFragment extends Fragment {
         List<Categories> categoryList = new ArrayList<>();
         categoryList.add(new Categories(R.drawable.qr_scanner_icon, "Pig Scanner", "Scan pig QR easily"));
         categoryList.add(new Categories(R.drawable.cage_qr, "Cage Scanner", "Scan cage QR easily"));
+        categoryList.add(new Categories(R.drawable.purchase_pig_icon, "Purchase Pig", "Scan qr and purchase"));
         categoryList.add(new Categories(R.drawable.add_pig_icon, "PigCage", "Assign pigs to cages"));
         categoryList.add(new Categories(R.drawable.advice_icon, "PigStatus", "Lorem Ipsum"));
         categoryList.add(new Categories(R.drawable.analytics_icon, "Analytics", "Lorem Ipsum"));
@@ -78,6 +79,10 @@ public class HomeFragment extends Fragment {
             }
             if (category.getTitle().equals("Analytics")) {
                 startActivity(new Intent(requireContext(), AnalyticsActivity.class));
+            }
+
+            if (category.getTitle().equals("Purchase Pig")) {
+                startActivity(new Intent(requireContext(), QrPigScannerPurchaseActivity.class));
             }
 
             if (category.getTitle().equals("PigStatus")) {
